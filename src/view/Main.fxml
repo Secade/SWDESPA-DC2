@@ -43,7 +43,7 @@
             <Font name="Open Sans" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="signUpBtn" layoutX="700.0" layoutY="703.0" mnemonicParsing="false" opacity="0.0" prefHeight="65.0" prefWidth="200.0" text="SIGN UP" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="signUpBtn" layoutX="689.0" layoutY="703.0" mnemonicParsing="false" opacity="0.0" prefHeight="65.0" prefWidth="222.0" text="SIGN UP" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="CircularStd-Medium" size="25.0" />
          </font>
@@ -72,7 +72,7 @@
             <Font name="CircularStd-Book" size="20.0" />
          </font>
       </PasswordField>
-      <Label layoutX="555.0" layoutY="307.0" text="Email" textFill="#f7620e">
+      <Label layoutX="555.0" layoutY="307.0" text="Username" textFill="#f7620e">
          <font>
             <Font name="Raleway" size="32.0" />
          </font>
