@@ -39,10 +39,22 @@ public class MainController {
         });
 
         guestBtn.setOnAction(event -> {
+            mediaPlayer.stop();
             try {
                 new ChangeScene("/view/HomePage.fxml");
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+
+        logInBtn.setOnAction(event -> {
+            if(true) {
+                mediaPlayer.stop();
+                try {
+                    new ChangeScene("/view/HomePage.fxml");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
