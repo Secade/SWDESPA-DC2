@@ -1,17 +1,28 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 
 public class HomePageController {
     @FXML
     private MediaView homeVideo;
-    
     @FXML
-    private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn;
+    private Label songNameLbl, artistNameLbl, albumNameLbl, genreTypeLbl, yearLbl, favPlaylistLbl, favSong1Lbl, favSong2Lbl, favSong3Lbl;
+    @FXML
+    private Label playlistLbl, songsLbl;
+    @FXML
+    private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane;
+    @FXML
+    private Button playlistBtn, songsBtn;
+    @FXML
+    private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn;
 
     public void initialize(){
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
@@ -21,6 +32,32 @@ public class HomePageController {
         homeVideo.setMediaPlayer(mediaPlayer);
         mediaPlayer.setOnReady(()->{
 
+        });
+        
+        playlistBtn.setOnMouseEntered(event -> {
+            playlistLbl.setTextFill(Color.web( "#f7620e"));
+        });
+
+        playlistBtn.setOnMouseExited(event -> {
+            playlistLbl.setTextFill(Color.web( "#FFFFFF"));
+        });
+
+        songsBtn.setOnMouseEntered(event -> {
+            songsLbl.setTextFill(Color.web( "#f7620e"));
+        });
+
+        songsBtn.setOnMouseExited(event -> {
+            songsLbl.setTextFill(Color.web( "#FFFFFF"));
+        });
+
+        shrinkBtn.setOnMouseClicked(event -> {
+            userInfoPane.setVisible(false);
+            userInfoPane.setDisable(true);
+        });
+
+        expandBtn.setOnMouseClicked(event -> {
+            userInfoPane.setVisible(true);
+            userInfoPane.setDisable(false);
         });
 
         opacityOpenClose(shuffleBtn, repeatBtn, previousBtn);
