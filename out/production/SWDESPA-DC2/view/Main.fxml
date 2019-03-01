@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #f7620e;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <MediaView fx:id="loginVideo" fitHeight="650.0" fitWidth="1200.0" preserveRatio="false" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#323232" height="650.0" layoutX="300.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="0.0" width="600.0" />
+      <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="540.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../media/logo.png" />
+         </image>
+      </ImageView>
+      <Line endX="200.0" layoutX="600.0" layoutY="175.0" startX="-200.0" stroke="#5e5e5e" />
+      <Line endX="200.0" layoutX="600.0" layoutY="485.0" startX="-200.0" stroke="#5e5e5e" />
+      <AnchorPane fx:id="loginPane" layoutX="300.0" prefHeight="650.0" prefWidth="600.0">
+         <children>
+            <ImageView fx:id="logInPic" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/button.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="loginLbl" layoutX="255.0" layoutY="410.0" text="LOG IN" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="logInBtn" layoutX="200.0" layoutY="400.0" mnemonicParsing="false" opacity="0.0" prefHeight="65.0" prefWidth="200.0" text="LOG IN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="signUpPic" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/button.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="signUpLbl" layoutX="245.0" layoutY="520.0" text="SIGN UP" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="signUpBtn" layoutX="200.0" layoutY="508.0" mnemonicParsing="false" opacity="0.0" prefHeight="65.0" prefWidth="200.0" text="SIGN UP" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+            <Label fx:id="guestLbl" layoutX="200.0" layoutY="590.0" text="Log In as Guest" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="guestBtn" layoutX="200.0" layoutY="590.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="200.0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="1.0" />
+               </font>
+            </Button>
+            <TextField fx:id="userNameInput" layoutX="125.0" layoutY="240.0" prefHeight="40.0" prefWidth="350.0">
+               <font>
+                  <Font name="CircularStd-Book" size="20.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="passwordInput" layoutX="125.0" layoutY="340.0" prefHeight="40.0" prefWidth="350.0">
+               <font>
+                  <Font name="CircularStd-Book" size="20.0" />
+               </font>
+            </PasswordField>
+            <Label fx:id="userNameLbl" layoutX="125.0" layoutY="200.0" text="Username:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="passwordLbl" layoutX="125.0" layoutY="300.0" text="Password:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="signUpPage" disable="true" layoutX="300.0" prefHeight="650.0" prefWidth="600.0" visible="false">
+         <children>
+            <ImageView fx:id="newSignUpPic" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/button.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="signUpLbl1" layoutX="250.0" layoutY="410.0" text="SIGN UP" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="newSignUpBtn" layoutX="200.0" layoutY="400.0" mnemonicParsing="false" opacity="0.0" prefHeight="65.0" prefWidth="200.0" text="SIGN UP" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="newBackPic" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/button.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="signUpLbl11" layoutX="265.0" layoutY="520.0" text="BACK" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="newBackBtn" layoutX="200.0" layoutY="508.0" mnemonicParsing="false" opacity="0.0" prefHeight="65.0" prefWidth="200.0" text="SIGN UP" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+            <TextField fx:id="newUserNameInput" layoutX="125.0" layoutY="240.0" prefHeight="40.0" prefWidth="350.0">
+               <font>
+                  <Font name="CircularStd-Book" size="20.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="newPasswordInput" layoutX="125.0" layoutY="340.0" prefHeight="40.0" prefWidth="350.0">
+               <font>
+                  <Font name="CircularStd-Book" size="20.0" />
+               </font>
+            </PasswordField>
+            <Label layoutX="125.0" layoutY="200.0" text="Input Username:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="125.0" layoutY="300.0" text="Input Password:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
