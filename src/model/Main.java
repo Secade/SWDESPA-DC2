@@ -12,6 +12,8 @@ public class Main extends Application {
     public static Stage stageM;
     private Scene sceneM;
 
+    public static final Database DB = new Database();
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.stageM=primaryStage;
@@ -19,7 +21,7 @@ public class Main extends Application {
         primaryStage.setTitle("SpotCloud");
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/media/logo.png")));
-        primaryStage.setScene(new Scene(root, 1588, 888));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

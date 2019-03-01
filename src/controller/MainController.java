@@ -11,6 +11,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import model.ChangeScene;
+import model.User;
+import model.UserService;
+
+import java.util.List;
+
+import static model.Main.DB;
 
 public class MainController {
 
@@ -27,7 +33,17 @@ public class MainController {
     @FXML
     private Label guestLbl, userNameLbl, passwordLbl, loginLbl, signUpLbl;
 
+    private  int idCount;
+    public static User loggedin;
     public void initialize(){
+
+        UserService service = new UserService(DB);
+
+
+        List<User> userIdList = service.getUserIdList();
+        List<User> passwordList = service.getPasswordList();
+
+        idCount = userIdList.size();
 
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
         mediaPlayer.setAutoPlay(true);
@@ -49,13 +65,25 @@ public class MainController {
 
         logInBtn.setOnAction(event -> {
             if(true) {
-                mediaPlayer.stop();
-                try {
-                    new ChangeScene("/view/HomePage.fxml");
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                for(int i=0;i<userIdList.size();i++) {
+                    if (userNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0 &&
+                            passwordInput.getText().compareTo(passwordList.get(i).getPassword()) == 0) {
+
+                        loggedin= new User();
+                        loggedin.setUsername(String.valueOf(userIdList.get(i).getUsername()));
+                        loggedin.setPassword(String.valueOf(userIdList.get(i).getPassword()));
+
+                        mediaPlayer.stop();
+                        try {
+                            new ChangeScene("/view/HomePage.fxml");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                 }
-            }
+                }
         });
 
         logInBtn.setOnMouseEntered(event -> {
@@ -211,7 +239,40 @@ public class MainController {
 
                 signUpPage.setVisible(false);
                 signUpPage.setDisable(true);
+
+                int y=0,z=0;
+
+                for(int i=0;i<userIdList.size();i++) {
+                    if (newUserNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0) {
+                        z += 1;
+                    }
+                }
+
+                if (z==0) {
+                    if(!newUserNameInput.getText().trim().isEmpty()&&!newPasswordInput.getText().trim().isEmpty()) {
+
+                        User c = new User();
+
+                       // c.setId(idCount + 1);
+                        idCount++;
+                        c.setUsername(newUserNameInput.getText());
+                        c.setPassword(newPasswordInput.getText());
+
+                        service.add(c);
+
+                        try {
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                       System.out.println("Please Fill in all Information!");
+                    }
+
+                }
             }
+            this.initialize();
         });
 
 

@@ -10,13 +10,15 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 
+import static controller.MainController.loggedin;
+
 public class HomePageController {
     @FXML
     private MediaView homeVideo;
     @FXML
     private Label songNameLbl, artistNameLbl, albumNameLbl, genreTypeLbl, yearLbl, favPlaylistLbl, favSong1Lbl, favSong2Lbl, favSong3Lbl;
     @FXML
-    private Label playlistLbl, songsLbl;
+    private Label playlistLbl, songsLbl, welcomeLbl;
     @FXML
     private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane;
     @FXML
@@ -25,6 +27,7 @@ public class HomePageController {
     private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn;
 
     public void initialize(){
+        welcomeLbl.setText("Welcome" + loggedin.getUsername());
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setMute(true);
