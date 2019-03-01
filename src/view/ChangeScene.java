@@ -1,11 +1,11 @@
-package model;
+package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static model.Main.getStageM;
+import static view.Main.getStageM;
 
 public class ChangeScene {
     public ChangeScene(String fxml)throws Exception{
