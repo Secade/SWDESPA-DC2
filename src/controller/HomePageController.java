@@ -66,18 +66,18 @@ public class HomePageController {
 
         playBtn.setOnMouseEntered(event -> {
             playBtn.setOpacity(1.0);
-            playBtn.setFitHeight(80);
-            playBtn.setFitWidth(80);
-            playBtn.setLayoutX(265);
-            playBtn.setLayoutY(10);
+            playBtn.setFitHeight(50);
+            playBtn.setFitWidth(50);
+            playBtn.setLayoutX(215);
+            playBtn.setLayoutY(0);
         });
 
         playBtn.setOnMouseExited(event -> {
             playBtn.setOpacity(0.5);
-            playBtn.setFitHeight(70);
-            playBtn.setFitWidth(70);
-            playBtn.setLayoutX(270);
-            playBtn.setLayoutY(15);
+            playBtn.setFitHeight(40);
+            playBtn.setFitWidth(40);
+            playBtn.setLayoutX(220);
+            playBtn.setLayoutY(5);
         });
 
 

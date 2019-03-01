@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import static model.Main.getStageM;
 
 public class ChangeScene {
-
     public ChangeScene(String fxml)throws Exception{
         Stage stageM = getStageM();
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
