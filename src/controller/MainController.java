@@ -21,7 +21,7 @@ public class MainController {
     @FXML
     private Button logInBtn, signUpBtn, guestBtn, newSignUpBtn, newBackBtn;
     @FXML
-    private AnchorPane signUpPage;
+    private AnchorPane signUpPage, loginPane;
     @FXML
     private ImageView logInPic, signUpPic, newSignUpPic, newBackPic;
     @FXML
@@ -59,58 +59,36 @@ public class MainController {
         });
 
         logInBtn.setOnMouseEntered(event -> {
-            logInPic.setFitHeight(270);
-            logInPic.setFitWidth(300);
-            logInPic.setLayoutX(668);
-            logInPic.setLayoutY(430);
+            logInPic.setFitHeight(250);
+            logInPic.setFitWidth(250);
+            logInPic.setLayoutX(178);
+            logInPic.setLayoutY(306);
         });
 
         logInBtn.setOnMouseExited(event -> {
-            logInPic.setFitHeight(220);
-            logInPic.setFitWidth(250);
-            logInPic.setLayoutX(690);
-            logInPic.setLayoutY(454);
+            logInPic.setFitHeight(200);
+            logInPic.setFitWidth(200);
+            logInPic.setLayoutX(200);
+            logInPic.setLayoutY(330);
         });
 
         signUpBtn.setOnMouseEntered(event -> {
-            signUpPic.setFitHeight(270);
-            signUpPic.setFitWidth(300);
-            signUpPic.setLayoutX(668);
-            signUpPic.setLayoutY(600);
+            signUpPic.setFitHeight(250);
+            signUpPic.setFitWidth(250);
+            signUpPic.setLayoutX(178);
+            signUpPic.setLayoutY(416);
         });
 
         signUpBtn.setOnMouseExited(event -> {
-            signUpPic.setFitHeight(220);
-            signUpPic.setFitWidth(250);
-            signUpPic.setLayoutX(690);
-            signUpPic.setLayoutY(624);
+            signUpPic.setFitHeight(200);
+            signUpPic.setFitWidth(200);
+            signUpPic.setLayoutX(200);
+            signUpPic.setLayoutY(440);
         });
 
         signUpBtn.setOnAction(event -> {
-            userNameInput.setVisible(false);
-            userNameInput.setDisable(true);
-            userNameLbl.setVisible(false);
-            userNameLbl.setDisable(true);
-            passwordInput.setVisible(false);
-            passwordInput.setDisable(true);
-            passwordLbl.setVisible(false);
-            passwordLbl.setDisable(true);
-            logInPic.setVisible(false);
-            logInPic.setDisable(true);
-            logInBtn.setVisible(false);
-            logInBtn.setDisable(true);
-            loginLbl.setVisible(false);
-            loginLbl.setDisable(true);
-            guestLbl.setVisible(false);
-            guestLbl.setDisable(true);
-            guestBtn.setVisible(false);
-            guestBtn.setDisable(true);
-            signUpPic.setVisible(false);
-            signUpPic.setDisable(true);
-            signUpBtn.setVisible(false);
-            signUpBtn.setDisable(true);
-            signUpLbl.setVisible(false);
-            signUpLbl.setDisable(true);
+            loginPane.setVisible(false);
+            loginPane.setDisable(true);
 
             signUpPage.setVisible(true);
             signUpPage.setDisable(false);
@@ -125,58 +103,36 @@ public class MainController {
         });
 
         newSignUpBtn.setOnMouseEntered(event -> {
-            newSignUpPic.setFitHeight(270);
-            newSignUpPic.setFitWidth(300);
-            newSignUpPic.setLayoutX(198);
-            newSignUpPic.setLayoutY(141);
+            newSignUpPic.setFitHeight(250);
+            newSignUpPic.setFitWidth(250);
+            newSignUpPic.setLayoutX(178);
+            newSignUpPic.setLayoutY(306);
         });
 
         newSignUpBtn.setOnMouseExited(event -> {
-            newSignUpPic.setFitHeight(220);
-            newSignUpPic.setFitWidth(250);
-            newSignUpPic.setLayoutX(220);
-            newSignUpPic.setLayoutY(165);
+            newSignUpPic.setFitHeight(200);
+            newSignUpPic.setFitWidth(200);
+            newSignUpPic.setLayoutX(200);
+            newSignUpPic.setLayoutY(330);
         });
 
         newBackBtn.setOnMouseEntered(event -> {
-            newBackPic.setFitHeight(270);
-            newBackPic.setFitWidth(300);
-            newBackPic.setLayoutX(198);
-            newBackPic.setLayoutY(326);
+            newBackPic.setFitHeight(250);
+            newBackPic.setFitWidth(250);
+            newBackPic.setLayoutX(178);
+            newBackPic.setLayoutY(416);
         });
 
         newBackBtn.setOnMouseExited(event -> {
-            newBackPic.setFitHeight(220);
-            newBackPic.setFitWidth(250);
-            newBackPic.setLayoutX(220);
-            newBackPic.setLayoutY(350);
+            newBackPic.setFitHeight(200);
+            newBackPic.setFitWidth(200);
+            newBackPic.setLayoutX(200);
+            newBackPic.setLayoutY(440);
         });
 
         newBackBtn.setOnAction(event -> {
-            userNameInput.setVisible(true);
-            userNameInput.setDisable(false);
-            userNameLbl.setVisible(true);
-            userNameLbl.setDisable(false);
-            passwordInput.setVisible(true);
-            passwordInput.setDisable(false);
-            passwordLbl.setVisible(true);
-            passwordLbl.setDisable(false);
-            logInPic.setVisible(true);
-            logInPic.setDisable(false);
-            logInBtn.setVisible(true);
-            logInBtn.setDisable(false);
-            loginLbl.setVisible(true);
-            loginLbl.setDisable(false);
-            guestLbl.setVisible(true);
-            guestLbl.setDisable(false);
-            guestBtn.setVisible(true);
-            guestBtn.setDisable(false);
-            signUpPic.setVisible(true);
-            signUpPic.setDisable(false);
-            signUpBtn.setVisible(true);
-            signUpBtn.setDisable(false);
-            signUpLbl.setVisible(true);
-            signUpLbl.setDisable(false);
+            loginPane.setVisible(true);
+            loginPane.setDisable(false);
 
             signUpPage.setVisible(false);
             signUpPage.setDisable(true);
@@ -184,30 +140,8 @@ public class MainController {
 
         newSignUpBtn.setOnAction(event -> {
             if(true) {
-                userNameInput.setVisible(true);
-                userNameInput.setDisable(false);
-                userNameLbl.setVisible(true);
-                userNameLbl.setDisable(false);
-                passwordInput.setVisible(true);
-                passwordInput.setDisable(false);
-                passwordLbl.setVisible(true);
-                passwordLbl.setDisable(false);
-                logInPic.setVisible(true);
-                logInPic.setDisable(false);
-                logInBtn.setVisible(true);
-                logInBtn.setDisable(false);
-                loginLbl.setVisible(true);
-                loginLbl.setDisable(false);
-                guestLbl.setVisible(true);
-                guestLbl.setDisable(false);
-                guestBtn.setVisible(true);
-                guestBtn.setDisable(false);
-                signUpPic.setVisible(true);
-                signUpPic.setDisable(false);
-                signUpBtn.setVisible(true);
-                signUpBtn.setDisable(false);
-                signUpLbl.setVisible(true);
-                signUpLbl.setDisable(false);
+                loginPane.setVisible(true);
+                loginPane.setDisable(false);
 
                 signUpPage.setVisible(false);
                 signUpPage.setDisable(true);

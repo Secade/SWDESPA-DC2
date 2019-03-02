@@ -10,16 +10,18 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static Stage stageM;
-    private Scene sceneM;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.stageM=primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
         primaryStage.setTitle("SpotCloud");
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/media/logo.png")));
-        primaryStage.setScene(new Scene(root, 1588, 888));
+        Scene scene = new Scene(root,1200,650);
+        primaryStage.setScene(scene);
+        //primaryStage.minHeightProperty().bind(scene.widthProperty().multiply());
+        //primaryStage.minWidthProperty().bind(scene.heightProperty().divide(3));
         primaryStage.show();
     }
 
