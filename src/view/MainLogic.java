@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 
-public class MainController {
+public class MainController extends View{
 
     @FXML
     private MediaView loginVideo;
@@ -40,7 +40,7 @@ public class MainController {
         guestBtn.setOnAction(event -> {
             mediaPlayer.stop();
             try {
-                new ChangeScene("/view/HomePage.fxml");
+                ChangeScene("/view/HomePage.fxml");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -50,7 +50,7 @@ public class MainController {
             if(true) {
                 mediaPlayer.stop();
                 try {
-                    new ChangeScene("/view/HomePage.fxml");
+                    ChangeScene("/view/HomePage.fxml");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
