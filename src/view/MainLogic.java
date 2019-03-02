@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 
-public class MainController extends View{
+public class MainLogic extends View{
 
     @FXML
     private MediaView loginVideo;

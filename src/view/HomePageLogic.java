@@ -10,7 +10,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 
-public class HomePageController {
+public class HomePageLogic extends View{
     @FXML
     private MediaView homeVideo;
     @FXML
