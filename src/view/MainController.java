@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -21,6 +18,8 @@ import model.UserService;
 
 import javax.xml.crypto.Data;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class MainController {
 
@@ -40,6 +39,8 @@ public class MainController {
     private  int idCount;
     private Database DB;
     private User user;
+
+    private static final Pattern pattern = Pattern.compile("^(?=.*\\d)(?=.*\\p{Punct})(?=.*[a-zA-z]).{6,20}$");
 
     public void setDatabase(Database DB){
         this.DB = DB;
@@ -150,6 +151,11 @@ public class MainController {
         });
 
         signUpBtn.setOnAction(event -> {
+            newPasswordInput.clear();
+            newUserNameInput.clear();
+            userNameInput.clear();
+            passwordInput.clear();
+
             loginPane.setVisible(false);
             loginPane.setDisable(true);
             signUpPage.setVisible(true);
@@ -193,6 +199,11 @@ public class MainController {
         });
 
         newBackBtn.setOnAction(event -> {
+            newPasswordInput.clear();
+            newUserNameInput.clear();
+            userNameInput.clear();
+            passwordInput.clear();
+
             loginPane.setVisible(true);
             loginPane.setDisable(false);
 
@@ -201,12 +212,7 @@ public class MainController {
         });
 
         newSignUpBtn.setOnAction(event -> {
-            if(true) {
-                loginPane.setVisible(true);
-                loginPane.setDisable(false);
 
-                signUpPage.setVisible(false);
-                signUpPage.setDisable(true);
 
 
                 int y=0,z=0;
@@ -215,33 +221,55 @@ public class MainController {
                     if (newUserNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0) {
                         z += 1;
                     }
-                }
 
-                if (z==0) {
+                }
+                if(!pattern.matcher(newPasswordInput.getText()).matches()){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning Dialog");
+                    alert.setHeaderText("Invalid Password");
+                    alert.setContentText("Password Requires at least 1 number, 1 special character, 6-20 characters, 1 alphabetical character");
+                    alert.showAndWait();
+                    y+=1;
+                }
+                if (z==0&&y==0) {
                     if(!newUserNameInput.getText().trim().isEmpty()&&!newPasswordInput.getText().trim().isEmpty()) {
 
                         User c = new User();
 
-                        //c.setId(idCount + 1);
-                        idCount++;
+                        c.setId(idCount);
+                        //idCount++;
                         c.setUsername(newUserNameInput.getText());
                         c.setPassword(newPasswordInput.getText());
 
                         service.add(c);
 
+                        loginPane.setVisible(true);
+                        loginPane.setDisable(false);
+
+                        signUpPage.setVisible(false);
+                        signUpPage.setDisable(true);
+                        this.initialize();
                         try {
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    else{
-                        System.out.println("Please Fill in all Information!");
-                    }
 
                 }
+            else if(z>0){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Username has been Taken Already!");
+                alert.showAndWait();
             }
-            this.initialize();
+            else if(newUserNameInput.getText().trim().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning Dialog");
+                    alert.setHeaderText("Pleases Input an Username");
+                    alert.showAndWait();
+                }
+
         });
 
 

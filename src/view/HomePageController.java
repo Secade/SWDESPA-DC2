@@ -25,7 +25,7 @@ import java.util.Optional;
 
 public class HomePageController {
     @FXML
-    private MediaView homeVideo;
+    private MediaView homeVideo, songPlayer;
     @FXML
     private Label songNameLbl, artistNameLbl, albumNameLbl, genreTypeLbl, yearLbl, favPlaylistLbl, favSong1Lbl, favSong2Lbl, favSong3Lbl,welcomLbl;
     @FXML
@@ -33,15 +33,17 @@ public class HomePageController {
     @FXML
     private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane;
     @FXML
-    private ScrollPane songScrollPane;
+    private ScrollPane songScrollPane, playlistScrollPane;
     @FXML
-    private VBox songList;
+    private VBox songList, playList;
     @FXML
     private Button playlistBtn, songsBtn, logoutBtn, editBtn;
     @FXML
     private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, logoutPic;
 
     private boolean isPlayingSong;
+    private boolean songPaneOpen;
+    private boolean playlistPaneOpen;
 
     private Database DB;
     private User user;
@@ -57,6 +59,11 @@ public class HomePageController {
     public void initialize(){
 
         isPlayingSong=false;
+        songPaneOpen=false;
+        playlistPaneOpen=false;
+
+
+
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setMute(true);
@@ -75,14 +82,32 @@ public class HomePageController {
             songStack.add(new StackPane());
             rectangles.add(new Rectangle());
             rectangles.get(i).setWidth(960);
-            rectangles.get(i).setHeight(100);
+            rectangles.get(i).setHeight(50);
             rectangles.get(i).setFill(Color.web("#202020"));
             songStack.get(i).getChildren().add(rectangles.get(i));
             anchors.add(new AnchorPane());
-            Label test = new Label("TESTING "+i);
+            Label test = new Label("SONGS "+i);
             anchors.get(i).getChildren().addAll(test);
             songStack.get(i).getChildren().addAll(anchors.get(i));
             songList.getChildren().add(songStack.get(i));
+        }
+
+        ArrayList<StackPane> playlistStack = new ArrayList<>();
+        ArrayList<Rectangle> boxes = new ArrayList<>();
+        ArrayList<AnchorPane> anchorPane = new ArrayList<>();
+
+        for(int i=0;i<numSongs;i++){
+            playlistStack.add(new StackPane());
+            boxes.add(new Rectangle());
+            boxes.get(i).setWidth(960);
+            boxes.get(i).setHeight(50);
+            boxes.get(i).setFill(Color.web("#202020"));
+            playlistStack.get(i).getChildren().add(boxes.get(i));
+            anchorPane.add(new AnchorPane());
+            Label test = new Label("PLAYLIST "+i);
+            anchorPane.get(i).getChildren().addAll(test);
+            playlistStack.get(i).getChildren().addAll(anchorPane.get(i));
+            playList.getChildren().add(playlistStack.get(i));
         }
 
         editBtn.setOnMouseEntered(event -> {
@@ -147,12 +172,44 @@ public class HomePageController {
             playlistLbl.setTextFill(Color.web( "#FFFFFF"));
         });
 
+        playlistBtn.setOnAction(event -> {
+            if(playlistPaneOpen){
+                playlistScrollPane.setDisable(true);
+                playlistScrollPane.setVisible(false);
+                playlistPaneOpen=false;
+            }
+            else {
+                playlistScrollPane.setDisable(false);
+                playlistScrollPane.setVisible(true);
+                playlistPaneOpen=true;
+                songScrollPane.setDisable(true);
+                songScrollPane.setVisible(false);
+                songPaneOpen=false;
+            }
+        });
+
         songsBtn.setOnMouseEntered(event -> {
             songsLbl.setTextFill(Color.web( "#f7620e"));
         });
 
         songsBtn.setOnMouseExited(event -> {
             songsLbl.setTextFill(Color.web( "#FFFFFF"));
+        });
+
+
+        songsBtn.setOnAction(event -> {
+            if(songPaneOpen) {
+                songScrollPane.setDisable(true);
+                songScrollPane.setVisible(false);
+                songPaneOpen=false;
+            }else {
+                songScrollPane.setDisable(false);
+                songScrollPane.setVisible(true);
+                songPaneOpen=true;
+                playlistScrollPane.setDisable(true);
+                playlistScrollPane.setVisible(false);
+                playlistPaneOpen=false;
+            }
         });
 
         shrinkBtn.setOnMouseClicked(event -> {
@@ -192,6 +249,14 @@ public class HomePageController {
             if(!isPlayingSong) {
                 isPlayingSong = true;
                 playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Pause.png")));
+
+                MediaPlayer songPlay = new MediaPlayer(new Media(getClass().getResource("/audio/AllIAsk.mp3").toExternalForm()));
+                songPlay.setAutoPlay(true);
+                songPlayer.setMediaPlayer(songPlay);
+                songPlay.setOnReady(()->{
+
+                });
+
             }else {
                 isPlayingSong = false;
                 playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));

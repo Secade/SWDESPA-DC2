@@ -15,6 +15,7 @@
 
 <AnchorPane prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #f7620e;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.HomePageController">
    <children>
+      <MediaView fx:id="songPlayer" fitHeight="200.0" fitWidth="200.0" />
       <MediaView fx:id="homeVideo" fitHeight="600.0" fitWidth="1200.0" preserveRatio="false" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#202020" height="650.0" layoutX="1160.0" stroke="#202020" strokeType="INSIDE" width="40.0" />
       <ImageView fx:id="expandBtn" fitHeight="35.0" fitWidth="35.0" layoutX="1162.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
@@ -105,10 +106,56 @@
                </font>
             </Label>
             <Button fx:id="songsBtn" layoutX="200.0" layoutY="15.0" mnemonicParsing="false" opacity="0.0" prefHeight="70.0" prefWidth="200.0" text="Button" />
-            <ScrollPane fx:id="songScrollPane" hbarPolicy="NEVER" layoutY="125.0" prefHeight="475.0" prefWidth="960.0" style="-fx-background-color: #f7620e;">
-               <content>
-                  <VBox fx:id="songList" prefHeight="475.0" prefWidth="960.0" />
-               </content></ScrollPane>
+            <AnchorPane layoutY="75.0" prefHeight="525.0" prefWidth="960.0">
+               <children>
+                  <ScrollPane fx:id="playlistScrollPane" disable="true" hbarPolicy="NEVER" layoutY="50.0" prefHeight="475.0" prefWidth="960.0" style="-fx-background-color: #202020; -fx-border-color: #202020;" visible="false">
+                     <content>
+                        <VBox fx:id="playList" prefHeight="475.0" prefWidth="960.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="100.0" prefHeight="495.0" prefWidth="960.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#202020" height="30.0" stroke="#202020" strokeType="INSIDE" width="960.0" />
+                  <Label layoutX="35.0" layoutY="1.0" text="Title" textFill="WHITE">
+                     <font>
+                        <Font name="Raleway" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="240.0" layoutY="1.0" text="Artist" textFill="WHITE">
+                     <font>
+                        <Font name="Raleway" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="395.0" layoutY="1.0" text="Album" textFill="WHITE">
+                     <font>
+                        <Font name="Raleway" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="550.0" layoutY="1.0" text="Genre" textFill="WHITE">
+                     <font>
+                        <Font name="Raleway" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="705.0" layoutY="1.0" text="Date" textFill="WHITE">
+                     <font>
+                        <Font name="Raleway" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="860.0" layoutY="1.0" text="Time" textFill="WHITE">
+                     <font>
+                        <Font name="Raleway" size="20.0" />
+                     </font>
+                  </Label>
+                  <Line endX="450.0" layoutX="480.0" layoutY="25.0" startX="-450.0" stroke="#f7620e" />
+                  <ScrollPane fx:id="songScrollPane" hbarPolicy="NEVER" layoutY="25.0" prefHeight="475.0" prefWidth="960.0" style="-fx-background-color: #202020; -fx-border-color: #202020;">
+                     <content>
+                        <VBox fx:id="songList" prefHeight="475.0" prefWidth="960.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
          </children></AnchorPane>
       <AnchorPane fx:id="userInfoPane" disable="true" layoutX="1000.0" prefHeight="650.0" prefWidth="200.0" style="-fx-background-color: #202020;" visible="false">
          <children>

@@ -17,14 +17,14 @@ public class UserService {
     public boolean add(User c){
         // ADD CONTACT
 
-        String query = "INSERT INTO " + User.TABLE_NAME + " VALUE (?, ?)";
+        String query = "INSERT INTO " + User.TABLE_NAME + " VALUE (?, ?, ?)";
         Connection connection = db.getConnection();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            // statement.setInt(1,c.getId());
-            statement.setString(1,c.getUsername());
-            statement.setString(2,c.getPassword());
+            statement.setInt(1,c.getId());
+            statement.setString(2,c.getUsername());
+            statement.setString(3,c.getPassword());
 
             boolean added = statement.execute();
             return added;
@@ -47,7 +47,7 @@ public class UserService {
 
             while(rs.next()){
                 User c = new User();
-                // c.setId(rs.getInt(User.COL_ID));
+                c.setId(rs.getInt(User.COL_ID));
                 c.setUsername(rs.getString(User.COL_USERNAME));
                 c.setPassword(rs.getString(User.COL_PASSWORD));
                 contacts.add(c);
