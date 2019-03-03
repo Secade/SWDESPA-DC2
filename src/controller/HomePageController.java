@@ -27,7 +27,7 @@ public class HomePageController {
     private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn;
 
     public void initialize(){
-        welcomeLbl.setText("Welcome" + loggedin.getUsername());
+        welcomeLbl.setText("Welcome " + loggedin.getUsername());
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setMute(true);
