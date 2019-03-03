@@ -1,6 +1,10 @@
-package controller;
+package view;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,7 +14,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import model.ChangeScene;
+import javafx.stage.Stage;
+import model.Database;
+import model.User;
+import model.UserService;
+
+import javax.xml.crypto.Data;
+import java.util.List;
 
 public class MainController {
 
@@ -27,7 +37,23 @@ public class MainController {
     @FXML
     private Label guestLbl, userNameLbl, passwordLbl, loginLbl, signUpLbl;
 
+    private  int idCount;
+    private Database DB;
+    private User user;
+
+    public void setDatabase(Database DB){
+        this.DB = DB;
+    }
+
     public void initialize(){
+        DB = new Database();
+
+        UserService service = new UserService(DB);
+
+        List<User> userIdList = service.getUserIdList();
+        List<User> passwordList = service.getPasswordList();
+
+        idCount = userIdList.size();
 
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
         mediaPlayer.setAutoPlay(true);
@@ -40,21 +66,58 @@ public class MainController {
 
         guestBtn.setOnAction(event -> {
             mediaPlayer.stop();
+
+            user = new User();
+            user.setUsername(userIdList.get(0).getUsername());
+            System.out.println(userIdList.get(0).getUsername());
+            user.setPassword(userIdList.get(0).getPassword());
+            System.out.println(userIdList.get(0).getPassword());
+
             try {
-                new ChangeScene("/view/HomePage.fxml");
+                FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
+                Stage stage = (Stage) guestBtn.getScene().getWindow();
+                Scene scene = new Scene(pane.load());
+                HomePageController controller = new HomePageController();
+                controller = pane.getController();
+                controller.setDatabase(DB);
+                controller.setUser(user);
+                stage.setScene(scene);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
         logInBtn.setOnAction(event -> {
-            if(true) {
-                mediaPlayer.stop();
-                try {
-                    new ChangeScene("/view/HomePage.fxml");
-                } catch (Exception e) {
-                    e.printStackTrace();
+            boolean check = false;
+                for(int i=0;i<userIdList.size();i++) {
+                    if (userNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0 &&
+                            passwordInput.getText().compareTo(passwordList.get(i).getPassword()) == 0) {
+
+                        user = new User();
+                        user.setUsername(String.valueOf(userIdList.get(i).getUsername()));
+                        user.setPassword(String.valueOf(userIdList.get(i).getPassword()));
+
+                        mediaPlayer.stop();
+                        try {
+                            FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
+                            Stage stage = (Stage) logInBtn.getScene().getWindow();
+                            Scene scene = new Scene(pane.load());
+                            HomePageController controller = pane.getController();
+                            controller.setDatabase(DB);
+                            controller.setUser(user);
+                            stage.setScene(scene);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        check=true;
+                    }
+
                 }
+            if(!check){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Invalid Username or Password");
+                alert.showAndWait();
             }
         });
 
@@ -89,7 +152,6 @@ public class MainController {
         signUpBtn.setOnAction(event -> {
             loginPane.setVisible(false);
             loginPane.setDisable(true);
-
             signUpPage.setVisible(true);
             signUpPage.setDisable(false);
         });
@@ -145,7 +207,41 @@ public class MainController {
 
                 signUpPage.setVisible(false);
                 signUpPage.setDisable(true);
+
+
+                int y=0,z=0;
+
+                for(int i=0;i<userIdList.size();i++) {
+                    if (newUserNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0) {
+                        z += 1;
+                    }
+                }
+
+                if (z==0) {
+                    if(!newUserNameInput.getText().trim().isEmpty()&&!newPasswordInput.getText().trim().isEmpty()) {
+
+                        User c = new User();
+
+                        //c.setId(idCount + 1);
+                        idCount++;
+                        c.setUsername(newUserNameInput.getText());
+                        c.setPassword(newPasswordInput.getText());
+
+                        service.add(c);
+
+                        try {
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        System.out.println("Please Fill in all Information!");
+                    }
+
+                }
             }
+            this.initialize();
         });
 
 
