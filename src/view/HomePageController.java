@@ -14,6 +14,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Database;
 import model.User;
@@ -29,15 +30,15 @@ public class HomePageController {
     @FXML
     private Label songNameLbl, artistNameLbl, albumNameLbl, genreTypeLbl, yearLbl, favPlaylistLbl, favSong1Lbl, favSong2Lbl, favSong3Lbl,welcomLbl;
     @FXML
-    private Label playlistLbl, songsLbl, editLbl,welcomeLbl;
+    private Label playlistLbl, songsLbl, editLbl,welcomeLbl, uploadLbl;
     @FXML
-    private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane;
+    private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane, playlistPane,songListPane;
     @FXML
     private ScrollPane songScrollPane, playlistScrollPane;
     @FXML
     private VBox songList, playList;
     @FXML
-    private Button playlistBtn, songsBtn, logoutBtn, editBtn;
+    private Button playlistBtn, songsBtn, logoutBtn, editBtn,uploadBtn;
     @FXML
     private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, logoutPic;
 
@@ -72,6 +73,8 @@ public class HomePageController {
         mediaPlayer.setOnReady(()->{
 
         });
+
+
         int numSongs = 5;
 
         ArrayList<StackPane> songStack = new ArrayList<>();
@@ -86,8 +89,37 @@ public class HomePageController {
             rectangles.get(i).setFill(Color.web("#202020"));
             songStack.get(i).getChildren().add(rectangles.get(i));
             anchors.add(new AnchorPane());
-            Label test = new Label("SONGS "+i);
-            anchors.get(i).getChildren().addAll(test);
+            Label title = new Label("Title");
+            title.setTextFill(Color.web("#FFFFFF"));
+            title.setFont(new Font("Raleway",20));
+            title.setLayoutX(30);
+            title.setLayoutY(10);
+            Label artist = new Label ("Artist");
+            artist.setTextFill(Color.web("#FFFFFF"));
+            artist.setFont(new Font("Raleway",20));
+            artist.setLayoutX(235);
+            artist.setLayoutY(10);
+            Label album = new Label ("Album");
+            album.setTextFill(Color.web("#FFFFFF"));
+            album.setFont(new Font("Raleway",20));
+            album.setLayoutX(390);
+            album.setLayoutY(10);
+            Label genre = new Label ("Genre");
+            genre.setTextFill(Color.web("#FFFFFF"));
+            genre.setFont(new Font("Raleway",20));
+            genre.setLayoutX(545);
+            genre.setLayoutY(10);
+            Label date = new Label ("Date");
+            date.setTextFill(Color.web("#FFFFFF"));
+            date.setFont(new Font("Raleway",20));
+            date.setLayoutX(700);
+            date.setLayoutY(10);
+            Label time = new Label ("Time");
+            time.setTextFill(Color.web("#FFFFFF"));
+            time.setFont(new Font("Raleway",20));
+            time.setLayoutX(855);
+            time.setLayoutY(10);
+            anchors.get(i).getChildren().addAll(title,artist,album,genre,date,time);
             songStack.get(i).getChildren().addAll(anchors.get(i));
             songList.getChildren().add(songStack.get(i));
         }
@@ -104,8 +136,12 @@ public class HomePageController {
             boxes.get(i).setFill(Color.web("#202020"));
             playlistStack.get(i).getChildren().add(boxes.get(i));
             anchorPane.add(new AnchorPane());
-            Label test = new Label("PLAYLIST "+i);
-            anchorPane.get(i).getChildren().addAll(test);
+            Label title = new Label("Title");
+            title.setTextFill(Color.web("#FFFFFF"));
+            title.setFont(new Font("Raleway",20));
+            title.setLayoutX(30);
+            title.setLayoutY(10);
+            anchorPane.get(i).getChildren().addAll(title);
             playlistStack.get(i).getChildren().addAll(anchorPane.get(i));
             playList.getChildren().add(playlistStack.get(i));
         }
@@ -163,9 +199,17 @@ public class HomePageController {
                 alert.close();
             }
         });
+
+        uploadBtn.setOnMouseEntered(event -> {
+            uploadLbl.setTextFill(Color.web("#323232"));
+        });
+
+        uploadBtn.setOnMouseExited(event -> {
+            uploadLbl.setTextFill(Color.web("#FFFFFF"));
+        });
         
         playlistBtn.setOnMouseEntered(event -> {
-            playlistLbl.setTextFill(Color.web( "#f7620e"));
+            playlistLbl.setTextFill(Color.web( "#323232"));
         });
 
         playlistBtn.setOnMouseExited(event -> {
@@ -174,22 +218,22 @@ public class HomePageController {
 
         playlistBtn.setOnAction(event -> {
             if(playlistPaneOpen){
-                playlistScrollPane.setDisable(true);
-                playlistScrollPane.setVisible(false);
+                playlistPane.setDisable(true);
+                playlistPane.setVisible(false);
                 playlistPaneOpen=false;
             }
             else {
-                playlistScrollPane.setDisable(false);
-                playlistScrollPane.setVisible(true);
+                playlistPane.setDisable(false);
+                playlistPane.setVisible(true);
                 playlistPaneOpen=true;
-                songScrollPane.setDisable(true);
-                songScrollPane.setVisible(false);
+                songListPane.setDisable(true);
+                songListPane.setVisible(false);
                 songPaneOpen=false;
             }
         });
 
         songsBtn.setOnMouseEntered(event -> {
-            songsLbl.setTextFill(Color.web( "#f7620e"));
+            songsLbl.setTextFill(Color.web( "#323232"));
         });
 
         songsBtn.setOnMouseExited(event -> {
@@ -199,15 +243,15 @@ public class HomePageController {
 
         songsBtn.setOnAction(event -> {
             if(songPaneOpen) {
-                songScrollPane.setDisable(true);
-                songScrollPane.setVisible(false);
+                songListPane.setDisable(true);
+                songListPane.setVisible(false);
                 songPaneOpen=false;
             }else {
-                songScrollPane.setDisable(false);
-                songScrollPane.setVisible(true);
+                songListPane.setDisable(false);
+                songListPane.setVisible(true);
                 songPaneOpen=true;
-                playlistScrollPane.setDisable(true);
-                playlistScrollPane.setVisible(false);
+                playlistPane.setDisable(true);
+                playlistPane.setVisible(false);
                 playlistPaneOpen=false;
             }
         });
