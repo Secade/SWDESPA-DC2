@@ -17,8 +17,8 @@ public class MedPlayer {
 
     public MedPlayer(File filename){
         final JFXPanel fxpanel = new JFXPanel();
-        file = "C:\\Users\\LENOVO\\GitHub Repository\\SWDESPA-DC2\\src\\audio\\" + filename + ".mp3";
-        hit = new Media(new File(file).toURI().toString());
+        //file = "C:\\Users\\LENOVO\\GitHub Repository\\SWDESPA-DC2\\src\\audio\\" + filename + ".mp3";
+        hit = new Media((getClass().getResource("/audio/"+filename+".mp3").toExternalForm()));
         mediaPlayer = new MediaPlayer(hit);
         music = new MediaView(mediaPlayer);
     }
