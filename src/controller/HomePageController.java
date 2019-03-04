@@ -1,22 +1,31 @@
 package controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import view.MedPlayer;
 
-public class HomePageController {
+import java.io.File;
+
+public class HomePageController implements EventHandler<MouseEvent> {
+
+    MedPlayer mediaPlayer = new MedPlayer(new File("Meghan Trainor - Me Too"));
+
     @FXML
     private MediaView homeVideo;
     @FXML
     private Label songNameLbl, artistNameLbl, albumNameLbl, genreTypeLbl, yearLbl, favPlaylistLbl, favSong1Lbl, favSong2Lbl, favSong3Lbl;
     @FXML
-    private Label playlistLbl, songsLbl;
+    private Label playlistLbl, songsLbl, songStartTime, songEndTime;
     @FXML
     private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane;
     @FXML
@@ -33,7 +42,7 @@ public class HomePageController {
         mediaPlayer.setOnReady(()->{
 
         });
-        
+
         playlistBtn.setOnMouseEntered(event -> {
             playlistLbl.setTextFill(Color.web( "#f7620e"));
         });
@@ -72,6 +81,8 @@ public class HomePageController {
             playBtn.setLayoutY(0);
         });
 
+        playBtn.setOnMouseClicked(this);
+
         playBtn.setOnMouseExited(event -> {
             playBtn.setOpacity(0.5);
             playBtn.setFitHeight(40);
@@ -79,7 +90,6 @@ public class HomePageController {
             playBtn.setLayoutX(220);
             playBtn.setLayoutY(5);
         });
-
 
     }
 
@@ -107,5 +117,24 @@ public class HomePageController {
         fastForwardBtn.setOnMouseExited(event -> {
             fastForwardBtn.setOpacity(0.5);
         });
+    }
+
+    @Override
+    public void handle(MouseEvent event) {
+
+        if (!mediaPlayer.isPlaying()){
+            mediaPlayer.play();
+            songNameLbl.setText("Me Too");
+            artistNameLbl.setText("Meghan Trainor");
+            albumNameLbl.setText("Thank You");
+            genreTypeLbl.setText("Pop");
+            yearLbl.setText("2016");
+            songStartTime.setText(String.valueOf(mediaPlayer.getStartTime().toMinutes()));
+            songEndTime.setText(String.valueOf(mediaPlayer.getEndTime()));
+        }
+        else if (mediaPlayer.isPlaying()){
+            System.out.println("paused from HomePageController");
+            mediaPlayer.pause();
+        }
     }
 }

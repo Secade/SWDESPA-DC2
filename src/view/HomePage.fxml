@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #f7620e;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
+<AnchorPane prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #f7620e;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
    <children>
       <MediaView fx:id="homeVideo" fitHeight="600.0" fitWidth="1200.0" preserveRatio="false" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#202020" height="650.0" layoutX="1160.0" stroke="#202020" strokeType="INSIDE" width="40.0" />
@@ -182,7 +182,7 @@
             </ImageView>
             <ImageView fx:id="playBackBtn" fitHeight="30.0" fitWidth="30.0" layoutX="90.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../media/Play%20Back.png" />
+                  <Image url="@../media/Play Back.png" />
                </image>
             </ImageView>
             <ImageView fx:id="previousBtn" fitHeight="30.0" fitWidth="30.0" layoutX="150.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
@@ -202,7 +202,7 @@
             </ImageView>
             <ImageView fx:id="fastForwardBtn" fitHeight="35.0" fitWidth="50.0" layoutX="360.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../media/Fast%20Forwar.png" />
+                  <Image url="@../media/Fast Forwar.png" />
                </image>
             </ImageView>
             <ImageView fx:id="shuffleBtn" fitHeight="30.0" fitWidth="30.0" layoutX="435.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
@@ -211,12 +211,12 @@
                </image>
             </ImageView>
             <Slider blockIncrement="1.0" layoutX="540.0" layoutY="15.0" majorTickUnit="1.0" max="200.0" minorTickCount="0" prefHeight="20.0" prefWidth="300.0" value="10.0" />
-            <Label layoutX="500.0" layoutY="12.0" text="0:00" textFill="WHITE">
+            <Label fx:id="songStartTime" layoutX="500.0" layoutY="12.0" text="0:00" textFill="WHITE">
                <font>
                   <Font name="Open Sans Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="845.0" layoutY="12.0" text="4:00" textFill="WHITE">
+            <Label fx:id="songEndTime" layoutX="845.0" layoutY="12.0" text="4:00" textFill="WHITE">
                <font>
                   <Font name="Open Sans Light" size="18.0" />
                </font>

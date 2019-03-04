@@ -11,6 +11,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import model.ChangeScene;
+import view.MedPlayer;
+
+import java.io.File;
 
 public class MainController {
 
@@ -25,7 +28,7 @@ public class MainController {
     @FXML
     private ImageView logInPic, signUpPic, newSignUpPic, newBackPic;
     @FXML
-    private Label guestLbl, userNameLbl, passwordLbl, loginLbl, signUpLbl;
+    private Label guestLbl, userNameLbl, passwordLbl, loginLbl, signUpLb;
 
     public void initialize(){
 

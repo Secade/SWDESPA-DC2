@@ -21,8 +21,8 @@
             <Image url="@../media/logo.png" />
          </image>
       </ImageView>
-      <Line endX="200.0" layoutX="600.0" layoutY="175.0" startX="-200.0" stroke="#5e5e5e" />
-      <Line endX="200.0" layoutX="600.0" layoutY="485.0" startX="-200.0" stroke="#5e5e5e" />
+      <Line endX="250.0" layoutX="600.0" layoutY="175.0" startX="-250.0" stroke="#5e5e5e" />
+      <Line endX="250.0" layoutX="600.0" layoutY="485.0" startX="-250.0" stroke="#5e5e5e" />
       <AnchorPane fx:id="loginPane" layoutX="300.0" prefHeight="650.0" prefWidth="600.0">
          <children>
             <ImageView fx:id="logInPic" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">

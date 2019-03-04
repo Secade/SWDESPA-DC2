@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added Song Details, Added User Details, Buttons, expand/shrink pane">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/HomePageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/HomePageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ChangeScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ChangeScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/HomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/HomePage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MedPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MedPlayer.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,6 +59,16 @@
     <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1127402895">
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="1338" />
+          <entry key="XML" value="3" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
@@ -68,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state>
+              <caret column="14" selection-start-column="14" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,22 +87,30 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/Main.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
+        <entry file="file://$PROJECT_DIR$/src/model/ChangeScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="78" selection-start-line="14" selection-start-column="78" selection-end-line="14" selection-end-column="78" />
+            <state relative-caret-position="204">
+              <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/ChangeScene.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/view/MedPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+            <state relative-caret-position="233">
+              <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1364#1365#0" expanded="true" />
+                <element signature="e#1396#1397#0" expanded="true" />
+                <element signature="e#1433#1434#0" expanded="true" />
+                <element signature="e#1482#1483#0" expanded="true" />
+                <element signature="e#1517#1518#0" expanded="true" />
+                <element signature="e#1565#1566#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -102,8 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+            <state relative-caret-position="340">
+              <caret line="129" lean-forward="true" selection-start-line="129" selection-end-line="129" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,19 +130,19 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/HomePage.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1108">
-              <caret line="188" column="22" selection-start-line="188" selection-start-column="22" selection-end-line="188" selection-end-column="22" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="3062">
+              <caret line="204" column="45" selection-start-line="204" selection-start-column="45" selection-end-line="204" selection-end-column="45" />
             </state>
           </provider>
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/HomePageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="284">
+              <caret line="136" column="32" lean-forward="true" selection-start-line="136" selection-start-column="32" selection-end-line="136" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -165,12 +182,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/application/Main.java" />
-        <option value="$PROJECT_DIR$/src/view/HomePage.fxml" />
         <option value="$PROJECT_DIR$/src/model/ChangeScene.java" />
         <option value="$PROJECT_DIR$/src/view/Main.fxml" />
-        <option value="$PROJECT_DIR$/src/controller/MainController.java" />
         <option value="$PROJECT_DIR$/src/model/Main.java" />
+        <option value="$PROJECT_DIR$/src/view/HomePage.fxml" />
+        <option value="$PROJECT_DIR$/src/controller/MainController.java" />
         <option value="$PROJECT_DIR$/src/controller/HomePageController.java" />
+        <option value="$PROJECT_DIR$/src/view/MedPlayer.java" />
       </list>
     </option>
   </component>
@@ -180,7 +198,9 @@
     <option name="width" value="1035" />
     <option name="height" value="1090" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -205,7 +225,19 @@
               <item name="SWDESPA-DC2" type="b2602c69:ProjectViewProjectNode" />
               <item name="SWDESPA-DC2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="audio" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SWDESPA-DC2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SWDESPA-DC2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SWDESPA-DC2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SWDESPA-DC2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SWDESPA-DC2" type="b2602c69:ProjectViewProjectNode" />
@@ -223,8 +255,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,10 +269,13 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551422292968" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551665065855" />
     <property name="dynamic.classpath" value="false" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
   </component>
@@ -269,7 +304,7 @@
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
-    <configuration default="true" type="Applet">
+    <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -298,7 +333,6 @@
       </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -307,7 +341,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG">
+    <configuration default="true" type="TestNG" factoryName="TestNG">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -318,11 +352,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
       <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file enabled="true" id="idea.log" />
+      <predefined_log_file id="idea.log" enabled="true" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -417,7 +451,7 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.2342282" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.22751679" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -426,7 +460,7 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32841823" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3261745" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -475,27 +509,25 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java" />
-    <entry file="file://$PROJECT_DIR$/../../Test/src/controller/Main.java" />
+    <entry file="file://$USER_HOME$/Test/src/controller/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml" />
     <entry file="file://$PROJECT_DIR$/src/media/button.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../School/DLSU/Term 5/SWDESPA/SWDESPA - DC1 - Source files/Source Code/DesignChallenge1/src/designchallenge1/CalendarProgram.java">
+    <entry file="file://$USER_HOME$/School/DLSU/Term 5/SWDESPA/SWDESPA - DC1 - Source files/Source Code/DesignChallenge1/src/designchallenge1/CalendarProgram.java" />
+    <entry file="file://$PROJECT_DIR$/../NETWORKewan/src/application/Main.java" />
+    <entry file="file://$PROJECT_DIR$/src/view/Main.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1530">
-          <folding>
-            <element signature="e#0#10044#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="238">
+          <caret line="14" column="78" selection-start-line="14" selection-start-column="78" selection-end-line="14" selection-end-column="78" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/../NETWORKewan/src/application/Main.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ChangeScene.java">
+    <entry file="file://$PROJECT_DIR$/src/model/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state>
+          <caret column="14" selection-start-column="14" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -503,50 +535,136 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/HomePage.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1108">
-          <caret line="188" column="22" selection-start-line="188" selection-start-column="22" selection-end-line="188" selection-end-column="22" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="3062">
+          <caret line="204" column="45" selection-start-line="204" selection-start-column="45" selection-end-line="204" selection-end-column="45" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+        <state relative-caret-position="340">
+          <caret line="129" lean-forward="true" selection-start-line="129" selection-end-line="129" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/Main.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
+    <entry file="file://$PROJECT_DIR$/src/model/ChangeScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="78" selection-start-line="14" selection-start-column="78" selection-end-line="14" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="204">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SWDESPA-DC2.iml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/HomePageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="284">
+          <caret line="136" column="32" lean-forward="true" selection-start-line="136" selection-start-column="32" selection-end-line="136" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/MedPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1364#1365#0" expanded="true" />
+            <element signature="e#1396#1397#0" expanded="true" />
+            <element signature="e#1433#1434#0" expanded="true" />
+            <element signature="e#1482#1483#0" expanded="true" />
+            <element signature="e#1517#1518#0" expanded="true" />
+            <element signature="e#1565#1566#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>SWDESPA-DC2</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
