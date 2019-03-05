@@ -69,17 +69,15 @@ public class MainController {
             mediaPlayer.stop();
 
             user = new User();
+            user.setId(userIdList.get(0).getId());
             user.setUsername(userIdList.get(0).getUsername());
-            System.out.println(userIdList.get(0).getUsername());
             user.setPassword(userIdList.get(0).getPassword());
-            System.out.println(userIdList.get(0).getPassword());
 
             try {
                 FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
                 Stage stage = (Stage) guestBtn.getScene().getWindow();
                 Scene scene = new Scene(pane.load());
-                HomePageController controller = new HomePageController();
-                controller = pane.getController();
+                HomePageController controller = pane.getController();
                 controller.setDatabase(DB);
                 controller.setUser(user);
                 stage.setScene(scene);
@@ -91,12 +89,17 @@ public class MainController {
         logInBtn.setOnAction(event -> {
             boolean check = false;
                 for(int i=0;i<userIdList.size();i++) {
+                    System.out.println(userIdList.get(i).getId());
+                    System.out.println(userIdList.get(i).getUsername());
+                    System.out.println(passwordList.get(i).getPassword()+"\n");
                     if (userNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0 &&
                             passwordInput.getText().compareTo(passwordList.get(i).getPassword()) == 0) {
 
                         user = new User();
+                        user.setId(userIdList.get(i).getId());
+                        System.out.println(userIdList.get(i).getId());
                         user.setUsername(String.valueOf(userIdList.get(i).getUsername()));
-                        user.setPassword(String.valueOf(userIdList.get(i).getPassword()));
+                        user.setPassword(String.valueOf(passwordList.get(i).getPassword()));
 
                         mediaPlayer.stop();
                         try {

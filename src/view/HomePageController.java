@@ -4,6 +4,8 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.Parser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,6 +17,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Database;
 import model.User;
@@ -32,19 +35,32 @@ public class HomePageController {
     @FXML
     private Label playlistLbl, songsLbl, editLbl,welcomeLbl, uploadLbl;
     @FXML
-    private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane, playlistPane,songListPane;
+    private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane, playlistPane,songListPane,editPane,songSettingPane;
     @FXML
     private ScrollPane songScrollPane, playlistScrollPane;
     @FXML
     private VBox songList, playList;
     @FXML
-    private Button playlistBtn, songsBtn, logoutBtn, editBtn,uploadBtn;
+    private Button playlistBtn, songsBtn, logoutBtn, editBtn,uploadBtn,adjustBackBtn,adjustConfirmBtn;
     @FXML
     private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, logoutPic;
+
+    @FXML
+    private ComboBox<?> albumSelect,song1Select,song2Select, song3Select;
+
+    @FXML
+    private Label userNameLabel,backLbl,confirmLbl,adjustBackLbl,adjustConfirmLbl;
+
+    @FXML
+    private Button backBtn, confirmBtn;
 
     private boolean isPlayingSong;
     private boolean songPaneOpen;
     private boolean playlistPaneOpen;
+    private boolean isEditOpen;
+    private boolean isSettingOpen;
+    private int previousSong;
+    private int nextSong;
 
     private Database DB;
     private User user;
@@ -62,8 +78,10 @@ public class HomePageController {
         isPlayingSong=false;
         songPaneOpen=false;
         playlistPaneOpen=false;
-
-
+        isEditOpen=false;
+        isSettingOpen=false;
+        previousSong=0;
+        nextSong=0;
 
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
         mediaPlayer.setAutoPlay(true);
@@ -74,8 +92,7 @@ public class HomePageController {
 
         });
 
-
-        int numSongs = 5;
+        int numSongs = 15;
 
         ArrayList<StackPane> songStack = new ArrayList<>();
         ArrayList<Rectangle> rectangles = new ArrayList<>();
@@ -89,10 +106,63 @@ public class HomePageController {
             rectangles.get(i).setFill(Color.web("#202020"));
             songStack.get(i).getChildren().add(rectangles.get(i));
             anchors.add(new AnchorPane());
+            ImageView gear = new ImageView(new Image(getClass().getResourceAsStream("/media/gearWhite.png")));
+            gear.setFitWidth(40);
+            gear.setFitHeight(30);
+            gear.setLayoutX(0);
+            gear.setLayoutY(8);
+            gear.setOpacity(0.0);
+            gear.setDisable(true);
+            gear.setOnMouseEntered(event -> {
+                gear.setImage(new Image(getClass().getResourceAsStream("/media/gearOrange.png")));
+            });
+            gear.setOnMouseExited(event -> {
+                gear.setImage(new Image(getClass().getResourceAsStream("/media/gearWhite.png")));
+            });
+            gear.setOnMouseClicked(event -> {
+                if(!isSettingOpen) {
+                    songSettingPane.setVisible(false);
+                    songSettingPane.setDisable(true);
+                    isSettingOpen = true;
+                }else {
+                    songSettingPane.setVisible(true);
+                    songSettingPane.setDisable(false);
+                    isSettingOpen = false;
+                }
+            });
+
+            adjustBackBtn.setOnMouseEntered(event -> {
+                adjustBackLbl.setTextFill(Color.web( "#323232"));
+            });
+
+            adjustBackBtn.setOnMouseExited(event -> {
+                adjustBackLbl.setTextFill(Color.web( "#FFFFFF"));
+            });
+
+            adjustBackBtn.setOnAction(event -> {
+                songSettingPane.setVisible(false);
+                songSettingPane.setDisable(true);
+                isSettingOpen=false;
+            });
+
+            adjustConfirmBtn.setOnMouseEntered(event -> {
+                adjustConfirmLbl.setTextFill(Color.web( "#323232"));
+            });
+
+            adjustConfirmBtn.setOnMouseExited(event -> {
+                adjustConfirmLbl.setTextFill(Color.web( "#FFFFFF"));
+            });
+
+            adjustConfirmBtn.setOnAction(event -> {
+                songSettingPane.setVisible(false);
+                songSettingPane.setDisable(true);
+                isSettingOpen=false;
+            });
+            
             Label title = new Label("Title");
             title.setTextFill(Color.web("#FFFFFF"));
             title.setFont(new Font("Raleway",20));
-            title.setLayoutX(30);
+            title.setLayoutX(40);
             title.setLayoutY(10);
             Label artist = new Label ("Artist");
             artist.setTextFill(Color.web("#FFFFFF"));
@@ -119,7 +189,33 @@ public class HomePageController {
             time.setFont(new Font("Raleway",20));
             time.setLayoutX(855);
             time.setLayoutY(10);
-            anchors.get(i).getChildren().addAll(title,artist,album,genre,date,time);
+            anchors.get(i).getChildren().addAll(gear,title,artist,album,genre,date,time);
+            int finalI = i;
+            anchors.get(i).setOnMouseClicked(event -> {
+                    previousSong=nextSong;
+                    nextSong=finalI;
+                    for (Node node : anchors.get(previousSong).getChildren()) {
+                        if (node instanceof Label) {
+                            ((Label)node).setTextFill(Color.web("#FFFFFF"));
+                        }
+                    }
+                    for (Node node : anchors.get(nextSong).getChildren()) {
+                        if (node instanceof Label) {
+                            ((Label)node).setTextFill(Color.web("#f7620e"));
+                        }
+                    }
+            });
+
+            anchors.get(i).setOnMouseEntered(event -> {
+                rectangles.get(finalI).setFill(Color.web("#323232"));
+                gear.setDisable(false);
+                gear.setOpacity(1.0);
+            });
+            anchors.get(i).setOnMouseExited(event -> {
+                rectangles.get(finalI).setFill(Color.web("#202020"));
+                gear.setDisable(true);
+                gear.setOpacity(0.0);
+            });
             songStack.get(i).getChildren().addAll(anchors.get(i));
             songList.getChildren().add(songStack.get(i));
         }
@@ -146,6 +242,34 @@ public class HomePageController {
             playList.getChildren().add(playlistStack.get(i));
         }
 
+        backBtn.setOnMouseEntered(event -> {
+            backLbl.setTextFill(Color.web( "#323232"));
+        });
+
+        backBtn.setOnMouseExited(event -> {
+            backLbl.setTextFill(Color.web( "#FFFFFF"));
+        });
+
+        backBtn.setOnAction(event -> {
+            editPane.setVisible(false);
+            editPane.setDisable(true);
+            isEditOpen=false;
+        });
+
+        confirmBtn.setOnMouseEntered(event -> {
+            confirmLbl.setTextFill(Color.web( "#323232"));
+        });
+
+        confirmBtn.setOnMouseExited(event -> {
+            confirmLbl.setTextFill(Color.web( "#FFFFFF"));
+        });
+
+        confirmBtn.setOnAction(event -> {
+            editPane.setVisible(false);
+            editPane.setDisable(true);
+            isEditOpen=false;
+        });
+
         editBtn.setOnMouseEntered(event -> {
             editLbl.setTextFill(Color.web("#f7620e"));
         });
@@ -155,7 +279,23 @@ public class HomePageController {
         });
 
         editBtn.setOnAction(event -> {
-
+            if(user.getId()!=0) {
+                if (!isEditOpen) {
+                    editPane.setVisible(true);
+                    editPane.setDisable(false);
+                    userNameLabel.setText("Username: " + user.getUsername());
+                    isEditOpen = true;
+                } else {
+                    editPane.setVisible(false);
+                    editPane.setDisable(true);
+                    isEditOpen = false;
+                }
+            }else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Guests cannot Edit their profile!");
+                alert.showAndWait();
+            }
         });
 
         logoutBtn.setOnMouseEntered(event -> {

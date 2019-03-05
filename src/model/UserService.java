@@ -89,14 +89,14 @@ public class UserService {
         Connection connection = db.getConnection();
         List<User> contacts = new ArrayList<>();
 
-        String query = "SELECT username, password FROM " + User.TABLE_NAME;
+        String query = "SELECT userID,username FROM " + User.TABLE_NAME;
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()){
                 User c = new User();
-                // c.setId(rs.getInt(User.COL_ID));
+                c.setId(rs.getInt(User.COL_ID));
                 c.setUsername(rs.getString(User.COL_USERNAME));
                 contacts.add(c);
             }

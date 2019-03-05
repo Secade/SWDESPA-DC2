@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -134,7 +136,7 @@
             <AnchorPane fx:id="songListPane" disable="true" layoutY="90.0" prefHeight="510.0" prefWidth="960.0" visible="false">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#202020" height="40.0" stroke="#202020" strokeType="INSIDE" width="960.0" />
-                  <Label layoutX="35.0" layoutY="4.0" text="Title" textFill="WHITE">
+                  <Label layoutX="50.0" layoutY="4.0" text="Title" textFill="WHITE">
                      <font>
                         <Font name="Raleway" size="20.0" />
                      </font>
@@ -164,7 +166,7 @@
                         <Font name="Raleway" size="20.0" />
                      </font>
                   </Label>
-                  <Line endX="80.0" layoutX="115.0" layoutY="30.0" startX="-100.0" stroke="#f7620e" />
+                  <Line endX="80.0" layoutX="115.0" layoutY="30.0" startX="-75.0" stroke="#f7620e" />
                   <Line endX="30.0" layoutX="330.0" layoutY="30.0" startX="-100.0" stroke="#f7620e" />
                   <Line endX="30.0" layoutX="485.0" layoutY="30.0" startX="-100.0" stroke="#f7620e" />
                   <Line endX="30.0" layoutX="640.0" layoutY="30.0" startX="-100.0" stroke="#f7620e" />
@@ -319,6 +321,131 @@
                   <Image url="@../media/Volume.png" />
                </image>
             </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="editPane" disable="true" layoutX="350.0" layoutY="50.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #323232;" visible="false">
+         <children>
+            <ComboBox fx:id="song3Select" layoutX="30.0" layoutY="380.0" prefHeight="30.0" prefWidth="440.0" promptText="Song #3" />
+            <ComboBox fx:id="song2Select" layoutX="30.0" layoutY="320.0" prefHeight="30.0" prefWidth="440.0" promptText="Song #2" />
+            <ComboBox fx:id="song1Select" layoutX="30.0" layoutY="260.0" prefHeight="30.0" prefWidth="440.0" promptText="Song #1" />
+            <Label layoutX="30.0" layoutY="220.0" text="Favorite Songs:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="22.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="albumSelect" layoutX="30.0" layoutY="170.0" prefHeight="30.0" prefWidth="440.0" promptText="Album" />
+            <Label layoutX="30.0" layoutY="130.0" text="Favorite Album:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="185.0" layoutY="15.0" text="PROFILE" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="userNameLabel" layoutX="30.0" layoutY="80.0" text="Username:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="200.0" layoutX="250.0" layoutY="60.0" startX="-200.0" stroke="#5e5e5e" />
+            <Line endX="200.0" layoutX="250.0" layoutY="430.0" startX="-200.0" stroke="#5e5e5e" />
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="80.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/orangeBtnSmall.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="backLbl" layoutX="115.0" layoutY="450.0" text="BACK" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="22.0" />
+               </font>
+            </Label>
+            <Button fx:id="backBtn" layoutX="72.0" layoutY="435.0" mnemonicParsing="false" opacity="0.0" prefHeight="60.0" prefWidth="140.0" text="LOG IN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="300.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/orangeBtnSmall.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="confirmLbl" layoutX="314.0" layoutY="450.0" text="CONFIRM" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="22.0" />
+               </font>
+            </Label>
+            <Button fx:id="confirmBtn" layoutX="292.0" layoutY="435.0" mnemonicParsing="false" opacity="0.0" prefHeight="60.0" prefWidth="140.0" text="LOG IN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="songSettingPane" layoutX="350.0" layoutY="50.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #323232;">
+         <children>
+            <Label layoutX="150.0" layoutY="10.0" text="Song Settings" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="userNameLabel1" layoutX="40.0" layoutY="80.0" text="Song Name:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="200.0" layoutX="250.0" layoutY="60.0" startX="-200.0" stroke="#5e5e5e" />
+            <Line endX="200.0" layoutX="250.0" layoutY="430.0" startX="-200.0" stroke="#5e5e5e" />
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="80.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/orangeBtnSmall.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="adjustBackLbl" layoutX="115.0" layoutY="450.0" text="BACK" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="22.0" />
+               </font>
+            </Label>
+            <Button fx:id="adjustBackBtn" layoutX="72.0" layoutY="435.0" mnemonicParsing="false" opacity="0.0" prefHeight="60.0" prefWidth="140.0" text="LOG IN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="300.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/orangeBtnSmall.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="adjustConfirmLbl" layoutX="314.0" layoutY="450.0" text="CONFIRM" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans" size="22.0" />
+               </font>
+            </Label>
+            <Button fx:id="adjustConfirmBtn" layoutX="292.0" layoutY="435.0" mnemonicParsing="false" opacity="0.0" prefHeight="60.0" prefWidth="140.0" text="LOG IN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="CircularStd-Medium" size="25.0" />
+               </font>
+            </Button>
+            <Label fx:id="userNameLabel11" layoutX="40.0" layoutY="170.0" text="Artist Name:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="userNameLabel12" layoutX="40.0" layoutY="260.0" text="Genre:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="userNameLabel13" layoutX="40.0" layoutY="350.0" text="Year:" textFill="#f7620e">
+               <font>
+                  <Font name="Raleway" size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="adjustName" layoutX="40.0" layoutY="115.0" prefHeight="31.0" prefWidth="401.0" />
+            <TextField fx:id="adjustArtist" layoutX="40.0" layoutY="205.0" prefHeight="31.0" prefWidth="401.0" />
+            <TextField fx:id="adjustGenre" layoutX="40.0" layoutY="295.0" prefHeight="31.0" prefWidth="401.0" />
+            <TextField fx:id="adjustYear" layoutX="40.0" layoutY="385.0" prefHeight="31.0" prefWidth="401.0" />
          </children>
       </AnchorPane>
    </children>
