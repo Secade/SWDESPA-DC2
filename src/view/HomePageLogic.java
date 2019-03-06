@@ -311,6 +311,10 @@ public class HomePageLogic extends View{
         });
 
         uploadBtn.setOnMouseClicked(event -> {
+            /* Sources:
+            * https://stackoverflow.com/questions/16433915/how-to-copy-file-from-one-location-to-another-location
+            * https://www.youtube.com/watch?v=hNz8Xf4tMI4
+            * */
             FileChooser fc = new FileChooser();
             List<File> selectedFiles;
             fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"));
