@@ -1,17 +1,27 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import model.Database;
+import model.User;
+import model.UserService;
 
-public class MainLogic extends View{
+import javax.xml.crypto.Data;
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+public class MainLogic extends View {
 
     @FXML
     private MediaView loginVideo;
@@ -26,7 +36,25 @@ public class MainLogic extends View{
     @FXML
     private Label guestLbl, userNameLbl, passwordLbl, loginLbl, signUpLbl;
 
+    private  int idCount;
+    private Database DB;
+    private User user;
+
+    private static final Pattern pattern = Pattern.compile("^(?=.*\\d)(?=.*\\p{Punct})(?=.*[a-zA-z]).{6,20}$");
+
+    public void setDatabase(Database DB){
+        this.DB = DB;
+    }
+
     public void initialize(){
+        DB = new Database();
+
+        UserService service = new UserService(DB);
+
+        List<User> userIdList = service.getUserIdList();
+        List<User> passwordList = service.getPasswordList();
+
+        idCount = userIdList.size();
 
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
         mediaPlayer.setAutoPlay(true);
@@ -39,21 +67,58 @@ public class MainLogic extends View{
 
         guestBtn.setOnAction(event -> {
             mediaPlayer.stop();
+
+            user = new User();
+            user.setUsername(userIdList.get(0).getUsername());
+            System.out.println(userIdList.get(0).getUsername());
+            user.setPassword(userIdList.get(0).getPassword());
+            System.out.println(userIdList.get(0).getPassword());
+
             try {
-                ChangeScene("/view/HomePage.fxml");
+                FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
+                Stage stage = (Stage) guestBtn.getScene().getWindow();
+                Scene scene = new Scene(pane.load());
+//                HomePageLogic controller = new HomePageLogic();
+                HomePageLogic controller = pane.getController();
+                controller.setDatabase(DB);
+                controller.setUser(user);
+                stage.setScene(scene);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
         logInBtn.setOnAction(event -> {
-            if(true) {
-                mediaPlayer.stop();
-                try {
-                    ChangeScene("/view/HomePage.fxml");
-                } catch (Exception e) {
-                    e.printStackTrace();
+            boolean check = false;
+            for(int i=0;i<userIdList.size();i++) {
+                if (userNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0 &&
+                        passwordInput.getText().compareTo(passwordList.get(i).getPassword()) == 0) {
+
+                    user = new User();
+                    user.setUsername(String.valueOf(userIdList.get(i).getUsername()));
+                    user.setPassword(String.valueOf(userIdList.get(i).getPassword()));
+
+                    mediaPlayer.stop();
+                    try {
+                        FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
+                        Stage stage = (Stage) logInBtn.getScene().getWindow();
+                        Scene scene = new Scene(pane.load());
+                        HomePageLogic controller = pane.getController();
+                        controller.setDatabase(DB);
+                        controller.setUser(user);
+                        stage.setScene(scene);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    check=true;
                 }
+
+            }
+            if(!check){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Invalid Username or Password");
+                alert.showAndWait();
             }
         });
 
@@ -86,9 +151,13 @@ public class MainLogic extends View{
         });
 
         signUpBtn.setOnAction(event -> {
+            newPasswordInput.clear();
+            newUserNameInput.clear();
+            userNameInput.clear();
+            passwordInput.clear();
+
             loginPane.setVisible(false);
             loginPane.setDisable(true);
-
             signUpPage.setVisible(true);
             signUpPage.setDisable(false);
         });
@@ -130,6 +199,11 @@ public class MainLogic extends View{
         });
 
         newBackBtn.setOnAction(event -> {
+            newPasswordInput.clear();
+            newUserNameInput.clear();
+            userNameInput.clear();
+            passwordInput.clear();
+
             loginPane.setVisible(true);
             loginPane.setDisable(false);
 
@@ -138,13 +212,64 @@ public class MainLogic extends View{
         });
 
         newSignUpBtn.setOnAction(event -> {
-            if(true) {
-                loginPane.setVisible(true);
-                loginPane.setDisable(false);
 
-                signUpPage.setVisible(false);
-                signUpPage.setDisable(true);
+
+
+            int y=0,z=0;
+
+            for(int i=0;i<userIdList.size();i++) {
+                if (newUserNameInput.getText().compareTo(userIdList.get(i).getUsername()) == 0) {
+                    z += 1;
+                }
+
             }
+            if(!pattern.matcher(newPasswordInput.getText()).matches()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Invalid Password");
+                alert.setContentText("Password Requires at least 1 number, 1 special character, 6-20 characters, 1 alphabetical character");
+                alert.showAndWait();
+                y+=1;
+            }
+            if (z==0&&y==0) {
+                if(!newUserNameInput.getText().trim().isEmpty()&&!newPasswordInput.getText().trim().isEmpty()) {
+
+                    User c = new User();
+
+                    c.setId(idCount);
+                    //idCount++;
+                    c.setUsername(newUserNameInput.getText());
+                    c.setPassword(newPasswordInput.getText());
+
+                    service.add(c);
+
+                    loginPane.setVisible(true);
+                    loginPane.setDisable(false);
+
+                    signUpPage.setVisible(false);
+                    signUpPage.setDisable(true);
+                    this.initialize();
+                    try {
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+            else if(z>0){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Username has been Taken Already!");
+                alert.showAndWait();
+            }
+            else if(newUserNameInput.getText().trim().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Pleases Input an Username");
+                alert.showAndWait();
+            }
+
         });
 
 

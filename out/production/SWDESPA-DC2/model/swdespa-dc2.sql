@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `spotcloud` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+USE `spotcloud`;
+-- MySQL dump 10.13  Distrib 8.0.15, for Win64 (x86_64)
 --
--- Host: localhost    Database: swdespa-dc2
+-- Host: localhost    Database: spotcloud
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version	8.0.15
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,6 +32,15 @@ CREATE TABLE `playlist` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `playlist`
+--
+
+LOCK TABLES `playlist` WRITE;
+/*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `song`
 --
 
@@ -49,6 +60,15 @@ CREATE TABLE `song` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `song`
+--
+
+LOCK TABLES `song` WRITE;
+/*!40000 ALTER TABLE `song` DISABLE KEYS */;
+/*!40000 ALTER TABLE `song` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `song_album`
 --
 
@@ -62,6 +82,15 @@ CREATE TABLE `song_album` (
   PRIMARY KEY (`albumID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `song_album`
+--
+
+LOCK TABLES `song_album` WRITE;
+/*!40000 ALTER TABLE `song_album` DISABLE KEYS */;
+/*!40000 ALTER TABLE `song_album` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `song_artist`
@@ -78,6 +107,15 @@ CREATE TABLE `song_artist` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `song_artist`
+--
+
+LOCK TABLES `song_artist` WRITE;
+/*!40000 ALTER TABLE `song_artist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `song_artist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `song_genre`
 --
 
@@ -90,6 +128,15 @@ CREATE TABLE `song_genre` (
   PRIMARY KEY (`genreID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `song_genre`
+--
+
+LOCK TABLES `song_genre` WRITE;
+/*!40000 ALTER TABLE `song_genre` DISABLE KEYS */;
+/*!40000 ALTER TABLE `song_genre` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `song_playlist`
@@ -108,6 +155,15 @@ CREATE TABLE `song_playlist` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `song_playlist`
+--
+
+LOCK TABLES `song_playlist` WRITE;
+/*!40000 ALTER TABLE `song_playlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `song_playlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -115,16 +171,23 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `user` (
-  `userID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
   `userName` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `firstName` varchar(45) NOT NULL,
-  `middleName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) NOT NULL,
-  PRIMARY KEY (`userID`),
-  UNIQUE KEY `userID_UNIQUE` (`userID`)
+  PRIMARY KEY (`userID`,`userName`),
+  UNIQUE KEY `userName_UNIQUE` (`userName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (0,'Guest','ultimate'),(1,'eada','1e!111'),(2,'Jed','ultimate'),(3,'Jeffrey','wad'),(4,'earl','EArl5333!'),(5,'www','w2!www');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -135,4 +198,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-28 15:40:18
+-- Dump completed on 2019-03-03 22:42:18
