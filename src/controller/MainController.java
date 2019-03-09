@@ -253,7 +253,7 @@ public class MainController {
 
                         User c = new User();
 
-                       // c.setId(idCount + 1);
+                        c.setId(idCount + 1);
                         idCount++;
                         c.setUsername(newUserNameInput.getText());
                         c.setPassword(newPasswordInput.getText());

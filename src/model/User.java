@@ -1,13 +1,13 @@
 package model;
 
 public class User {
-    public static final String TABLE_NAME = "users";
+    public static final String TABLE_NAME = "user";
 
     private int id;
     private String username;
     private String password;
 
-  //  public static final String COL_ID = "userID";
+    public static final String COL_ID = "userID";
     public static final String COL_USERNAME = "username";
     public static final String COL_PASSWORD = "password";
 
@@ -25,5 +25,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

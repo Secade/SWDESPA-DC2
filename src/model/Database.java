@@ -3,7 +3,6 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.TimeZone;
 
 public class Database {
@@ -12,7 +11,7 @@ public class Database {
     private final static String URL = "jdbc:mysql://localhost:3306/";
     private final static String USERNAME = "root";
     private final static String PASSWORD = "lodi";
-    private final static String DATABASE = "spotcloud";
+    private final static String DATABASE = "swdespa_dc2";
 
     public Connection getConnection(){
         try{
