@@ -43,14 +43,13 @@ public class HomePageController {
     @FXML
     private Button playlistBtn, songsBtn, logoutBtn, editBtn,uploadBtn,adjustBackBtn,adjustConfirmBtn;
     @FXML
-    private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, logoutPic;
-
+    private ComboBox songSortBox;
+    @FXML
+    private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, logoutPic,sortBtn;
     @FXML
     private ComboBox<?> albumSelect,song1Select,song2Select, song3Select;
-
     @FXML
     private Label userNameLabel,backLbl,confirmLbl,adjustBackLbl,adjustConfirmLbl;
-
     @FXML
     private Button backBtn, confirmBtn;
 
@@ -59,6 +58,7 @@ public class HomePageController {
     private boolean playlistPaneOpen;
     private boolean isEditOpen;
     private boolean isSettingOpen;
+    private boolean isSortOpen;
     private int previousSong;
     private int nextSong;
 
@@ -80,6 +80,7 @@ public class HomePageController {
         playlistPaneOpen=false;
         isEditOpen=false;
         isSettingOpen=false;
+        isSortOpen=false;
         previousSong=0;
         nextSong=0;
 
@@ -241,6 +242,26 @@ public class HomePageController {
             playlistStack.get(i).getChildren().addAll(anchorPane.get(i));
             playList.getChildren().add(playlistStack.get(i));
         }
+
+        sortBtn.setOnMouseEntered(event -> {
+            sortBtn.setOpacity(1.0);
+        });
+
+        sortBtn.setOnMouseExited(event -> {
+            sortBtn.setOpacity(0.5);
+        });
+
+        sortBtn.setOnMouseClicked(event -> {
+            if(!isSortOpen) {
+                songSortBox.setDisable(false);
+                songSortBox.setVisible(true);
+                isSortOpen=true;
+            }else{
+                songSortBox.setDisable(true);
+                songSortBox.setVisible(false);
+                isSortOpen=false;
+            }
+        });
 
         backBtn.setOnMouseEntered(event -> {
             backLbl.setTextFill(Color.web( "#323232"));

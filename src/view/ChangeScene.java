@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.Database;
 
-import static model.Main.getStageM;
+
 
 public class ChangeScene {
     public ChangeScene(String fxml, Button component, Database DB)throws Exception{

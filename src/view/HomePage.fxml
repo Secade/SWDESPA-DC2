@@ -117,7 +117,7 @@
                </font>
             </Label>
             <Button fx:id="uploadBtn" layoutX="413.0" layoutY="18.0" mnemonicParsing="false" opacity="0.0" prefHeight="54.0" prefWidth="54.0" text="Button" />
-            <AnchorPane fx:id="playlistPane" disable="true" layoutY="90.0" prefHeight="510.0" prefWidth="960.0" visible="false">
+            <AnchorPane fx:id="playlistPane" layoutY="90.0" prefHeight="510.0" prefWidth="960.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#202020" height="40.0" stroke="#202020" strokeType="INSIDE" width="960.0" />
                   <Label layoutX="35.0" layoutY="4.0" text="Playlist Title" textFill="WHITE">
@@ -126,9 +126,28 @@
                      </font>
                   </Label>
                   <Line endX="80.0" layoutX="115.0" layoutY="30.0" startX="-100.0" stroke="#f7620e" />
-                  <ScrollPane fx:id="playlistScrollPane" hbarPolicy="NEVER" layoutY="35.0" prefHeight="475.0" prefWidth="960.0" style="-fx-background-color: #202020; -fx-border-color: #202020;">
+                  <Label layoutX="250.0" layoutY="4.0" text="Song Title" textFill="WHITE">
+                     <font>
+                        <Font name="Raleway" size="20.0" />
+                     </font>
+                  </Label>
+                  <Line endX="80.0" layoutX="330.0" layoutY="30.0" startX="-100.0" stroke="#f7620e" />
+                  <ScrollPane fx:id="playlistScrollPane" hbarPolicy="NEVER" layoutY="35.0" prefHeight="475.0" prefWidth="220.0" style="-fx-background-color: #202020; -fx-border-color: #202020;">
                      <content>
-                        <VBox fx:id="playList" prefHeight="475.0" prefWidth="960.0" style="-fx-background-color: #202020;" />
+                        <AnchorPane prefHeight="475.0" prefWidth="220.0" style="-fx-background-color: #202020;">
+                           <children>
+                              <Line endY="220.0" layoutX="210.0" layoutY="235.0" startY="-220.0" stroke="#f7620e" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane fx:id="playlistScrollPane1" hbarPolicy="NEVER" layoutX="220.0" layoutY="35.0" prefHeight="475.0" prefWidth="740.0" style="-fx-background-color: #202020; -fx-border-color: #202020;">
+                     <content>
+                        <AnchorPane prefHeight="475.0" prefWidth="960.0" style="-fx-background-color: #202020;">
+                           <children>
+                              <Line endY="220.0" layoutY="235.0" scaleX="2.0" startY="-220.0" stroke="#f7620e" />
+                           </children>
+                        </AnchorPane>
                      </content>
                   </ScrollPane>
                </children>
@@ -177,6 +196,12 @@
                         <VBox fx:id="songList" prefHeight="475.0" prefWidth="960.0" style="-fx-background-color: #202020;" />
                      </content>
                   </ScrollPane>
+                  <ImageView fx:id="sortBtn" fitHeight="25.0" fitWidth="25.0" layoutX="8.0" layoutY="3.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                     <image>
+                        <Image url="@../media/Play.png" />
+                     </image>
+                  </ImageView>
+                  <ComboBox fx:id="songSortBox" disable="true" layoutY="40.0" prefHeight="35.0" prefWidth="200.0" visible="false" />
                </children>
             </AnchorPane>
          </children></AnchorPane>
@@ -383,7 +408,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="songSettingPane" layoutX="350.0" layoutY="50.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #323232;">
+      <AnchorPane fx:id="songSettingPane" disable="true" layoutX="350.0" layoutY="50.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #323232;" visible="false">
          <children>
             <Label layoutX="150.0" layoutY="10.0" text="Song Settings" textFill="#f7620e">
                <font>
