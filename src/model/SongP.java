@@ -1,6 +1,6 @@
 package model;
 
-public class Song {
+public class SongP {
     private String title;
     private String artist;
     private String genre;

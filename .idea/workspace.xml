@@ -229,9 +229,15 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< Updated upstream
     <option name="x" value="950" />
     <option name="width" value="980" />
     <option name="height" value="1090" />
+=======
+    <option name="x" value="692" />
+    <option name="width" value="680" />
+    <option name="height" value="735" />
+>>>>>>> Stashed changes
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -388,6 +394,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+<<<<<<< Updated upstream
     </configuration>
     <configuration name="SongParser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="model.SongParser" />
@@ -402,6 +409,8 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+=======
+>>>>>>> Stashed changes
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -411,6 +420,10 @@
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
+<<<<<<< Updated upstream
+=======
+      <option name="VM_PARAMETERS" />
+>>>>>>> Stashed changes
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -420,6 +433,10 @@
       </method>
     </configuration>
     <configuration default="true" type="TestNG">
+<<<<<<< Updated upstream
+=======
+      <option name="VM_PARAMETERS" />
+>>>>>>> Stashed changes
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -439,10 +456,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
+=======
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.MedPlayer" />
+      <item itemvalue="Application.Main (1)" />
+    </list>
+>>>>>>> Stashed changes
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.SongParser" />
+        <item itemvalue="Application.MedPlayer" />
+        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.MedPlayer" />
       </list>
     </recent_temporary>
