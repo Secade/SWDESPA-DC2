@@ -72,12 +72,19 @@ public class MainController {
             user.setId(userIdList.get(0).getId());
             user.setUsername(userIdList.get(0).getUsername());
             user.setPassword(userIdList.get(0).getPassword());
+            user.setFavoritesong1(-1);
+            user.setFavoritesong2(-1);
+            user.setFavoritesong3(-1);
+
+            System.out.println(userIdList.get(0).getId());
+            System.out.println(userIdList.get(0).getUsername());
+            System.out.println(userIdList.get(0).getPassword());
 
             try {
                 FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
                 Stage stage = (Stage) guestBtn.getScene().getWindow();
                 Scene scene = new Scene(pane.load());
-                HomePageController controller = pane.getController();
+                HomePageController controller = pane.<HomePageController>getController();
                 controller.setDatabase(DB);
                 controller.setUser(user);
                 stage.setScene(scene);
@@ -100,6 +107,9 @@ public class MainController {
                         System.out.println(userIdList.get(i).getId());
                         user.setUsername(String.valueOf(userIdList.get(i).getUsername()));
                         user.setPassword(String.valueOf(passwordList.get(i).getPassword()));
+                        user.setFavoritesong1(-1);
+                        user.setFavoritesong2(-1);
+                        user.setFavoritesong3(-1);
 
                         mediaPlayer.stop();
                         try {
@@ -240,9 +250,12 @@ public class MainController {
                         User c = new User();
 
                         c.setId(idCount);
-                        //idCount++;
+                        idCount++;
                         c.setUsername(newUserNameInput.getText());
                         c.setPassword(newPasswordInput.getText());
+                        c.setFavoritesong1(-1);
+                        c.setFavoritesong2(-1);
+                        c.setFavoritesong3(-1);
 
                         service.add(c);
 

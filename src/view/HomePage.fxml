@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -29,7 +31,7 @@
       <AnchorPane fx:id="songInfoPane" prefHeight="650.0" prefWidth="200.0" style="-fx-background-color: #101010;">
          <children>
             <ImageView fx:id="songPic" fitHeight="160.0" fitWidth="160.0" layoutX="25.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="15.0" layoutY="15.0" text="Current Song:" textFill="WHITE">
+            <Label layoutX="15.0" layoutY="15.0" text="Selected Song:" textFill="WHITE">
                <font>
                   <Font name="Raleway" size="22.0" />
                </font>
@@ -99,13 +101,13 @@
                </font>
             </Label>
             <Button fx:id="playlistBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="70.0" prefWidth="180.0" text="Button" />
-            <Circle fill="#f7620e" layoutX="440.0" layoutY="45.0" radius="27.0" stroke="#f7620e" strokeType="INSIDE" />
-            <Label fx:id="uploadLbl" layoutX="422.0" layoutY="-9.0" text="+" textFill="WHITE">
+            <Circle fill="#f7620e" layoutX="227.0" layoutY="46.0" radius="27.0" stroke="#f7620e" strokeType="INSIDE" />
+            <Label fx:id="uploadLbl" layoutX="209.0" layoutY="-8.0" text="+" textFill="WHITE">
                <font>
                   <Font name="Raleway" size="90.0" />
                </font>
             </Label>
-            <Button fx:id="uploadBtn" layoutX="413.0" layoutY="18.0" mnemonicParsing="false" opacity="0.0" prefHeight="54.0" prefWidth="54.0" text="Button" />
+            <Button fx:id="uploadBtn" layoutX="200.0" layoutY="19.0" mnemonicParsing="false" opacity="0.0" prefHeight="54.0" prefWidth="54.0" text="Button" />
             <AnchorPane fx:id="playlistPane" layoutY="90.0" prefHeight="510.0" prefWidth="960.0">
                <children>
                   <ScrollPane fx:id="playlistScrollPane" hbarPolicy="NEVER" layoutY="35.0" prefHeight="475.0" prefWidth="185.0" style="-fx-background-color: #202020; -fx-border-color: #202020;" vbarPolicy="NEVER">
@@ -132,53 +134,67 @@
                               <Font name="Raleway" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="162.0" layoutY="5.0" text="Artist" textFill="WHITE">
+                        <Label layoutX="225.0" layoutY="5.0" text="Artist" textFill="WHITE">
                            <font>
                               <Font name="Raleway" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="292.0" layoutY="5.0" text="Album" textFill="WHITE">
+                        <Label layoutX="370.0" layoutY="5.0" text="Album" textFill="WHITE">
                            <font>
                               <Font name="Raleway" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="422.0" layoutY="5.0" text="Genre" textFill="WHITE">
+                        <Label layoutX="510.0" layoutY="5.0" text="Genre" textFill="WHITE">
                            <font>
                               <Font name="Raleway" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="552.0" layoutY="5.0" text="Date" textFill="WHITE">
+                        <Label layoutX="630.0" layoutY="5.0" text="Date" textFill="WHITE">
                            <font>
                               <Font name="Raleway" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="682.0" layoutY="5.0" text="Time" textFill="WHITE">
+                        <Label layoutX="715.0" layoutY="5.0" text="Time" textFill="WHITE">
                            <font>
                               <Font name="Raleway" size="20.0" />
                            </font>
                         </Label>
-                        <Line endX="100.0" layoutX="27.0" layoutY="31.0" stroke="#f7620e" />
-                        <Line endX="100.0" layoutX="157.0" layoutY="31.0" stroke="#f7620e" />
-                        <Line endX="100.0" layoutX="287.0" layoutY="31.0" stroke="#f7620e" />
-                        <Line endX="100.0" layoutX="417.0" layoutY="31.0" stroke="#f7620e" />
-                        <Line endX="100.0" layoutX="547.0" layoutY="31.0" stroke="#f7620e" />
-                        <Line endX="100.0" layoutX="677.0" layoutY="31.0" stroke="#f7620e" />
+                        <Line endX="180.0" layoutX="27.0" layoutY="30.0" stroke="#f7620e" />
+                        <Line endX="135.0" layoutX="220.0" layoutY="30.0" stroke="#f7620e" />
+                        <Line endX="130.0" layoutX="365.0" layoutY="30.0" stroke="#f7620e" />
+                        <Line endX="110.0" layoutX="505.0" layoutY="30.0" stroke="#f7620e" />
+                        <Line endX="75.0" layoutX="625.0" layoutY="30.0" stroke="#f7620e" />
+                        <Line endX="65.0" layoutX="710.0" layoutY="30.0" stroke="#f7620e" />
+                        <ScrollPane fx:id="songScrollPane" hbarPolicy="NEVER" layoutY="35.0" prefHeight="475.0" prefWidth="778.0" style="-fx-background-color: #202020; -fx-border-color: #202020;" vbarPolicy="NEVER">
+                           <content>
+                              <VBox fx:id="songList" prefHeight="475.0" prefWidth="778.0" style="-fx-background-color: #202020;" />
+                           </content>
+                        </ScrollPane>
                         <ImageView fx:id="sortBtn" fitHeight="25.0" fitWidth="25.0" layoutX="-3.0" layoutY="6.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                            <image>
                               <Image url="@../media/Play.png" />
                            </image>
                         </ImageView>
                         <ComboBox fx:id="songSortBox" disable="true" layoutX="-3.0" layoutY="41.0" prefHeight="35.0" prefWidth="200.0" visible="false" />
-                        <ScrollPane fx:id="songScrollPane" hbarPolicy="NEVER" layoutY="35.0" prefHeight="475.0" prefWidth="778.0" style="-fx-background-color: #202020; -fx-border-color: #202020;" vbarPolicy="NEVER">
-                           <content>
-                              <VBox fx:id="songList" prefHeight="475.0" prefWidth="778.0" style="-fx-background-color: #202020;" />
-                           </content>
-                        </ScrollPane>
                      </children>
                   </AnchorPane>
                </children>
             </AnchorPane>
             <Line endY="285.0" layoutX="175.0" layoutY="300.0" startY="-165.0" stroke="#f7620e" />
+            <TabPane disable="true" layoutX="266.0" prefHeight="200.0" prefWidth="317.0" style="-fx-background-color: #202020;" stylesheets="@../CSS/HomePage.css" tabClosingPolicy="UNAVAILABLE" visible="false">
+              <tabs>
+                <Tab text="Add Song">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="Add Playlist">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </children></AnchorPane>
       <AnchorPane fx:id="userInfoPane" disable="true" layoutX="1000.0" prefHeight="650.0" prefWidth="200.0" style="-fx-background-color: #101010;" visible="false">
          <children>

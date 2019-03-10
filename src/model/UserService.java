@@ -17,7 +17,7 @@ public class UserService {
     public boolean add(User c){
         // ADD CONTACT
 
-        String query = "INSERT INTO " + User.TABLE_NAME + " VALUE (?, ?, ?)";
+        String query = "INSERT INTO " + User.TABLE_NAME + " VALUE (?, ?, ?,?,?,?)";
         Connection connection = db.getConnection();
 
         try{
@@ -25,6 +25,9 @@ public class UserService {
             statement.setInt(1,c.getId());
             statement.setString(2,c.getUsername());
             statement.setString(3,c.getPassword());
+            statement.setInt(4,c.getFavoritesong1());
+            statement.setInt(5,c.getFavoritesong2());
+            statement.setInt(6,c.getFavoritesong3());
 
             boolean added = statement.execute();
             return added;
@@ -50,6 +53,9 @@ public class UserService {
                 c.setId(rs.getInt(User.COL_ID));
                 c.setUsername(rs.getString(User.COL_USERNAME));
                 c.setPassword(rs.getString(User.COL_PASSWORD));
+                c.setId(rs.getInt(User.COL_FAVORITESONG1));
+                c.setId(rs.getInt(User.COL_FAVORITESONG2));
+                c.setId(rs.getInt(User.COL_FAVORITESONG3));
                 contacts.add(c);
             }
 
@@ -89,7 +95,7 @@ public class UserService {
         Connection connection = db.getConnection();
         List<User> contacts = new ArrayList<>();
 
-        String query = "SELECT userID,username FROM " + User.TABLE_NAME;
+        String query = "SELECT userID, username, password FROM " + User.TABLE_NAME;
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery();
