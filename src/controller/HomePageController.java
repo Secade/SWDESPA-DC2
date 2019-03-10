@@ -1,10 +1,12 @@
 package controller;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -12,13 +14,17 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import view.MedPlayer;
+import javafx.util.Duration;
 
-import java.io.File;
+import javax.script.Bindings;
 
 public class HomePageController implements EventHandler<MouseEvent> {
 
-    MedPlayer mediaPlayer = new MedPlayer(new File("Meghan Trainor - Me Too"));
+    //plays music; replaced the MedPlayer
+    MediaController musicControl = new MediaController();
+
+    @FXML
+    private Slider mediaSlider, volumeSlider;
 
     @FXML
     private MediaView homeVideo;
@@ -31,7 +37,9 @@ public class HomePageController implements EventHandler<MouseEvent> {
     @FXML
     private Button playlistBtn, songsBtn;
     @FXML
-    private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn;
+    private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, volumeImg;
+
+
 
     public void initialize(){
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
@@ -81,14 +89,69 @@ public class HomePageController implements EventHandler<MouseEvent> {
             playBtn.setLayoutY(0);
         });
 
-        playBtn.setOnMouseClicked(this);
-
         playBtn.setOnMouseExited(event -> {
             playBtn.setOpacity(0.5);
             playBtn.setFitHeight(40);
             playBtn.setFitWidth(40);
             playBtn.setLayoutX(220);
             playBtn.setLayoutY(5);
+        });
+
+        //play/pause song (dependent on media status)
+        playBtn.setOnMouseClicked(this);
+
+        //jump forward 10 seconds
+        fastForwardBtn.setOnMouseClicked(e -> {
+            musicControl.fastForward();
+        });
+
+        //repeat current song
+        playBackBtn.setOnMouseClicked(event -> {
+            musicControl.playback();
+        });
+
+        //set on repeat
+        repeatBtn.setOnMouseClicked(e -> {
+            musicControl.repeat();
+        });
+
+        //next song
+        forwardBtn.setOnMouseClicked(e -> {
+            musicControl.nextSong();
+        });
+
+        //previous song
+        previousBtn.setOnMouseClicked(e -> {
+            musicControl.previousSong();
+        });
+
+        //shuffle button
+        shuffleBtn.setOnMouseClicked(e -> {
+            if (musicControl.mp.isShuffled()){
+                musicControl.mp.setShuffled(false);
+            }
+            else{
+                musicControl.mp.setShuffled(true);
+                musicControl.shuffle();
+            }
+        });
+
+        // volumeslider
+        volumeSlider.setValue(musicControl.mp.getMediaPlayer().getVolume() * 100);
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                musicControl.mp.getMediaPlayer().setVolume(volumeSlider.getValue() / 100);
+            }
+        });
+
+        volumeImg.setOnMouseClicked(e -> {
+            if (musicControl.mp.getMediaPlayer().isMute()){
+                musicControl.mp.getMediaPlayer().setMute(false);
+            }
+            else{
+                musicControl.mp.getMediaPlayer().setMute(true);
+            }
         });
 
     }
@@ -122,19 +185,18 @@ public class HomePageController implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
-        if (!mediaPlayer.isPlaying()){
-            mediaPlayer.play();
-            songNameLbl.setText("Me Too");
-            artistNameLbl.setText("Meghan Trainor");
-            albumNameLbl.setText("Thank You");
-            genreTypeLbl.setText("Pop");
-            yearLbl.setText("2016");
-            songStartTime.setText(String.valueOf(mediaPlayer.getStartTime().toMinutes()));
-            songEndTime.setText(String.valueOf(mediaPlayer.getEndTime()));
-        }
-        else if (mediaPlayer.isPlaying()){
+        if (musicControl.mp.getMediaPlayerStatus() == musicControl.mp.getMediaPlayerStatus().PLAYING){
             System.out.println("paused from HomePageController");
-            mediaPlayer.pause();
+            musicControl.pause();
+        }
+        else{
+            System.out.println("play");
+            musicControl.play();
+            songNameLbl.setText("change");
+            artistNameLbl.setText("change");
+            albumNameLbl.setText("change");
+            genreTypeLbl.setText("change");
+            yearLbl.setText("change");
         }
     }
 }
