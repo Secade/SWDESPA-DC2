@@ -248,4 +248,29 @@ public class SongService {
         return songs;
     }
 
+    public boolean updateSong(int songID, String songTitle, String genre, String album, String artist, int year, float duration, String filename){
+        String query = "UPDATE " + Song.TABLE_NAME + " SET"
+                + Song.COL_SONGTITLE + "=" +songTitle + ","
+                + Song.COL_GENRE + "=" + genre + ","
+                + Song.COL_ALBUM + "=" + album + ","
+                + Song.COL_ARTIST + "=" + artist + ","
+                + Song.COL_YEAR + "=" + year + ","
+                + Song.COL_DURATION + "=" + duration + ","
+                + Song.COL_FILENAME+ "=" + filename 
+
+                + "WHERE" + Song.COL_SONGID + "=" + songID ;
+
+        Connection connection = db.getConnection();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            boolean added = statement.execute();
+            return added;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
