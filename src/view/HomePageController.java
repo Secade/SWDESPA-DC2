@@ -102,16 +102,16 @@ public class HomePageController {
         for(int i=0;i<numSongs;i++){
             songStack.add(new StackPane());
             rectangles.add(new Rectangle());
-            rectangles.get(i).setWidth(960);
+            rectangles.get(i).setWidth(775);
             rectangles.get(i).setHeight(50);
             rectangles.get(i).setFill(Color.web("#202020"));
             songStack.get(i).getChildren().add(rectangles.get(i));
             anchors.add(new AnchorPane());
             ImageView gear = new ImageView(new Image(getClass().getResourceAsStream("/media/gearWhite.png")));
-            gear.setFitWidth(40);
-            gear.setFitHeight(30);
+            gear.setFitWidth(30);
+            gear.setFitHeight(25);
             gear.setLayoutX(0);
-            gear.setLayoutY(8);
+            gear.setLayoutY(10);
             gear.setOpacity(0.0);
             gear.setDisable(true);
             gear.setOnMouseEntered(event -> {
@@ -163,32 +163,32 @@ public class HomePageController {
             Label title = new Label("Title");
             title.setTextFill(Color.web("#FFFFFF"));
             title.setFont(new Font("Raleway",20));
-            title.setLayoutX(40);
+            title.setLayoutX(25);
             title.setLayoutY(10);
             Label artist = new Label ("Artist");
             artist.setTextFill(Color.web("#FFFFFF"));
             artist.setFont(new Font("Raleway",20));
-            artist.setLayoutX(235);
+            artist.setLayoutX(155);
             artist.setLayoutY(10);
             Label album = new Label ("Album");
             album.setTextFill(Color.web("#FFFFFF"));
             album.setFont(new Font("Raleway",20));
-            album.setLayoutX(390);
+            album.setLayoutX(285);
             album.setLayoutY(10);
             Label genre = new Label ("Genre");
             genre.setTextFill(Color.web("#FFFFFF"));
             genre.setFont(new Font("Raleway",20));
-            genre.setLayoutX(545);
+            genre.setLayoutX(415);
             genre.setLayoutY(10);
             Label date = new Label ("Date");
             date.setTextFill(Color.web("#FFFFFF"));
             date.setFont(new Font("Raleway",20));
-            date.setLayoutX(700);
+            date.setLayoutX(545);
             date.setLayoutY(10);
             Label time = new Label ("Time");
             time.setTextFill(Color.web("#FFFFFF"));
             time.setFont(new Font("Raleway",20));
-            time.setLayoutX(855);
+            time.setLayoutX(675);
             time.setLayoutY(10);
             anchors.get(i).getChildren().addAll(gear,title,artist,album,genre,date,time);
             int finalI = i;
@@ -228,7 +228,7 @@ public class HomePageController {
         for(int i=0;i<numSongs;i++){
             playlistStack.add(new StackPane());
             boxes.add(new Rectangle());
-            boxes.get(i).setWidth(960);
+            boxes.get(i).setWidth(220);
             boxes.get(i).setHeight(50);
             boxes.get(i).setFill(Color.web("#202020"));
             playlistStack.get(i).getChildren().add(boxes.get(i));
@@ -236,7 +236,7 @@ public class HomePageController {
             Label title = new Label("Title");
             title.setTextFill(Color.web("#FFFFFF"));
             title.setFont(new Font("Raleway",20));
-            title.setLayoutX(30);
+            title.setLayoutX(10);
             title.setLayoutY(10);
             anchorPane.get(i).getChildren().addAll(title);
             playlistStack.get(i).getChildren().addAll(anchorPane.get(i));
@@ -387,33 +387,6 @@ public class HomePageController {
                 playlistPane.setDisable(false);
                 playlistPane.setVisible(true);
                 playlistPaneOpen=true;
-                songListPane.setDisable(true);
-                songListPane.setVisible(false);
-                songPaneOpen=false;
-            }
-        });
-
-        songsBtn.setOnMouseEntered(event -> {
-            songsLbl.setTextFill(Color.web( "#323232"));
-        });
-
-        songsBtn.setOnMouseExited(event -> {
-            songsLbl.setTextFill(Color.web( "#FFFFFF"));
-        });
-
-
-        songsBtn.setOnAction(event -> {
-            if(songPaneOpen) {
-                songListPane.setDisable(true);
-                songListPane.setVisible(false);
-                songPaneOpen=false;
-            }else {
-                songListPane.setDisable(false);
-                songListPane.setVisible(true);
-                songPaneOpen=true;
-                playlistPane.setDisable(true);
-                playlistPane.setVisible(false);
-                playlistPaneOpen=false;
             }
         });
 
