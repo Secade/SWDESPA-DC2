@@ -118,8 +118,8 @@ public class UserService {
     public boolean updateFaveSong1(int song1ID){
         // ADD CONTACT
 
-        String query = "UPDATE " + User.TABLE_NAME + " SET" + User.COL_FAVESONG1+ "=" + song1ID
-                        + "WHERE" + User.COL_ID + "=" + loggedin.getId() ;
+        String query = "UPDATE " + User.TABLE_NAME + " SET " + User.COL_FAVESONG1+ "=" + song1ID
+                        + "WHERE " + User.COL_ID + "=" + loggedin.getId() ;
         Connection connection = db.getConnection();
 
         try{
@@ -136,8 +136,8 @@ public class UserService {
     public boolean updateFaveSong2(int song1ID){
         // ADD CONTACT
 
-        String query = "UPDATE " + User.TABLE_NAME + " SET" + User.COL_FAVESONG2+ "=" + song1ID
-                + "WHERE" + User.COL_ID + "=" + loggedin.getId() ;
+        String query = "UPDATE " + User.TABLE_NAME + " SET 1111111111111111111" + User.COL_FAVESONG2+ "=" + song1ID
+                + "WHERE " + User.COL_ID + "=" + loggedin.getId() ;
         Connection connection = db.getConnection();
 
         try{
@@ -154,8 +154,8 @@ public class UserService {
     public boolean updateFaveSong3(int song1ID){
         // ADD CONTACT
 
-        String query = "UPDATE " + User.TABLE_NAME + " SET" + User.COL_FAVESONG3+ "=" + song1ID
-                + "WHERE" + User.COL_ID + "=" + loggedin.getId() ;
+        String query = "UPDATE " + User.TABLE_NAME + " SET " + User.COL_FAVESONG3+ "=" + song1ID
+                + "WHERE " + User.COL_ID + "=" + loggedin.getId() ;
         Connection connection = db.getConnection();
 
         try{
@@ -172,8 +172,8 @@ public class UserService {
     public boolean updateFavePlaylist(int playlistID){
         // ADD CONTACT
 
-        String query = "UPDATE " + User.TABLE_NAME + " SET" + User.COL_FAVEPLAYLIST+ "=" + playlistID
-                + "WHERE" + User.COL_ID + "=" + loggedin.getId() ;
+        String query = "UPDATE " + User.TABLE_NAME + " SET " + User.COL_FAVEPLAYLIST+ "=" + playlistID
+                + "WHERE " + User.COL_ID + "=" + loggedin.getId() ;
         Connection connection = db.getConnection();
 
         try{

@@ -256,9 +256,9 @@ public class SongService {
                 + Song.COL_ARTIST + "=" + artist + ","
                 + Song.COL_YEAR + "=" + year + ","
                 + Song.COL_DURATION + "=" + duration + ","
-                + Song.COL_FILENAME+ "=" + filename 
+                + Song.COL_FILENAME+ "=" + filename
 
-                + "WHERE" + Song.COL_SONGID + "=" + songID ;
+                + "WHERE " + Song.COL_SONGID + "=" + songID ;
 
         Connection connection = db.getConnection();
 
