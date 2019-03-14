@@ -17,14 +17,15 @@ public class SongInPlaylistService {
     public boolean add(SongInPlaylist s){
         // ADD CONTACT
 
-        String query = "INSERT INTO " + SongInPlaylist.TABLE_NAME + " VALUE (?, ?, ?,?)";
+        String query = "INSERT INTO " + SongInPlaylist.TABLE_NAME + " VALUE (?, ?, ?, ?)";
         Connection connection = db.getConnection();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,s.getSongInPlaylistID());
-            statement.setInt(2,s.getSongID());
-            statement.setInt(3,s.getPlaylistID());
+            statement.setInt(2,s.getPlaylistID());
+            statement.setInt(3,s.getSongID());
+            statement.setInt(4,s.getUserID());
 
             boolean added = statement.execute();
             return added;
@@ -47,8 +48,10 @@ public class SongInPlaylistService {
 
             while(rs.next()){
                 SongInPlaylist sip = new SongInPlaylist();
+                sip.setSongInPlaylistID(rs.getInt(SongInPlaylist.COL_SONGINPLAYLIST));
                 sip.setSongID(rs.getInt(SongInPlaylist.COL_SONGID));
                 sip.setPlaylistID(rs.getInt(SongInPlaylist.COL_PLAYLISTID));
+                sip.setUserID(rs.getInt(SongInPlaylist.COL_USERID));
                 songinplaylists.add(sip);
             }
 
@@ -64,11 +67,11 @@ public class SongInPlaylistService {
         Connection connection = db.getConnection();
         List<Song> songinplaylists = new ArrayList<>();
 
-        String query = "SELECT" +Song.COL_SONGID+ "," + Song.COL_SONGTITLE+ "," +Song.COL_GENRE+ "," + Song.COL_ALBUM +","
-                        + Song.COL_ARTIST +"," + Song.COL_YEAR +"," + Song.COL_DURATION + "," + Song.COL_FILENAME
-                        +"FROM " + SongInPlaylist.TABLE_NAME +"INNER JOIN" + Song.TABLE_NAME
-                        + "ON" + Song.TABLE_NAME +"."+Song.COL_SONGID +"=" + SongInPlaylist.TABLE_NAME+"."+SongInPlaylist.COL_SONGID
-                        + "WHERE"+SongInPlaylist.TABLE_NAME+"."+ SongInPlaylist.COL_PLAYLISTID + "=" + playlistid;
+        String query = "SELECT " +Song.TABLE_NAME +"."+Song.COL_SONGID+ " , " +Song.TABLE_NAME +"."+ Song.COL_SONGTITLE+ " , " +Song.TABLE_NAME +"."+Song.COL_GENRE+ " , " +Song.TABLE_NAME +"."+ Song.COL_ALBUM +" , "
+                        +Song.TABLE_NAME +"."+ Song.COL_ARTIST +" , " + Song.TABLE_NAME +"."+Song.COL_YEAR +" , " +Song.TABLE_NAME +"."+ Song.COL_DURATION + " , " +Song.TABLE_NAME +"."+ Song.COL_FILENAME
+                        +" FROM " + SongInPlaylist.TABLE_NAME +" INNER JOIN " + Song.TABLE_NAME
+                        + " ON " + Song.TABLE_NAME +"."+Song.COL_SONGID +"=" + SongInPlaylist.TABLE_NAME+"."+SongInPlaylist.COL_SONGID
+                        + " WHERE "+SongInPlaylist.TABLE_NAME+"."+ SongInPlaylist.COL_PLAYLISTID + "=" + playlistid;
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -93,6 +96,212 @@ public class SongInPlaylistService {
         return songinplaylists;
     }
 
+    public List<Song> sortbyAlbum(int playlistID){
+        Connection connection = db.getConnection();
+        List<Song> songs = new ArrayList<>();
+
+        String query = "SELECT " +Song.TABLE_NAME + "." + Song.COL_SONGID +","+ Song.TABLE_NAME + "." + Song.COL_SONGTITLE +","+Song.TABLE_NAME + "." + Song.COL_GENRE+","+ Song.TABLE_NAME + "." + Song.COL_ALBUM +","+ Song.TABLE_NAME + "." + Song.COL_ARTIST+","+ Song.TABLE_NAME + "." + Song.COL_YEAR+","+ Song.TABLE_NAME + "." + Song.COL_DURATION+","+ Song.TABLE_NAME + "." + Song.COL_FILENAME+
+                " FROM " + Song.TABLE_NAME +" right join " +SongInPlaylist.TABLE_NAME +
+                " ON " +Song.TABLE_NAME +"."+Song.COL_SONGID +"=" +SongInPlaylist.TABLE_NAME +"."+ SongInPlaylist.COL_SONGID +
+                " WHERE " +SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
+                " ORDER BY " + Song.COL_ALBUM;
 
 
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                Song s = new Song();
+                s.setSongID(rs.getInt(Song.COL_SONGID));
+                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
+                s.setGenre(rs.getString(Song.COL_GENRE));
+                s.setAlbum(rs.getString(Song.COL_ALBUM));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setYear(rs.getInt(Song.COL_YEAR));
+                s.setDuration(rs.getFloat(Song.COL_DURATION));
+                s.setFilename(rs.getString(Song.COL_FILENAME));
+                songs.add(s);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return songs;
+    }
+
+    public List<Song> sortbyArtist(int playlistID){
+        Connection connection = db.getConnection();
+        List<Song> songs = new ArrayList<>();
+
+        String query = "SELECT " +Song.TABLE_NAME + "." + Song.COL_SONGID +","+ Song.TABLE_NAME + "." + Song.COL_SONGTITLE +","+Song.TABLE_NAME + "." + Song.COL_GENRE+","+ Song.TABLE_NAME + "." + Song.COL_ALBUM +","+ Song.TABLE_NAME + "." + Song.COL_ARTIST+","+ Song.TABLE_NAME + "." + Song.COL_YEAR+","+ Song.TABLE_NAME + "." + Song.COL_DURATION+","+ Song.TABLE_NAME + "." + Song.COL_FILENAME+
+                " FROM " + Song.TABLE_NAME +" right join " +SongInPlaylist.TABLE_NAME +
+                " ON " +Song.TABLE_NAME +"."+Song.COL_SONGID +"=" +SongInPlaylist.TABLE_NAME +"."+ SongInPlaylist.COL_SONGID +
+                " WHERE " +SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
+                " ORDER BY " + Song.COL_ARTIST;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                Song s = new Song();
+                s.setSongID(rs.getInt(Song.COL_SONGID));
+                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
+                s.setGenre(rs.getString(Song.COL_GENRE));
+                s.setAlbum(rs.getString(Song.COL_ALBUM));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setYear(rs.getInt(Song.COL_YEAR));
+                s.setDuration(rs.getFloat(Song.COL_DURATION));
+                s.setFilename(rs.getString(Song.COL_FILENAME));
+                songs.add(s);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return songs;
+    }
+
+    public List<Song> sortbyGenre(int playlistID){
+        Connection connection = db.getConnection();
+        List<Song> songs = new ArrayList<>();
+
+        String query = "SELECT " +Song.TABLE_NAME + "." + Song.COL_SONGID +","+ Song.TABLE_NAME + "." + Song.COL_SONGTITLE +","+Song.TABLE_NAME + "." + Song.COL_GENRE+","+ Song.TABLE_NAME + "." + Song.COL_ALBUM +","+ Song.TABLE_NAME + "." + Song.COL_ARTIST+","+ Song.TABLE_NAME + "." + Song.COL_YEAR+","+ Song.TABLE_NAME + "." + Song.COL_DURATION+","+ Song.TABLE_NAME + "." + Song.COL_FILENAME+
+                " FROM " + Song.TABLE_NAME +" right join " +SongInPlaylist.TABLE_NAME +
+                " ON " +Song.TABLE_NAME +"."+Song.COL_SONGID +"=" +SongInPlaylist.TABLE_NAME +"."+ SongInPlaylist.COL_SONGID +
+                " WHERE " +SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
+                " ORDER BY " + Song.COL_GENRE;
+
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                Song s = new Song();
+                s.setSongID(rs.getInt(Song.COL_SONGID));
+                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
+                s.setGenre(rs.getString(Song.COL_GENRE));
+                s.setAlbum(rs.getString(Song.COL_ALBUM));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setYear(rs.getInt(Song.COL_YEAR));
+                s.setDuration(rs.getFloat(Song.COL_DURATION));
+                s.setFilename(rs.getString(Song.COL_FILENAME));
+                songs.add(s);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return songs;
+    }
+
+    public List<Song> sortbyYear(int playlistID){
+        Connection connection = db.getConnection();
+        List<Song> songs = new ArrayList<>();
+
+        String query = "SELECT " +Song.TABLE_NAME + "." + Song.COL_SONGID +","+ Song.TABLE_NAME + "." + Song.COL_SONGTITLE +","+Song.TABLE_NAME + "." + Song.COL_GENRE+","+ Song.TABLE_NAME + "." + Song.COL_ALBUM +","+ Song.TABLE_NAME + "." + Song.COL_ARTIST+","+ Song.TABLE_NAME + "." + Song.COL_YEAR+","+ Song.TABLE_NAME + "." + Song.COL_DURATION+","+ Song.TABLE_NAME + "." + Song.COL_FILENAME+
+                " FROM " + Song.TABLE_NAME +" right join " +SongInPlaylist.TABLE_NAME +
+                " ON " +Song.TABLE_NAME +"."+Song.COL_SONGID +"=" +SongInPlaylist.TABLE_NAME +"."+ SongInPlaylist.COL_SONGID +
+                " WHERE " +SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
+                " ORDER BY " + Song.COL_YEAR;
+
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                Song s = new Song();
+                s.setSongID(rs.getInt(Song.COL_SONGID));
+                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
+                s.setGenre(rs.getString(Song.COL_GENRE));
+                s.setAlbum(rs.getString(Song.COL_ALBUM));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setYear(rs.getInt(Song.COL_YEAR));
+                s.setDuration(rs.getFloat(Song.COL_DURATION));
+                s.setFilename(rs.getString(Song.COL_FILENAME));
+                songs.add(s);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return songs;
+    }
+
+    public List<Song> sortbyDuration(int playlistID) {
+        Connection connection = db.getConnection();
+        List<Song> songs = new ArrayList<>();
+
+        String query = "SELECT " +Song.TABLE_NAME + "." + Song.COL_SONGID +","+ Song.TABLE_NAME + "." + Song.COL_SONGTITLE +","+Song.TABLE_NAME + "." + Song.COL_GENRE+","+ Song.TABLE_NAME + "." + Song.COL_ALBUM +","+ Song.TABLE_NAME + "." + Song.COL_ARTIST+","+ Song.TABLE_NAME + "." + Song.COL_YEAR+","+ Song.TABLE_NAME + "." + Song.COL_DURATION+","+ Song.TABLE_NAME + "." + Song.COL_FILENAME+
+                " FROM " + Song.TABLE_NAME +" right join " +SongInPlaylist.TABLE_NAME +
+                " ON " +Song.TABLE_NAME +"."+Song.COL_SONGID +"=" +SongInPlaylist.TABLE_NAME +"."+ SongInPlaylist.COL_SONGID +
+                " WHERE " +SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
+                " ORDER BY " + Song.COL_DURATION;
+
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Song s = new Song();
+                s.setSongID(rs.getInt(Song.COL_SONGID));
+                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
+                s.setGenre(rs.getString(Song.COL_GENRE));
+                s.setAlbum(rs.getString(Song.COL_ALBUM));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setYear(rs.getInt(Song.COL_YEAR));
+                s.setDuration(rs.getFloat(Song.COL_DURATION));
+                s.setFilename(rs.getString(Song.COL_FILENAME));
+                songs.add(s);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return songs;
+    }
+
+    public List<Song> sortbyTitle(int playlistID){
+        Connection connection = db.getConnection();
+        List<Song> songs = new ArrayList<>();
+
+        String query = "SELECT " +Song.TABLE_NAME + "." + Song.COL_SONGID +","+ Song.TABLE_NAME + "." + Song.COL_SONGTITLE +","+Song.TABLE_NAME + "." + Song.COL_GENRE+","+ Song.TABLE_NAME + "." + Song.COL_ALBUM +","+ Song.TABLE_NAME + "." + Song.COL_ARTIST+","+ Song.TABLE_NAME + "." + Song.COL_YEAR+","+ Song.TABLE_NAME + "." + Song.COL_DURATION+","+ Song.TABLE_NAME + "." + Song.COL_FILENAME+
+                " FROM " + Song.TABLE_NAME +" right join " +SongInPlaylist.TABLE_NAME +
+                " ON " +Song.TABLE_NAME +"."+Song.COL_SONGID +"=" +SongInPlaylist.TABLE_NAME +"."+ SongInPlaylist.COL_SONGID +
+                " WHERE " +SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
+                " ORDER BY " + Song.COL_SONGTITLE;
+
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                Song s = new Song();
+                s.setSongID(rs.getInt(Song.COL_SONGID));
+                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
+                s.setGenre(rs.getString(Song.COL_GENRE));
+                s.setAlbum(rs.getString(Song.COL_ALBUM));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setYear(rs.getInt(Song.COL_YEAR));
+                s.setDuration(rs.getFloat(Song.COL_DURATION));
+                s.setFilename(rs.getString(Song.COL_FILENAME));
+                songs.add(s);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return songs;
+    }
 }

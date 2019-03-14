@@ -20,11 +20,6 @@ public class SongParser {
         String fileLocation = "C:/Users/jeffc/Desktop/To Do/SWDESPA-DC2/src/audio/Mortal Reminder.mp3";
 
         try {
-
-
-
-
-
             Database DB = new Database();
             SongService service = new SongService(DB);
 
