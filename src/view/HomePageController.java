@@ -787,7 +787,6 @@ public class HomePageController implements EventHandler<MouseEvent> {
             albumNameLbl.setText("change");
             genreTypeLbl.setText("change");
             yearLbl.setText("change");
-            System.out.println("hello");
         }
     }
 }
