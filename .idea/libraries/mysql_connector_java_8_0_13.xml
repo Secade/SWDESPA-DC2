@@ -1,7 +1,10 @@
 <component name="libraryTable">
   <library name="mysql-connector-java-8.0.13">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/lib/mysql-connector-java-8.0.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/poi-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/tika-core-1.20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/tika-parsers-1.20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/mysql-connector-java-8.0.15.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
