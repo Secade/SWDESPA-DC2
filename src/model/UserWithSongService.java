@@ -62,11 +62,11 @@ public class UserWithSongService {
 
         return userwithsongs;
     }
-    private boolean updatePlayCount(int songID){
-        String query = "UPDATE " + Song.TABLE_NAME + " SET "
+    private boolean updatePlayCount(int songID, int userID){
+        String query = "UPDATE " + UserWithSong.TABLE_NAME + "SET "
                     + UserWithSong.COL_PLAYCOUNT +"="+ UserWithSong.COL_PLAYCOUNT+"+1"
 
-                    +"WHERE " + UserWithSong.COL_USERID + "=" + loggedin.getId() +"AND "+ UserWithSong.COL_SONGID +"=" + songID  ;
+                    +"WHERE " + UserWithSong.COL_USERID + "=" + userID +"AND "+ UserWithSong.COL_SONGID +"=" + songID  ;
 
         Connection connection = db.getConnection();
 

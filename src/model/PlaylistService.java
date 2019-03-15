@@ -34,12 +34,13 @@ public class PlaylistService {
         return false;
     }
 
-    public List<Playlist> getAll(){
+    public List<Playlist> getAll(int userID){
         //GET CONTACTS
         Connection connection = db.getConnection();
         List<Playlist> playlists = new ArrayList<>();
 
-        String query = "SELECT * FROM " + Playlist.TABLE_NAME;
+        String query = "SELECT * FROM " + Playlist.TABLE_NAME
+                        +"WHERE " +Playlist.COL_USERID +"="+ userID;
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
