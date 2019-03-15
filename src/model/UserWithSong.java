@@ -3,6 +3,7 @@ package model;
 public class UserWithSong {
     public  static final  String TABLE_NAME = "userwithsong";
 
+    private int userwithsongID;
     private int userID;
     private int songID;
     private int playcount;
@@ -33,5 +34,13 @@ public class UserWithSong {
 
     public void setPlaycount(int playcount) {
         this.playcount = playcount;
+    }
+
+    public int getUserwithsongID() {
+        return userwithsongID;
+    }
+
+    public void setUserwithsongID(int userwithsongID) {
+        this.userwithsongID = userwithsongID;
     }
 }

@@ -19,14 +19,15 @@ public class UserWithSongService {
     public boolean add(UserWithSong u){
         // ADD CONTACT
 
-        String query = "INSERT INTO " + UserWithSong.TABLE_NAME + " VALUE (?, ?, ?)";
+        String query = "INSERT INTO " + UserWithSong.TABLE_NAME + " VALUE (?, ?, ?, ?)";
         Connection connection = db.getConnection();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1,u.getUserID());
-            statement.setInt(2,u.getSongID());
-            statement.setInt(3,0);
+            statement.setInt(1, u.getUserwithsongID());
+            statement.setInt(2,u.getUserID());
+            statement.setInt(3,u.getSongID());
+            statement.setInt(4,0);
 
             boolean added = statement.execute();
             return added;
