@@ -1,30 +1,25 @@
 package model;
 
 public class Song {
+    public static final String TABLE_NAME = "song";
+
     private int songID;
     private  String songTitle;
-    private int genreID;
-    private int albumID;
+    private String genre;
+    private String album;
+    private String artist;
     private int year;
     private float duration;
     private String filename;
 
-    public static final String TABLE_NAME = "song";
     public static final String COL_SONGID = "songID";
     public static final String COL_SONGTITLE = "songTitle";
-    public static final String COL_GENREID = "genreID";
-    public static final String COL_ALBUMID = "albumID";
+    public static final String COL_GENRE = "genre";
+    public static final String COL_ALBUM = "album";
+    public static final String COL_ARTIST = "artist";
     public static final String COL_YEAR = "Year";
     public static final String COL_DURATION = "Duration";
     public static final String COL_FILENAME = "Filename";
-
-    public Song(){
-
-    }
-
-    public Song(String st){
-        songTitle = st;
-    }
 
     public int getSongID() {
         return songID;
@@ -42,20 +37,20 @@ public class Song {
         this.songTitle = songTitle;
     }
 
-    public int getGenreID() {
-        return genreID;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGenreID(int genreID) {
-        this.genreID = genreID;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public int getAlbumID() {
-        return albumID;
+    public String getAlbum() {
+        return album;
     }
 
-    public void setAlbumID(int albumID) {
-        this.albumID = albumID;
+    public void setAlbum(String album) {
+        this.album = album;
     }
 
     public int getYear() {
@@ -80,5 +75,13 @@ public class Song {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 }

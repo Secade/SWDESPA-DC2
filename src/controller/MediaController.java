@@ -32,9 +32,11 @@ public class MediaController {
 
     public void repeat(){
         if (mp.getMediaPlayer().getCycleCount() == -1){
+            //play once
             mp.getMediaPlayer().setCycleCount(1);
         }
         else{
+            //numerical value = -1
             mp.getMediaPlayer().setCycleCount(mp.getMediaPlayer().INDEFINITE);
         }
     }
@@ -51,7 +53,6 @@ public class MediaController {
             mp.pickSong(new File("Nelly Furtado - Say It Right")); //not generic; should get the next Song file inside the ArrayList
 
         play();
-
     }
 
     public int shuffle(){
@@ -84,5 +85,4 @@ public class MediaController {
     public void addSong(File filename){
         mp.getSonglist().add(filename);
     }
-
 }

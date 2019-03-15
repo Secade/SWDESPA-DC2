@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.EventHandler;
@@ -14,11 +15,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
-
-import javax.script.Bindings;
 
 public class HomePageController implements EventHandler<MouseEvent> {
+
+    // mediaSlider.setMin(musicControl.mp.getMediaPlayer().getStartTime().toSeconds());
+    //                mediaSlider.setMax(musicControl.mp.getMediaPlayer().getStopTime().toSeconds());
 
     //plays music; replaced the MedPlayer
     MediaController musicControl = new MediaController();
@@ -103,11 +104,13 @@ public class HomePageController implements EventHandler<MouseEvent> {
         //jump forward 10 seconds
         fastForwardBtn.setOnMouseClicked(e -> {
             musicControl.fastForward();
+            mediaPlayer.seek(musicControl.mp.getMediaPlayer().getCurrentTime());
         });
 
         //repeat current song
         playBackBtn.setOnMouseClicked(event -> {
             musicControl.playback();
+            musicControl.play();
         });
 
         //set on repeat
@@ -141,7 +144,7 @@ public class HomePageController implements EventHandler<MouseEvent> {
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
-                musicControl.mp.getMediaPlayer().setVolume(volumeSlider.getValue() / 100);
+                    musicControl.mp.getMediaPlayer().setVolume(volumeSlider.getValue() / 100);
             }
         });
 
@@ -154,6 +157,35 @@ public class HomePageController implements EventHandler<MouseEvent> {
             }
         });
 
+        //updates values for mediaSlider (scrubber)\
+        musicControl.mp.getMediaPlayer().currentTimeProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                //tried to set the minimum and maximum value of the slider at the press of a button
+                updateValues();
+            }
+        });
+
+        //listener for mediaSlider
+        mediaSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                if (mediaSlider.isPressed()){
+                    musicControl.mp.getMediaPlayer().seek(musicControl.mp.getMediaPlayer().getMedia().getDuration().multiply(mediaSlider.getValue() / 100));
+                }
+            }
+        });
+    }
+
+    //implementation of Runnable to update value
+    protected void updateValues() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                mediaSlider.setValue(musicControl.mp.getMediaPlayer().getCurrentTime().toMillis() /
+                        musicControl.mp.getMediaPlayer().getTotalDuration().toMillis() * 100);
+            }
+        });
     }
 
     private void opacityOpenClose(ImageView forwardBtn, ImageView playBtn, ImageView fastForwardBtn) {
@@ -184,13 +216,12 @@ public class HomePageController implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-
         if (musicControl.mp.getMediaPlayerStatus() == musicControl.mp.getMediaPlayerStatus().PLAYING){
             System.out.println("paused from HomePageController");
             musicControl.pause();
         }
-        else{
-            System.out.println("play");
+
+        else {
             musicControl.play();
             songNameLbl.setText("change");
             artistNameLbl.setText("change");

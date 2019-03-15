@@ -17,6 +17,12 @@ public class MedPlayer {
     private boolean isShuffled;
     private boolean isFinished;
 
+	public MedPlayer(){
+        songlist = new ArrayList<>();
+		final JFXPanel fxpanel = new JFXPanel();
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/audio/"+filename+".mp3").toExternalForm()));
+    }
+	
     public boolean isShuffled() {
         return isShuffled;
     }
@@ -31,11 +37,6 @@ public class MedPlayer {
 
     public void setFinished(boolean finished){
         isFinished = finished;
-    }
-
-    public MedPlayer(){
-        songlist = new ArrayList<>();
-        initSongs();
     }
 
     //picks the song
