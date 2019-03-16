@@ -22,6 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.*;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -45,7 +46,7 @@ public class HomePageController {
     @FXML
     private Label songNameLbl, artistNameLbl, albumNameLbl, genreTypeLbl, yearLbl, favPlaylistLbl, favSong1Lbl, favSong2Lbl, favSong3Lbl, welcomLbl;
     @FXML
-    private Label playlistLbl, songsLbl, editLbl, welcomeLbl, uploadLbl;
+    private Label playlistLbl, songsLbl, editLbl, welcomeLbl, uploadLbl, songStartTime, songEndTime;
     @FXML
     private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane, playlistPane, songListPane, editPane, songSettingPane;
     @FXML
@@ -568,10 +569,59 @@ public class HomePageController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                timeSlider.setValue(musicController.mp.getMediaPlayer().getCurrentTime().toMillis() /
-                                        musicController.mp.getMediaPlayer().getTotalDuration().toMillis() * 100);
+                Duration currentTime = musicController.mp.getCurrentTime();
+                songStartTime.setText(formatTime(currentTime, musicController.mp.getDuration()));
+                timeSlider.setDisable(musicController.mp.getSong().getDuration().isUnknown());
+
+                if (!timeSlider.isDisabled() &&
+                        musicController.mp.getSong().getDuration().greaterThan(Duration.ZERO) &&
+                        !timeSlider.isValueChanging()){
+
+                    timeSlider.setValue(musicController.mp.getMediaPlayer().getCurrentTime().divide(musicController.mp.getDuration()).toMillis() * 100);
+                }
             }
         });
+    }
+
+    // https://docs.oracle.com/javase/8/javafx/media-tutorial/playercontrol.htm
+    private String formatTime(Duration elapsed, Duration duration){
+        int nElapsed = (int)Math.floor(elapsed.toSeconds());
+        int elapsedHours = nElapsed / (60*60);
+        if (elapsedHours > 0){
+            nElapsed -= elapsedHours * 60 * 60;
+        }
+
+        int elapsedMinutes = nElapsed / 60;
+        int elapsedSeconds = nElapsed - elapsedHours * 60 * 60 - elapsedMinutes * 60;
+
+        if (musicController.mp.getDuration().greaterThan(Duration.ZERO)){
+            int intDuration = (int)Math.floor(duration.toSeconds());
+            int durationHours = intDuration / (60 * 60);
+            if (durationHours > 0) {
+                intDuration -= durationHours * 60 * 60;
+        }
+
+            int durationMinutes = intDuration / 60;
+            int durationSeconds = intDuration - durationHours * 60 * 60 -
+                    durationMinutes * 60;
+            if (durationHours > 0) {
+                return String.format("%d:%02d:%02d/%d:%02d:%02d",
+                        elapsedHours, elapsedMinutes, elapsedSeconds,
+                        durationHours, durationMinutes, durationSeconds);
+            } else {
+                return String.format("%02d:%02d/%02d:%02d",
+                        elapsedMinutes, elapsedSeconds,durationMinutes,
+                        durationSeconds);
+            }
+        } else {
+            if (elapsedHours > 0) {
+                return String.format("%d:%02d:%02d", elapsedHours,
+                        elapsedMinutes, elapsedSeconds);
+            } else {
+                return String.format("%02d:%02d",elapsedMinutes,
+                        elapsedSeconds);
+            }
+        }
     }
 
     private void opacityOpenClose(ImageView forwardBtn, ImageView playBtn, ImageView fastForwardBtn) {

@@ -63,6 +63,10 @@ public class MedPlayer {
         return mediaPlayer.getStartTime();
     }
 
+    public Duration getDuration(){
+	    return hit.getDuration();
+    }
+
     public Duration getEndTime(){
         return mediaPlayer.getStopTime();
     }
