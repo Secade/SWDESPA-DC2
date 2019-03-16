@@ -12,18 +12,18 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #f7620e;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
+<AnchorPane fx:id="mainStage" prefHeight="690.0" prefWidth="1200.0" style="-fx-background-color: #f7620e;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
    <children>
-      <MediaView fx:id="loginVideo" fitHeight="650.0" fitWidth="1200.0" preserveRatio="false" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#323232" height="650.0" layoutX="300.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="0.0" width="600.0" />
-      <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="540.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <MediaView fx:id="loginVideo" fitHeight="650.0" fitWidth="1200.0" layoutY="40.0" preserveRatio="false" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#323232" height="650.0" layoutX="300.0" layoutY="40.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="0.0" width="600.0" />
+      <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="540.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../media/logo.png" />
          </image>
       </ImageView>
-      <Line endX="250.0" layoutX="600.0" layoutY="175.0" startX="-250.0" stroke="#5e5e5e" />
-      <Line endX="250.0" layoutX="600.0" layoutY="485.0" startX="-250.0" stroke="#5e5e5e" />
-      <AnchorPane fx:id="loginPane" layoutX="300.0" prefHeight="650.0" prefWidth="600.0">
+      <Line endX="250.0" layoutX="600.0" layoutY="205.0" startX="-250.0" stroke="#5e5e5e" />
+      <Line endX="250.0" layoutX="600.0" layoutY="525.0" startX="-250.0" stroke="#5e5e5e" />
+      <AnchorPane fx:id="loginPane" layoutX="300.0" layoutY="40.0" prefHeight="650.0" prefWidth="600.0">
          <children>
             <ImageView fx:id="logInPic" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -87,7 +87,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="signUpPage" disable="true" layoutX="300.0" prefHeight="650.0" prefWidth="600.0" visible="false">
+      <AnchorPane fx:id="signUpPage" disable="true" layoutX="300.0" layoutY="40.0" prefHeight="650.0" prefWidth="600.0" visible="false">
          <children>
             <ImageView fx:id="newSignUpPic" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -141,5 +141,23 @@
             </Label>
          </children>
       </AnchorPane>
+      <Rectangle fx:id="titleBar" arcHeight="5.0" arcWidth="5.0" fill="#444444" height="40.0" stroke="#444444" strokeType="INSIDE" width="1200.0" />
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="11.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../media/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1165.0" layoutY="3.0" text="X" textFill="#f7620e">
+         <font>
+            <Font name="Raleway" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="1135.0" layoutY="2.0" text="_" textFill="#f7620e">
+         <font>
+            <Font name="Raleway" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="minimize" layoutX="1133.0" layoutY="5.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="20.0" />
+      <Button fx:id="closeScreen" layoutX="1165.0" layoutY="5.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="20.0" />
    </children>
 </AnchorPane>

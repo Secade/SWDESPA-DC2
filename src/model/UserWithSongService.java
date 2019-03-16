@@ -17,14 +17,15 @@ public class UserWithSongService {
     public boolean add(UserWithSong u){
         // ADD CONTACT
 
-        String query = "INSERT INTO " + UserWithSong.TABLE_NAME + " VALUE (?, ?, ?)";
+        String query = "INSERT INTO " + UserWithSong.TABLE_NAME + " VALUE (?, ?, ?, ?)";
         Connection connection = db.getConnection();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1,u.getUserID());
-            statement.setInt(2,u.getSongID());
-            statement.setInt(3,u.getPlaycount());
+            statement.setInt(1, u.getUserwithsongID());
+            statement.setInt(2,u.getUserID());
+            statement.setInt(3,u.getSongID());
+            statement.setInt(4,u.getPlaycount());
 
             boolean added = statement.execute();
             return added;
@@ -48,6 +49,7 @@ public class UserWithSongService {
 
             while(rs.next()){
                 UserWithSong uws = new UserWithSong();
+                uws.setUserwithsongID(rs.getInt(UserWithSong.COL_USERWITHSONGID));
                 uws.setUserID(rs.getInt(UserWithSong.COL_USERID));
                 uws.setSongID(rs.getInt(UserWithSong.COL_SONGID));
                 uws.setPlaycount(rs.getInt(UserWithSong.COL_PLAYCOUNT));
@@ -60,10 +62,39 @@ public class UserWithSongService {
 
         return userwithsongs;
     }
-    public boolean updatePlayCount(int songID,int id){
+
+    public List<UserWithSong> getComplete(){
+        //GET CONTACTS
+        Connection connection = db.getConnection();
+        List<UserWithSong> userwithsongs = new ArrayList<>();
+
+        String query = "SELECT * FROM " + UserWithSong.TABLE_NAME;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                UserWithSong uws = new UserWithSong();
+                uws.setUserwithsongID(rs.getInt(UserWithSong.COL_USERWITHSONGID));
+                uws.setUserID(rs.getInt(UserWithSong.COL_USERID));
+                uws.setSongID(rs.getInt(UserWithSong.COL_SONGID));
+                uws.setPlaycount(rs.getInt(UserWithSong.COL_PLAYCOUNT));
+                userwithsongs.add(uws);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return userwithsongs;
+    }
+
+    public boolean updatePlayCount(int songID, int userID){
         String query = "UPDATE " + UserWithSong.TABLE_NAME + " SET "
                 + UserWithSong.COL_PLAYCOUNT +"="+ UserWithSong.COL_PLAYCOUNT+"+1"
-                +" WHERE " + UserWithSong.COL_USERID + "=" + id +" AND "+ UserWithSong.COL_SONGID +"=" + songID  ;
+
+                +" WHERE " + UserWithSong.COL_USERID + "=" + userID +" AND "+ UserWithSong.COL_SONGID +"=" + songID  ;
 
         Connection connection = db.getConnection();
 

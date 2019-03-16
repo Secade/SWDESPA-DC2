@@ -68,131 +68,12 @@ public class SongService {
 
         return songs;
     }
-    public List<Song> sortbyAlbum(){
+
+    public List<Song> sort(String sortType) {
         Connection connection = db.getConnection();
         List<Song> songs = new ArrayList<>();
 
-        String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER BY album";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet rs = statement.executeQuery();
-
-            while(rs.next()){
-                Song s = new Song();
-                s.setSongID(rs.getInt(Song.COL_SONGID));
-                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
-                s.setGenre(rs.getString(Song.COL_GENRE));
-                s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setArtist(rs.getString(Song.COL_ARTIST));
-                s.setYear(rs.getInt(Song.COL_YEAR));
-                s.setDuration(rs.getFloat(Song.COL_DURATION));
-                s.setFilename(rs.getString(Song.COL_FILENAME));
-                songs.add(s);
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return songs;
-    }
-
-    public List<Song> sortbyArtist(){
-        Connection connection = db.getConnection();
-        List<Song> songs = new ArrayList<>();
-
-        String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER BY artist";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet rs = statement.executeQuery();
-
-            while(rs.next()){
-                Song s = new Song();
-                s.setSongID(rs.getInt(Song.COL_SONGID));
-                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
-                s.setGenre(rs.getString(Song.COL_GENRE));
-                s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setArtist(rs.getString(Song.COL_ARTIST));
-                s.setYear(rs.getInt(Song.COL_YEAR));
-                s.setDuration(rs.getFloat(Song.COL_DURATION));
-                s.setFilename(rs.getString(Song.COL_FILENAME));
-                songs.add(s);
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return songs;
-    }
-
-    public List<Song> sortbyGenre(){
-        Connection connection = db.getConnection();
-        List<Song> songs = new ArrayList<>();
-
-        String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER BY genre";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet rs = statement.executeQuery();
-
-            while(rs.next()){
-                Song s = new Song();
-                s.setSongID(rs.getInt(Song.COL_SONGID));
-                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
-                s.setGenre(rs.getString(Song.COL_GENRE));
-                s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setArtist(rs.getString(Song.COL_ARTIST));
-                s.setYear(rs.getInt(Song.COL_YEAR));
-                s.setDuration(rs.getFloat(Song.COL_DURATION));
-                s.setFilename(rs.getString(Song.COL_FILENAME));
-                songs.add(s);
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return songs;
-    }
-
-    public List<Song> sortbyYear(){
-        Connection connection = db.getConnection();
-        List<Song> songs = new ArrayList<>();
-
-        String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER by year";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet rs = statement.executeQuery();
-
-            while(rs.next()){
-                Song s = new Song();
-                s.setSongID(rs.getInt(Song.COL_SONGID));
-                s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
-                s.setGenre(rs.getString(Song.COL_GENRE));
-                s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setArtist(rs.getString(Song.COL_ARTIST));
-                s.setYear(rs.getInt(Song.COL_YEAR));
-                s.setDuration(rs.getFloat(Song.COL_DURATION));
-                s.setFilename(rs.getString(Song.COL_FILENAME));
-                songs.add(s);
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return songs;
-    }
-
-    public List<Song> sortbyDuration() {
-        Connection connection = db.getConnection();
-        List<Song> songs = new ArrayList<>();
-
-        String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER BY duration";
+        String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER BY " +sortType;
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -204,7 +85,7 @@ public class SongService {
                 s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
                 s.setGenre(rs.getString(Song.COL_GENRE));
                 s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setArtist(rs.getString(Song.COL_ARTIST));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
                 s.setYear(rs.getInt(Song.COL_YEAR));
                 s.setDuration(rs.getFloat(Song.COL_DURATION));
                 s.setFilename(rs.getString(Song.COL_FILENAME));
@@ -218,34 +99,61 @@ public class SongService {
         return songs;
     }
 
-    public List<Song> sortbyTitle(){
+
+    public boolean updateSong(int songID, String songTitle, String genre, String album, String artist, int year, float duration){
+        String query = "UPDATE " + Song.TABLE_NAME + " SET "
+                + Song.COL_SONGTITLE + "='" +songTitle + "',"
+                + Song.COL_GENRE + "='" + genre + "',"
+                + Song.COL_ALBUM + "='" + album + "',"
+                + Song.COL_ARTIST + "='" + artist + "',"
+                + Song.COL_YEAR + "='" + year + "',"
+                + Song.COL_DURATION + "='" + duration
+                + "' WHERE " + Song.COL_SONGID + "=" + songID+"+1" ;
+
+        Connection connection = db.getConnection();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            boolean added = statement.execute();
+            return added;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<Song> search(String search){
         Connection connection = db.getConnection();
         List<Song> songs = new ArrayList<>();
 
-        String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER BY songTitle";
+        String query = "SELECT *  FROM " +Song.TABLE_NAME +
+                " WHERE " + Song.COL_SONGTITLE+ " LIKE '%" +search+ "%' OR " +Song.COL_GENRE+ " LIKE '%" +search+ "%' OR " +Song.COL_ALBUM+ " LIKE '%" +search+ "%' OR " +Song.COL_ARTIST+ " LIKE '%" +search+ "%' OR " +Song.COL_YEAR+ " LIKE '%" +search+ "%' OR " +Song.COL_DURATION+ " LIKE '%" +search+ "%' OR " +Song.COL_FILENAME+ " LIKE '%" +search+ "%'";
+        ;
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 Song s = new Song();
                 s.setSongID(rs.getInt(Song.COL_SONGID));
                 s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
                 s.setGenre(rs.getString(Song.COL_GENRE));
                 s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setArtist(rs.getString(Song.COL_ARTIST));
+                s.setAlbum(rs.getString(Song.COL_ARTIST));
                 s.setYear(rs.getInt(Song.COL_YEAR));
                 s.setDuration(rs.getFloat(Song.COL_DURATION));
                 s.setFilename(rs.getString(Song.COL_FILENAME));
                 songs.add(s);
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return songs;
+
     }
 
 }

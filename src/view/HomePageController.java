@@ -44,7 +44,7 @@ public class HomePageController {
     @FXML
     private Label playlistLbl, songsLbl, editLbl, welcomeLbl, uploadLbl;
     @FXML
-    private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane, playlistPane, songListPane, editPane, songSettingPane;
+    private AnchorPane songInfoPane, userInfoPane, controlPane, mainPane, playlistPane, songListPane, editPane, songSettingPane,mainStage;
     @FXML
     private ScrollPane songScrollPane, playlistScrollPane;
     @FXML
@@ -58,9 +58,13 @@ public class HomePageController {
     @FXML
     private Label userNameLabel, backLbl, confirmLbl, adjustBackLbl, adjustConfirmLbl,mostPlayedSong;
     @FXML
-    private Button backBtn, confirmBtn;
+    private Button backBtn, confirmBtn,minimize,closeScreen,searchBtn;
     @FXML
     private ChoiceBox albumSelect, song1Select, song2Select, song3Select;
+    @FXML
+    private Rectangle titleBar;
+    @FXML
+    private TextField searchBar,editTitle,editArtist,editAlbum,editGenre,editDate,editTime;
 
     private boolean isPlayingSong;
     private boolean songPaneOpen;
@@ -72,6 +76,7 @@ public class HomePageController {
     private boolean favSong1Loaded;
     private boolean favSong2Loaded;
     private boolean favSong3Loaded;
+    private boolean playlistLoaded;
     private int previousSong;
     private int nextSong;
     private int previousPlaylist;
@@ -92,6 +97,8 @@ public class HomePageController {
 
     private List<Song> songData;
 
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     private MedPlayer currentSong;
 
@@ -109,22 +116,23 @@ public class HomePageController {
     public void initialize() {
         DB = new Database();
 
+
+
         SongService songService = new SongService(DB);
         PlaylistService playlistSevice = new PlaylistService(DB);
         SongInPlaylistService songInPlaylistService = new SongInPlaylistService(DB);
         UserWithSongService userWithSongService = new UserWithSongService(DB);
-        System.out.println("SPACE1");
 
-        songData = songService.getAll();
-        songGetAll = songService.getAll();
-        sortByTitle = songService.sortbyTitle();
-        sortByAlbum = songService.sortbyAlbum();
-        sortByArtist = songService.sortbyArtist();
-        sortByGenre = songService.sortbyGenre();
-        sortByYear = songService.sortbyYear();
-        sortByDuration = songService.sortbyDuration();
-        System.out.println("SPACE2");
-        List<Playlist> playlistData = playlistSevice.getAll();
+//        songData = songService.getAll();
+//        songGetAll = songService.getAll();
+//        sortByTitle = songService.sortbyTitle();
+//        sortByAlbum = songService.sortbyAlbum();
+//        sortByArtist = songService.sortbyArtist();
+//        sortByGenre = songService.sortbyGenre();
+//        sortByYear = songService.sortbyYear();
+//        sortByDuration = songService.sortbyDuration();
+
+
 
         selectedSongID = -1;
         isPlayingSong = false;
@@ -137,19 +145,11 @@ public class HomePageController {
         favSong1Loaded=false;
         favSong2Loaded=false;
         favSong3Loaded=false;
+        playlistLoaded=false;
         previousSong = 0;
         nextSong = 0;
         previousPlaylist = 0;
         nextPlaylist = 0;
-
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/media/loginVideo.mp4").toExternalForm()));
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setMute(true);
-        mediaPlayer.setCycleCount(mediaPlayer.INDEFINITE);
-        homeVideo.setMediaPlayer(mediaPlayer);
-        mediaPlayer.setOnReady(() -> {
-
-        });
 
         ArrayList<StackPane> songStack = new ArrayList<>();
         ArrayList<Rectangle> rectangles = new ArrayList<>();
@@ -161,7 +161,15 @@ public class HomePageController {
         ArrayList<Rectangle> boxes = new ArrayList<>();
         ArrayList<AnchorPane> anchorPane = new ArrayList<>();
 
-        setPlaylistView(playlistData,playlistStack,boxes,anchorPane,songStack,rectangles,anchors,songInPlaylistService);
+        mainStage.setOnMouseEntered(event -> {
+            if(!playlistLoaded) {
+                List<Playlist> playlistData = playlistSevice.getAll(0);
+                playlistData.addAll(playlistSevice.getAll(user.getId()));
+                setPlaylistView(playlistData, playlistStack, boxes, anchorPane, songStack, rectangles, anchors, songInPlaylistService, songService);
+                playlistLoaded = true;
+            }
+        });
+
 
         sortBtn.setOnMouseEntered(event -> {
             sortBtn.setOpacity(1.0);
@@ -183,32 +191,37 @@ public class HomePageController {
             }
         });
 
-        songSortBox.getItems().addAll("Title", "Artist", "Album", "Genre", "Year", "Duration");
-        
-        
+        songSortBox.getItems().addAll("songTitle", "artist", "album", "genre", "Year", "duration");
+
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        //move around here
+        titleBar.setOnMouseDragged(event -> {
+            Stage primaryStage = (Stage) titleBar.getScene().getWindow();
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        minimize.setOnAction(event -> {
+            // get a handle to the stage
+            Stage stage = (Stage) minimize.getScene().getWindow();
+            // do what you have to do
+            stage.setIconified(true);
+        });
+
+        closeScreen.setOnAction(event -> {
+            Stage stage = (Stage) closeScreen.getScene().getWindow();
+            // do what you have to do
+            stage.close();
+        });
 
 
         songSortBox.setOnAction(event -> {
-            if (songSortBox.getValue() == "Title") {
-                setSongsView(sortByTitle,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Artist"){
-                setSongsView(sortByArtist,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Album"){
-                setSongsView(sortByAlbum,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Genre"){
-                setSongsView(sortByGenre,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Year"){
-                setSongsView(sortByYear,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Duration"){
-                setSongsView(sortByDuration,songStack,rectangles,anchors);
-            }
+            setSongsView(songInPlaylistService.sort(nextPlaylist,songSortBox.getValue().toString()),songStack,rectangles,anchors);
         });
-        System.out.println("SPACE3");
+
         backBtn.setOnMouseEntered(event -> {
             backLbl.setTextFill(Color.web("#323232"));
         });
@@ -402,27 +415,6 @@ public class HomePageController {
 
 
         });
-        System.out.println("SPACE4");
-        playlistBtn.setOnMouseEntered(event -> {
-            playlistLbl.setTextFill(Color.web("#323232"));
-        });
-
-        playlistBtn.setOnMouseExited(event -> {
-            playlistLbl.setTextFill(Color.web("#FFFFFF"));
-        });
-
-        playlistBtn.setOnAction(event -> {
-            if (playlistPaneOpen) {
-                playlistPane.setDisable(true);
-                playlistPane.setVisible(false);
-                playlistPaneOpen = false;
-            } else {
-                playlistPane.setDisable(false);
-                playlistPane.setVisible(true);
-                playlistPaneOpen = true;
-            }
-
-        });
 
         shrinkBtn.setOnMouseClicked(event -> {
             userInfoPane.setVisible(false);
@@ -485,7 +477,7 @@ public class HomePageController {
                 currentSong.pause();
             }
         });
-        System.out.println("SPACE5");
+
         createPlaylistBtn.setOnAction(event -> {
             TextInputDialog dialog = new TextInputDialog("");
             dialog.setTitle("Create Playlist");
@@ -497,7 +489,7 @@ public class HomePageController {
                 System.out.println("Your name: " + result.get());
                 Playlist createP = new Playlist();
                 createP.setPlaylistName(result.get());
-                createP.setPlaylistID(playlistSevice.getAll().size()+1);
+                createP.setPlaylistID(playlistSevice.getAll(user.getId()).size()+1);
                 createP.setUserID(user.getId());
                 playlistSevice.add(createP);
             }
@@ -506,8 +498,8 @@ public class HomePageController {
 
         addSongToPlaylistBtn.setOnAction(event -> {
             List<String> playlist = new ArrayList<>();
-            for(int j=0;j<playlistSevice.getAll().size();j++)
-                playlist.add(playlistSevice.getAll().get(j).getPlaylistName());
+            for(int j=0;j<playlistSevice.getAll(user.getId()).size();j++)
+                playlist.add(playlistSevice.getAll(user.getId()).get(j).getPlaylistName());
             List<String> songs = new ArrayList<>();
             for(int k=0;k<songService.getAll().size();k++)
                 songs.add(songService.getAll().get(k).getSongTitle());
@@ -538,26 +530,23 @@ public class HomePageController {
                     if (songService.getAll().get(g).getSongTitle().compareToIgnoreCase(result2.get()) == 0)
                         songInPlaylist.setSongID(g+1);
                 }
-                for(int h=0;h<playlistSevice.getAll().size();h++) {
-                    if (playlistSevice.getAll().get(h).getPlaylistName().compareToIgnoreCase(result1.get()) == 0)
+                for(int h=0;h<playlistSevice.getAll(user.getId()).size();h++) {
+                    if (playlistSevice.getAll(user.getId()).get(h).getPlaylistName().compareToIgnoreCase(result1.get()) == 0)
                         songInPlaylist.setPlaylistID(h);
                 }
                 songInPlaylistService.add(songInPlaylist);
             }
             this.initialize();
         });
-        System.out.println("SPACE6");
+
         albumSelect.setOnMouseClicked(event -> {
             if(!favPlaylistLoaded) {
-                for (int v = 0; v < playlistSevice.getAll().size(); v++)
-                    albumSelect.getItems().add(playlistSevice.getAll().get(v).getPlaylistName());
+                for (int v = 0; v < playlistSevice.getAll(user.getId()).size(); v++)
+                    albumSelect.getItems().add(playlistSevice.getAll(user.getId()).get(v).getPlaylistName());
                 favPlaylistLoaded=true;
             }
         });
 
-        
-        System.out.println("SPACE7");
-        
         song1Select.setOnMouseClicked(event -> {
             if(!favSong1Loaded) {
                 for (int m = 0; m < songService.getAll().size(); m++)
@@ -592,7 +581,7 @@ public class HomePageController {
         });
 
 
-        System.out.println("SPACE6");
+
     }
 
     private void opacityOpenClose(ImageView forwardBtn, ImageView playBtn, ImageView fastForwardBtn) {
@@ -623,7 +612,8 @@ public class HomePageController {
     }
 
     private void setPlaylistView(List<Playlist>playlistData,ArrayList<StackPane> playlistStack,ArrayList<Rectangle> boxes,ArrayList<AnchorPane> anchorPane,
-                                 ArrayList<StackPane> songStack,ArrayList<Rectangle> rectangles,ArrayList<AnchorPane> anchors,SongInPlaylistService songInPlaylistService){
+                                 ArrayList<StackPane> songStack,ArrayList<Rectangle> rectangles,ArrayList<AnchorPane> anchors,SongInPlaylistService songInPlaylistService,
+                                 SongService songService){
         playList.getChildren().clear();
         playlistStack.clear();
         boxes.clear();
@@ -631,8 +621,10 @@ public class HomePageController {
         for (int i = 0; i < playlistData.size(); i++) {
             playlistStack.add(new StackPane());
             boxes.add(new Rectangle());
-            boxes.get(i).setWidth(220);
+            boxes.get(i).setWidth(200);
             boxes.get(i).setHeight(50);
+            boxes.get(i).setLayoutX(0);
+            boxes.get(i).setLayoutY(0);
             boxes.get(i).setFill(Color.web("#202020"));
             playlistStack.get(i).getChildren().add(boxes.get(i));
             anchorPane.add(new AnchorPane());
@@ -656,8 +648,8 @@ public class HomePageController {
                 for (Node node : anchorPane.get(nextPlaylist).getChildren()) {
                     if (node instanceof Label) {
                         ((Label) node).setTextFill(Color.web("#f7620e"));
-                        if(((Label) node).getText().compareToIgnoreCase("Local Songs")==0) {
-                            setSongsView(songGetAll, songStack, rectangles, anchors);
+                        if(((Label) node).getText().compareToIgnoreCase("Songs")==0) {
+                            setSongsView(songService.getAll(), songStack, rectangles, anchors);
                             selectedPlaylistID=finalX;
                         }else {
                             setSongsView(songInPlaylistService.getSongsInPlaylist(nextPlaylist), songStack, rectangles, anchors);
@@ -723,33 +715,7 @@ public class HomePageController {
                 }
             });
 
-            adjustBackBtn.setOnMouseEntered(event -> {
-                adjustBackLbl.setTextFill(Color.web( "#323232"));
-            });
 
-            adjustBackBtn.setOnMouseExited(event -> {
-                adjustBackLbl.setTextFill(Color.web( "#FFFFFF"));
-            });
-
-            adjustBackBtn.setOnAction(event -> {
-                songSettingPane.setVisible(false);
-                songSettingPane.setDisable(true);
-                isSettingOpen=false;
-            });
-
-            adjustConfirmBtn.setOnMouseEntered(event -> {
-                adjustConfirmLbl.setTextFill(Color.web( "#323232"));
-            });
-
-            adjustConfirmBtn.setOnMouseExited(event -> {
-                adjustConfirmLbl.setTextFill(Color.web( "#FFFFFF"));
-            });
-
-            adjustConfirmBtn.setOnAction(event -> {
-                songSettingPane.setVisible(false);
-                songSettingPane.setDisable(true);
-                isSettingOpen=false;
-            });
 
             Label title = new Label(songData.get(i).getSongTitle());
             title.setMaxWidth(180);
@@ -819,12 +785,15 @@ public class HomePageController {
                     }
                     if(c==0){
                         UserWithSong userWithSong = new UserWithSong();
+                        userWithSong.setUserwithsongID(userWithSongService.getComplete().size()+1);
                         userWithSong.setSongID(selectedSongID+1);
                         userWithSong.setUserID(user.getId());
-                        userWithSong.setPlaycount(0);
+                        userWithSong.setPlaycount(1);
                         userWithSongService.add(userWithSong);
                     }
                 }
+
+                editSong(songData,finalI);
             });
 
             anchors.get(i).setOnMouseEntered(event -> {
@@ -848,9 +817,51 @@ public class HomePageController {
     private MedPlayer initializeSong(Database DB){
         SongService songService = new SongService(DB);
         System.out.println("/audio/" + songService.getAll().get(selectedSongID).getSongTitle() + ".mp3");
-        currentSong=new MedPlayer(songService.getAll().get(selectedSongID).getSongTitle());
+        currentSong=new MedPlayer(songService.getAll().get(selectedSongID).getFilename());
 
         return currentSong;
+    }
+
+    private void editSong(List<Song> songData,int i){
+
+        SongService songService = new SongService(DB);
+
+        editTitle.setText(songData.get(i).getSongTitle());
+        editArtist.setText(songData.get(i).getArtist());
+        editAlbum.setText(songData.get(i).getAlbum());
+        editGenre.setText(songData.get(i).getGenre());
+        editDate.setText(songData.get(i).getYear()+"");
+        editTime.setText(songData.get(i).getDuration()+"");
+
+        adjustBackBtn.setOnMouseEntered(event -> {
+            adjustBackLbl.setTextFill(Color.web( "#323232"));
+        });
+
+        adjustBackBtn.setOnMouseExited(event -> {
+            adjustBackLbl.setTextFill(Color.web( "#FFFFFF"));
+        });
+
+        adjustBackBtn.setOnAction(event -> {
+            songSettingPane.setVisible(false);
+            songSettingPane.setDisable(true);
+            isSettingOpen=false;
+        });
+
+        adjustConfirmBtn.setOnMouseEntered(event -> {
+            adjustConfirmLbl.setTextFill(Color.web( "#323232"));
+        });
+
+        adjustConfirmBtn.setOnMouseExited(event -> {
+            adjustConfirmLbl.setTextFill(Color.web( "#FFFFFF"));
+        });
+
+        adjustConfirmBtn.setOnAction(event -> {
+            songService.updateSong(i,editTitle.getText(),editGenre.getText(),editAlbum.getText(),editArtist.getText(),Integer.parseInt(editDate.getText()),Float.parseFloat(editTime.getText()));
+
+            songSettingPane.setVisible(false);
+            songSettingPane.setDisable(true);
+            isSettingOpen=false;
+        });
     }
 }
 
