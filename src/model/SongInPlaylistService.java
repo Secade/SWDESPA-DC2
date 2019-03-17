@@ -9,22 +9,24 @@ import java.util.List;
 
 public class SongInPlaylistService {
     private Database db;
+    private Connection connection;
 
     public SongInPlaylistService(Database db){
         this.db=db;
+        this.connection=db.getConnection();
     }
 
     public boolean add(SongInPlaylist s){
         // ADD CONTACT
 
         String query = "INSERT INTO " + SongInPlaylist.TABLE_NAME + " VALUE (?, ?, ?,?)";
-        Connection connection = db.getConnection();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,s.getSongInPlaylistID());
-            statement.setInt(2,s.getSongID());
-            statement.setInt(3,s.getPlaylistID());
+            statement.setInt(2,s.getPlaylistID());
+            statement.setInt(3,s.getSongID());
+            statement.setInt(4,s.getUserID());
 
             boolean added = statement.execute();
             return added;
@@ -36,7 +38,6 @@ public class SongInPlaylistService {
 
     public List<SongInPlaylist> getAll(){
         //GET CONTACTS
-        Connection connection = db.getConnection();
         List<SongInPlaylist> songinplaylists = new ArrayList<>();
 
         String query = "SELECT * FROM " + SongInPlaylist.TABLE_NAME;
@@ -61,7 +62,6 @@ public class SongInPlaylistService {
 
     public List<Song> getSongsInPlaylist(int playlistid){
         //GET CONTACTS
-        Connection connection = db.getConnection();
         List<Song> songinplaylists = new ArrayList<>();
 
         String query = "SELECT "+ Song.TABLE_NAME +"." +Song.COL_SONGID+ ","+ Song.TABLE_NAME +"." + Song.COL_SONGTITLE+ ","+ Song.TABLE_NAME +"." +Song.COL_GENRE+ "," + Song.TABLE_NAME +"."+ Song.COL_ALBUM +","+ Song.TABLE_NAME +"."
@@ -80,7 +80,7 @@ public class SongInPlaylistService {
                 s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
                 s.setGenre(rs.getString(Song.COL_GENRE));
                 s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setArtist(rs.getString(Song.COL_ARTIST));
                 s.setYear(rs.getInt(Song.COL_YEAR));
                 s.setDuration(rs.getFloat(Song.COL_DURATION));
                 s.setFilename(rs.getString(Song.COL_FILENAME));
@@ -94,13 +94,12 @@ public class SongInPlaylistService {
     }
 
     public List<Song> sort(int playlistID, String sortType) {
-        Connection connection = db.getConnection();
         List<Song> songs = new ArrayList<>();
 
         String query = "SELECT " +Song.TABLE_NAME + "." + Song.COL_SONGID +","+ Song.TABLE_NAME + "." + Song.COL_SONGTITLE +","+Song.TABLE_NAME + "." + Song.COL_GENRE+","+ Song.TABLE_NAME + "." + Song.COL_ALBUM +","+ Song.TABLE_NAME + "." + Song.COL_ARTIST+","+ Song.TABLE_NAME + "." + Song.COL_YEAR+","+ Song.TABLE_NAME + "." + Song.COL_DURATION+","+ Song.TABLE_NAME + "." + Song.COL_FILENAME+
                 " FROM " + Song.TABLE_NAME +" right join " +SongInPlaylist.TABLE_NAME +
-                " ON " +Song.COL_SONGID +"=" + SongInPlaylist.COL_SONGID +
-                " WHERE " +SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
+                " ON " +Song.TABLE_NAME + "."+Song.COL_SONGID +"=" +SongInPlaylist.TABLE_NAME+"."+ SongInPlaylist.COL_SONGID +
+                " WHERE " +SongInPlaylist.TABLE_NAME+"."+SongInPlaylist.COL_PLAYLISTID +"="+ playlistID +
                 " ORDER BY " + sortType;
 
 
@@ -114,7 +113,7 @@ public class SongInPlaylistService {
                 s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
                 s.setGenre(rs.getString(Song.COL_GENRE));
                 s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setArtist(rs.getString(Song.COL_ARTIST));
                 s.setYear(rs.getInt(Song.COL_YEAR));
                 s.setDuration(rs.getFloat(Song.COL_DURATION));
                 s.setFilename(rs.getString(Song.COL_FILENAME));

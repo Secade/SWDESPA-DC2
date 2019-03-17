@@ -50,7 +50,7 @@ public class HomePageController {
     @FXML
     private VBox songList, playList;
     @FXML
-    private Button playlistBtn, songsBtn, logoutBtn, editBtn, uploadBtn, adjustBackBtn, adjustConfirmBtn,createPlaylistBtn,addSongToPlaylistBtn;
+    private Button playlistBtn, songsBtn, logoutBtn, editBtn, uploadBtn, adjustBackBtn, adjustConfirmBtn,createPlaylistBtn,addSongToPlaylistBtn,reset;
     @FXML
     private ComboBox songSortBox;
     @FXML
@@ -171,6 +171,10 @@ public class HomePageController {
         });
 
 
+        reset.setOnAction(event -> {
+            this.initialize();
+        });
+
         sortBtn.setOnMouseEntered(event -> {
             sortBtn.setOpacity(1.0);
         });
@@ -217,9 +221,14 @@ public class HomePageController {
             stage.close();
         });
 
-
         songSortBox.setOnAction(event -> {
-            setSongsView(songInPlaylistService.sort(nextPlaylist,songSortBox.getValue().toString()),songStack,rectangles,anchors);
+            System.out.println(nextPlaylist);
+            System.out.println(songSortBox.getValue().toString());
+            if(selectedPlaylistID==0) {
+                setSongsView(songService.sort(songSortBox.getValue().toString()),songStack,rectangles,anchors);
+            }else {
+                setSongsView(songInPlaylistService.sort(nextPlaylist, songSortBox.getValue().toString()), songStack, rectangles, anchors);
+            }
         });
 
         backBtn.setOnMouseEntered(event -> {
@@ -525,13 +534,13 @@ public class HomePageController {
                 System.out.println("Your choice: " + result2.get());
                 SongInPlaylist songInPlaylist = new SongInPlaylist();
                 songInPlaylist.setUserID(user.getId());
-                songInPlaylist.setSongInPlaylistID(songInPlaylistService.getAll().size());
+                songInPlaylist.setSongInPlaylistID(songInPlaylistService.getAll().size()+1);
                 for(int g=1;g<songService.getAll().size();g++) {
                     if (songService.getAll().get(g).getSongTitle().compareToIgnoreCase(result2.get()) == 0)
                         songInPlaylist.setSongID(g+1);
                 }
-                for(int h=0;h<playlistSevice.getAll(user.getId()).size();h++) {
-                    if (playlistSevice.getAll(user.getId()).get(h).getPlaylistName().compareToIgnoreCase(result1.get()) == 0)
+                for(int h=0;h<playlistSevice.getComplete().size();h++) {
+                    if (playlistSevice.getComplete().get(h).getPlaylistName().compareToIgnoreCase(result1.get()) == 0)
                         songInPlaylist.setPlaylistID(h);
                 }
                 songInPlaylistService.add(songInPlaylist);
@@ -653,6 +662,7 @@ public class HomePageController {
                             selectedPlaylistID=finalX;
                         }else {
                             setSongsView(songInPlaylistService.getSongsInPlaylist(nextPlaylist), songStack, rectangles, anchors);
+                            selectedPlaylistID=finalX;
                         }
                     }
                 }
@@ -672,7 +682,6 @@ public class HomePageController {
     private void setSongsView(List<Song> songData,ArrayList<StackPane> songStack,ArrayList<Rectangle> rectangles,ArrayList<AnchorPane> anchors) {
 
         int numSongs = songData.size();
-
 
         songList.getChildren().clear();
         songStack.clear();

@@ -514,5 +514,6 @@
       </Label>
       <Button fx:id="minimize" layoutX="1133.0" layoutY="5.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="20.0" />
       <Button fx:id="closeScreen" layoutX="1165.0" layoutY="5.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="20.0" />
+      <Button fx:id="reset" layoutX="1160.0" layoutY="605.0" mnemonicParsing="false" opacity="0.0" prefHeight="35.0" prefWidth="35.0" text="Button" />
    </children>
 </AnchorPane>

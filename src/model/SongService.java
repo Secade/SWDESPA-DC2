@@ -9,14 +9,15 @@ import java.util.List;
 
 public class SongService {
     private Database db;
+    private Connection connection;
 
     public SongService(Database db){
         this.db = db;
+        this.connection=db.getConnection();
     }
 
     public boolean add(Song s){
         String query ="INSERT INTO " + Song.TABLE_NAME + " VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
-        Connection connection = db.getConnection();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
@@ -40,7 +41,6 @@ public class SongService {
 
     public List<Song> getAll(){
         //GET CONTACTS
-        Connection connection = db.getConnection();
         List<Song> songs = new ArrayList<>();
 
         String query = "SELECT * FROM " + Song.TABLE_NAME;
@@ -70,7 +70,6 @@ public class SongService {
     }
 
     public List<Song> sort(String sortType) {
-        Connection connection = db.getConnection();
         List<Song> songs = new ArrayList<>();
 
         String query = "SELECT * FROM " + Song.TABLE_NAME + " ORDER BY " +sortType;
@@ -85,7 +84,7 @@ public class SongService {
                 s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
                 s.setGenre(rs.getString(Song.COL_GENRE));
                 s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setArtist(rs.getString(Song.COL_ARTIST));
                 s.setYear(rs.getInt(Song.COL_YEAR));
                 s.setDuration(rs.getFloat(Song.COL_DURATION));
                 s.setFilename(rs.getString(Song.COL_FILENAME));
@@ -110,8 +109,6 @@ public class SongService {
                 + Song.COL_DURATION + "='" + duration
                 + "' WHERE " + Song.COL_SONGID + "=" + songID+"+1" ;
 
-        Connection connection = db.getConnection();
-
         try{
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -124,7 +121,6 @@ public class SongService {
     }
 
     public List<Song> search(String search){
-        Connection connection = db.getConnection();
         List<Song> songs = new ArrayList<>();
 
         String query = "SELECT *  FROM " +Song.TABLE_NAME +
@@ -151,7 +147,6 @@ public class SongService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return songs;
 
     }

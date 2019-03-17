@@ -55,7 +55,9 @@ public class SongParser {
                             song.setAlbum(metadata.get("xmpDM:album"));
                             song.setGenre(metadata.get("xmpDM:genre"));
                             song.setYear(Integer.parseInt(metadata.get("xmpDM:releaseDate")));
-                            song.setDuration(0);
+                            float songDuration = ((Float.parseFloat(metadata.get("xmpDM:duration"))/1000)/60);
+                            System.out.println(songDuration);
+                            song.setDuration(songDuration);
                             service.add(song);
                         }catch (Exception e){
 

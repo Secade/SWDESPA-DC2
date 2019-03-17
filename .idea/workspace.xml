@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Applied a lot of things">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added Title Bar, Implemented new DB, can now edit songs">
+      <change afterPath="$PROJECT_DIR$/src/audio/Accretion Disc.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/audio/Cygnus X1.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/audio/Europa.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/audio/Mercury.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/audio/Psyche.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/audio/desktop.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/audio/AllIAsk.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/audio/Blade of the Ruined King.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/audio/Cull.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/audio/Dead Man's Plate.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/audio/Infinity Edge.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/audio/Mortal Reminder.mp3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/view/HomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SWDESPA-DC2/view/HomePage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SWDESPA-DC2/view/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SWDESPA-DC2/view/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/MedPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/MedPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/04 Haiku.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/05 Cygnus X1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/06 Psyche.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/07 Large Magellanic Cloud.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/08 Epsilon Indi.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/09 Hymn to the Stars.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/10 Europa.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/11 Atlas.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/12 Casiopeia.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/13 Mercury.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/15 Mira.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/16 Procyon.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/19 Accretion Disc.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/52 Impact Event.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/Adele - All I Ask.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/AllIAsk.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/Blade of the Ruined King.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/Cull.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/Dead Man's Plate.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/Drosera.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/Infinity Edge.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/Mortal Reminder.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/The Apex.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/audio/The Deep.mp3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/PlaylistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/PlaylistService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/SongInPlaylistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SongInPlaylistService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SongParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SongParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/SongService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SongService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/UserWithSong.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserWithSong.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/UserWithSongService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserWithSongService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/HomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/HomePage.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/HomePageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/HomePageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainController.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,8 +105,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/HomePageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="859" lean-forward="true" selection-start-line="859" selection-end-line="859" />
+            <state relative-caret-position="139">
+              <caret line="222" lean-forward="true" selection-start-line="222" selection-end-line="222" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -85,36 +115,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/User.java">
+        <entry file="file://$PROJECT_DIR$/src/model/Song.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="e#667#668#0" expanded="true" />
-                <element signature="e#703#704#0" expanded="true" />
-                <element signature="e#758#759#0" expanded="true" />
-                <element signature="e#808#809#0" expanded="true" />
-                <element signature="e#845#846#0" expanded="true" />
-                <element signature="e#881#882#0" expanded="true" />
-                <element signature="e#936#937#0" expanded="true" />
-                <element signature="e#986#987#0" expanded="true" />
-                <element signature="e#1023#1024#0" expanded="true" />
-                <element signature="e#1059#1060#0" expanded="true" />
-                <element signature="e#1114#1115#0" expanded="true" />
-                <element signature="e#1164#1165#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/MainController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="134" column="60" selection-start-line="134" selection-start-column="60" selection-end-line="134" selection-end-column="60" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="-255">
+              <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -122,8 +126,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/MedPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="17" column="89" selection-start-line="17" selection-start-column="89" selection-end-line="17" selection-end-column="89" />
+            <state relative-caret-position="151">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -134,8 +138,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/SongService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="112" column="51" lean-forward="true" selection-start-line="112" selection-start-column="51" selection-end-line="112" selection-end-column="51" />
+            <state relative-caret-position="745">
+              <caret line="99" selection-start-line="99" selection-end-line="99" />
             </state>
           </provider>
         </entry>
@@ -143,17 +147,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/PlaylistService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+            <state relative-caret-position="164">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/SongInPlaylistService.java">
+        <entry file="file://$PROJECT_DIR$/src/model/Playlist.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+            <state relative-caret-position="136">
+              <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/SongParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="23" column="54" lean-forward="true" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -162,34 +175,16 @@
         <entry file="file://$PROJECT_DIR$/src/model/SongInPlaylist.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/UserWithSong.java">
+        <entry file="file://$PROJECT_DIR$/src/model/SongInPlaylistService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="70" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
-              <folding>
-                <element signature="e#412#413#0" expanded="true" />
-                <element signature="e#441#442#0" expanded="true" />
-                <element signature="e#482#483#0" expanded="true" />
-                <element signature="e#518#519#0" expanded="true" />
-                <element signature="e#548#549#0" expanded="true" />
-                <element signature="e#577#578#0" expanded="true" />
-                <element signature="e#618#619#0" expanded="true" />
-                <element signature="e#654#655#0" expanded="true" />
-                <element signature="e#687#688#0" expanded="true" />
-                <element signature="e#719#720#0" expanded="true" />
-                <element signature="e#766#767#0" expanded="true" />
-                <element signature="e#808#809#0" expanded="true" />
-                <element signature="e#846#847#0" expanded="true" />
-                <element signature="e#883#884#0" expanded="true" />
-                <element signature="e#940#941#0" expanded="true" />
-                <element signature="e#992#993#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="286">
+              <caret line="121" selection-start-line="121" selection-end-line="121" />
             </state>
           </provider>
         </entry>
@@ -197,8 +192,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/UserWithSongService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="67" column="51" lean-forward="true" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
+            <state relative-caret-position="96">
+              <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#343#344#0" expanded="true" />
@@ -244,6 +239,8 @@
       <find>playlistData</find>
       <find>getScene</find>
       <find>this.ini</find>
+      <find>Songs</find>
+      <find>finalX</find>
     </findStrings>
     <replaceStrings>
       <replace>confirm</replace>
@@ -277,17 +274,17 @@
         <option value="$PROJECT_DIR$/src/model/Database.java" />
         <option value="$PROJECT_DIR$/src/model/User.java" />
         <option value="$PROJECT_DIR$/src/model/UserService.java" />
-        <option value="$PROJECT_DIR$/src/model/SongParser.java" />
         <option value="$PROJECT_DIR$/src/model/Song.java" />
         <option value="$PROJECT_DIR$/src/model/Main.java" />
         <option value="$PROJECT_DIR$/src/model/UserWithSong.java" />
-        <option value="$PROJECT_DIR$/src/model/PlaylistService.java" />
         <option value="$PROJECT_DIR$/src/view/MainController.java" />
-        <option value="$PROJECT_DIR$/src/model/SongInPlaylistService.java" />
-        <option value="$PROJECT_DIR$/src/model/UserWithSongService.java" />
         <option value="$PROJECT_DIR$/src/model/MedPlayer.java" />
-        <option value="$PROJECT_DIR$/src/view/HomePageController.java" />
+        <option value="$PROJECT_DIR$/src/model/UserWithSongService.java" />
+        <option value="$PROJECT_DIR$/src/model/PlaylistService.java" />
+        <option value="$PROJECT_DIR$/src/model/SongParser.java" />
         <option value="$PROJECT_DIR$/src/model/SongService.java" />
+        <option value="$PROJECT_DIR$/src/model/SongInPlaylistService.java" />
+        <option value="$PROJECT_DIR$/src/view/HomePageController.java" />
       </list>
     </option>
   </component>
@@ -348,7 +345,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552734209922" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552790982285" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../NETWORKewan" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -537,7 +534,7 @@
       <workItem from="1552524539546" duration="6256000" />
       <workItem from="1552534579218" duration="20496000" />
       <workItem from="1552619529873" duration="3473000" />
-      <workItem from="1552715798068" duration="16411000" />
+      <workItem from="1552715798068" duration="24915000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed Branch">
       <created>1551422866930</created>
@@ -602,11 +599,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552598597787</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added Title Bar, Implemented new DB, can now edit songs">
+      <created>1552734312678</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1552734312678</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156805000" />
+    <option name="totallyTimeSpent" value="165309000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -619,7 +623,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.1671141" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -672,7 +675,8 @@
     <MESSAGE value="Added Official Songs, Song Parser" />
     <MESSAGE value="Song Upload to Playing, Working" />
     <MESSAGE value="Applied a lot of things" />
-    <option name="LAST_COMMIT_MESSAGE" value="Applied a lot of things" />
+    <MESSAGE value="Added Title Bar, Implemented new DB, can now edit songs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Title Bar, Implemented new DB, can now edit songs" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -751,13 +755,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Playlist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Database.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -783,27 +780,6 @@
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Song.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/SongParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/SongInPlaylist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/UserWithSong.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -826,20 +802,6 @@
             <element signature="e#940#941#0" expanded="true" />
             <element signature="e#992#993#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/PlaylistService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/SongInPlaylistService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -874,20 +836,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Playlist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/PlaylistService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/MedPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="17" column="89" selection-start-line="17" selection-start-column="89" selection-end-line="17" selection-end-column="89" />
+        <state relative-caret-position="151">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/SongInPlaylist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Song.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/UserWithSongService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="67" column="51" lean-forward="true" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
+        <state relative-caret-position="96">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#343#344#0" expanded="true" />
@@ -896,17 +886,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/SongService.java">
+    <entry file="file://$PROJECT_DIR$/src/model/SongInPlaylistService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
-          <caret line="112" column="51" lean-forward="true" selection-start-line="112" selection-start-column="51" selection-end-line="112" selection-end-column="51" />
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/SongParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="23" column="54" lean-forward="true" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/SongService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="745">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/HomePageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="859" lean-forward="true" selection-start-line="859" selection-end-line="859" />
+        <state relative-caret-position="139">
+          <caret line="222" lean-forward="true" selection-start-line="222" selection-end-line="222" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
