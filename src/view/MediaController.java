@@ -2,15 +2,17 @@ package view;
 
 import javafx.util.Duration;
 import model.MedPlayer;
+import model.Song;
+
 import java.io.File;
 import java.util.Random;
 
 public class MediaController {
-
-    public MedPlayer mp = new MedPlayer();
+    public static MedPlayer mp = new MedPlayer();
+    public static PlaylistController pc = new PlaylistController();
 
     public MediaController(){
-        mp.pickSong(new File("Nelly Furtado - Say It Right"));
+        mp.pickSong(new File("04 Haiku"));
     }
 
     public void play(){
@@ -34,10 +36,12 @@ public class MediaController {
         if (mp.getMediaPlayer().getCycleCount() == -1){
             //play once
             mp.getMediaPlayer().setCycleCount(1);
+            mp.setOnRepeat(false);
         }
         else{
             //numerical value = -1
             mp.getMediaPlayer().setCycleCount(mp.getMediaPlayer().INDEFINITE);
+            mp.setOnRepeat(true);
         }
     }
 
@@ -45,23 +49,10 @@ public class MediaController {
         mp.getMediaPlayer().seek(mp.getMediaPlayer().getCurrentTime().add(Duration.millis(10*1000)));
     }
 
-    //FIX TO IMPLEM'T QUEUE
     public void nextSong(){
         stop();
-        if (mp.isShuffled())
-            mp.pickSong(new File(String.valueOf(mp.getSonglist().get(shuffle()))));
-        else
-            mp.pickSong(new File("Tear of the Goddess")); //not generic; should get the next Song file inside the ArrayList
-
+        pc.nextSongInPlaylist();
         play();
-    }
-
-    //USES THE ARRAY LIST
-    public int shuffle(){
-        mp.setShuffled(true);
-        Random index = new Random();
-        int random = index.nextInt(mp.getSonglist().size() - 1);
-        return random +1;
     }
 
     public boolean checkIfDone(){
@@ -80,21 +71,12 @@ public class MediaController {
         }
         else{
             stop();
-            if (mp.isShuffled()){
-                mp.pickSong(new File(String.valueOf(mp.getSonglist().get(shuffle()))));
-            }
-            else{
-                mp.pickSong(new File("The Bloodthirster"));
-            }
+            pc.previousSongInPlaylist();
             play();
         }
     }
 
     public void playback(){
         mp.getMediaPlayer().seek(mp.getStartTime());
-    }
-
-    public void addSong(File filename){
-        mp.getSonglist().add(filename);
     }
 }

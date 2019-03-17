@@ -17,10 +17,34 @@ public class MedPlayer {
     private MediaView music;
     private boolean isShuffled;
     private boolean isFinished;
+    private boolean isOnRepeat;
 
-	public MedPlayer(){
+    public void setSonglist(ArrayList<File> songlist) {
+        this.songlist = songlist;
+    }
+
+    public Media getHit() {
+        return hit;
+    }
+
+    public void setHit(Media hit) {
+        this.hit = hit;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
+
+    public boolean isOnRepeat() {
+        return isOnRepeat;
+    }
+
+    public void setOnRepeat(boolean onRepeat) {
+        isOnRepeat = onRepeat;
+    }
+
+    public MedPlayer(){
         songlist = new ArrayList<>();
-        initSongs();
     }
 
     //picks the song
@@ -49,14 +73,6 @@ public class MedPlayer {
     //returns the media being played
     public Media getSong(){
         return hit;
-    }
-
-    public void initSongs(){
-        songlist.add(new File("Maroon 5 - This Love"));
-        songlist.add(new File("Meghan Trainor - Me Too"));
-        songlist.add(new File("Nelly Furtado - Say It Right"));
-        songlist.add(new File("The Greatest Showman - Never Enough"));
-        songlist.add(new File("The Greatest Showman - This Is Me"));
     }
 
     public Duration getStartTime(){

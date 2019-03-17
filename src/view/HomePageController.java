@@ -522,7 +522,12 @@ public class HomePageController {
         });
 
         shuffleBtn.setOnMouseClicked(e -> {
-            musicController.shuffle();
+            if (musicController.mp.isShuffled())
+                musicController.mp.setShuffled(false);
+            else{
+                musicController.mp.setShuffled(true);
+                musicController.pc.shuffle();
+            }
         });
 
         volumeImg.setOnMouseClicked(e -> {
