@@ -9,6 +9,7 @@ public class User {
     private int favoritesong1;
     private int favoritesong2;
     private int favoritesong3;
+    private int favorteplaylist;
 
 
     public static final String COL_ID = "userID";
@@ -17,6 +18,7 @@ public class User {
     public static final String COL_FAVORITESONG1 = "favoritesong1";
     public static final String COL_FAVORITESONG2 = "favoritesong2";
     public static final String COL_FAVORITESONG3 = "favoritesong3";
+    public static final String COL_FAVORITEPLAYLIST = "favoriteplaylist";
 
     public int getFavoritesong1() {
         return favoritesong1;
@@ -64,5 +66,13 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getFavorteplaylist() {
+        return favorteplaylist;
+    }
+
+    public void setFavorteplaylist(int favorteplaylist) {
+        this.favorteplaylist = favorteplaylist;
     }
 }

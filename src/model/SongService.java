@@ -137,7 +137,7 @@ public class SongService {
                 s.setSongTitle(rs.getString(Song.COL_SONGTITLE));
                 s.setGenre(rs.getString(Song.COL_GENRE));
                 s.setAlbum(rs.getString(Song.COL_ALBUM));
-                s.setAlbum(rs.getString(Song.COL_ARTIST));
+                s.setArtist(rs.getString(Song.COL_ARTIST));
                 s.setYear(rs.getInt(Song.COL_YEAR));
                 s.setDuration(rs.getFloat(Song.COL_DURATION));
                 s.setFilename(rs.getString(Song.COL_FILENAME));

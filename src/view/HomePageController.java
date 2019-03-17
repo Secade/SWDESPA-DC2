@@ -5,21 +5,19 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.media.Media;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -83,6 +81,8 @@ public class HomePageController {
     private boolean favSong2Loaded;
     private boolean favSong3Loaded;
     private boolean playlistLoaded;
+    private boolean isRepeating;
+    private boolean isShuffling;
     private int previousSong;
     private int nextSong;
     private int previousPlaylist;
@@ -93,22 +93,16 @@ public class HomePageController {
 
     private String newestSong;
 
-    private List<Song> songGetAll;
-    private List<Song> sortByAlbum;
-    private List<Song> sortByTitle;
-    private List<Song> sortByArtist;
-    private List<Song> sortByGenre;
-    private List<Song> sortByYear;
-    private List<Song> sortByDuration;
-
-    private List<Song> songData;
-
     private double xOffset = 0;
     private double yOffset = 0;
 
     private MedPlayer currentSong;
 
     private MediaController musicController;
+    private  SongService songService;
+    private PlaylistService playlistSevice;
+    private SongInPlaylistService songInPlaylistService;
+    private UserWithSongService userWithSongService;
 
     private Database DB;
     private User user;
@@ -122,25 +116,14 @@ public class HomePageController {
     }
 
     public void initialize() {
+        // INITIALIZE SECTION ==========================================================================================
         DB = new Database();
         musicController = new MediaController();
 
-
-        SongService songService = new SongService(DB);
-        PlaylistService playlistSevice = new PlaylistService(DB);
-        SongInPlaylistService songInPlaylistService = new SongInPlaylistService(DB);
-        UserWithSongService userWithSongService = new UserWithSongService(DB);
-
-//        songData = songService.getAll();
-//        songGetAll = songService.getAll();
-//        sortByTitle = songService.sortbyTitle();
-//        sortByAlbum = songService.sortbyAlbum();
-//        sortByArtist = songService.sortbyArtist();
-//        sortByGenre = songService.sortbyGenre();
-//        sortByYear = songService.sortbyYear();
-//        sortByDuration = songService.sortbyDuration();
-
-
+        songService = new SongService(DB);
+        playlistSevice = new PlaylistService(DB);
+        songInPlaylistService = new SongInPlaylistService(DB);
+        userWithSongService = new UserWithSongService(DB);
 
         selectedSongID = -1;
         isPlayingSong = false;
@@ -154,6 +137,8 @@ public class HomePageController {
         favSong2Loaded=false;
         favSong3Loaded=false;
         playlistLoaded=false;
+        isShuffling=false;
+        isRepeating=false;
         previousSong = 0;
         nextSong = 0;
         previousPlaylist = 0;
@@ -163,53 +148,29 @@ public class HomePageController {
         ArrayList<Rectangle> rectangles = new ArrayList<>();
         ArrayList<AnchorPane> anchors = new ArrayList<>();
 
-        //setSongsView(songGetAll,songStack,rectangles,anchors);
-
         ArrayList<StackPane> playlistStack = new ArrayList<>();
         ArrayList<Rectangle> boxes = new ArrayList<>();
         ArrayList<AnchorPane> anchorPane = new ArrayList<>();
 
+        // TITLE BAR SECTION ==========================================================================================
         mainStage.setOnMouseEntered(event -> {
             if(!playlistLoaded) {
                 List<Playlist> playlistData = playlistSevice.getAll(0);
-                playlistData.addAll(playlistSevice.getAll(user.getId()));
-                setPlaylistView(playlistData, playlistStack, boxes, anchorPane, songStack, rectangles, anchors, songInPlaylistService, songService);
+                if(user.getId()!=0) {
+                    playlistData.addAll(playlistSevice.getAll(user.getId()));
+                    setPlaylistView(playlistData, playlistStack, boxes, anchorPane, songStack, rectangles, anchors, songInPlaylistService, songService);
+                }else {
+                    setPlaylistView(playlistData, playlistStack, boxes, anchorPane, songStack, rectangles, anchors, songInPlaylistService, songService);
+                }
                 playlistLoaded = true;
             }
         });
-
-
-        reset.setOnAction(event -> {
-            this.initialize();
-        });
-
-        sortBtn.setOnMouseEntered(event -> {
-            sortBtn.setOpacity(1.0);
-        });
-
-        sortBtn.setOnMouseExited(event -> {
-            sortBtn.setOpacity(0.5);
-        });
-
-        sortBtn.setOnMouseClicked(event -> {
-            if (!isSortOpen) {
-                songSortBox.setDisable(false);
-                songSortBox.setVisible(true);
-                isSortOpen = true;
-            } else {
-                songSortBox.setDisable(true);
-                songSortBox.setVisible(false);
-                isSortOpen = false;
-            }
-        });
-
-        songSortBox.getItems().addAll("songTitle", "artist", "album", "genre", "Year", "duration");
 
         titleBar.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
-        //move around here
+
         titleBar.setOnMouseDragged(event -> {
             Stage primaryStage = (Stage) titleBar.getScene().getWindow();
             primaryStage.setX(event.getScreenX() - xOffset);
@@ -217,26 +178,35 @@ public class HomePageController {
         });
 
         minimize.setOnAction(event -> {
-            // get a handle to the stage
             Stage stage = (Stage) minimize.getScene().getWindow();
-            // do what you have to do
             stage.setIconified(true);
         });
 
         closeScreen.setOnAction(event -> {
             Stage stage = (Stage) closeScreen.getScene().getWindow();
-            // do what you have to do
             stage.close();
         });
 
-        songSortBox.setOnAction(event -> {
-            System.out.println(nextPlaylist);
-            System.out.println(songSortBox.getValue().toString());
-            if(selectedPlaylistID==0) {
-                setSongsView(songService.sort(songSortBox.getValue().toString()),songStack,rectangles,anchors);
-            }else {
-                setSongsView(songInPlaylistService.sort(nextPlaylist, songSortBox.getValue().toString()), songStack, rectangles, anchors);
+        // PROFILE PANE (Right Side) SECTION ==========================================================================================
+        shrinkBtn.setOnMouseClicked(event -> {
+            userInfoPane.setVisible(false);
+            userInfoPane.setDisable(true);
+        });
+
+        expandBtn.setOnMouseClicked(event -> {
+            System.out.println(user.getUsername());
+            welcomeLbl.setText(user.getUsername());
+
+            if(user.getId()!=0) {
+                mostPlayedSong.setText(userWithSongService.getMostPlayed(user.getId()).getSongTitle());
             }
+
+            userInfoPane.setVisible(true);
+            userInfoPane.setDisable(false);
+        });
+
+        reset.setOnAction(event -> {
+            resetCode(songStack, rectangles, anchors);
         });
 
         backBtn.setOnMouseEntered(event -> {
@@ -295,326 +265,6 @@ public class HomePageController {
             }
         });
 
-        logoutBtn.setOnMouseEntered(event -> {
-            logoutPic.setFitHeight(200);
-            logoutPic.setFitWidth(200);
-            logoutPic.setLayoutX(3);
-            logoutPic.setLayoutY(466);
-        });
-
-        logoutBtn.setOnMouseExited(event -> {
-            logoutPic.setFitHeight(150);
-            logoutPic.setFitWidth(150);
-            logoutPic.setLayoutX(25);
-            logoutPic.setLayoutY(490);
-        });
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Do you want to logout?");
-        //alert.setContentText("Are you ok with this?");
-
-        ButtonType buttonTypeOne = new ButtonType("Yes");
-        ButtonType buttonTypeCancel = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
-
-        logoutBtn.setOnAction(event -> {
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonTypeOne) {
-                try {
-                    FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
-                    Stage stage = (Stage) logoutBtn.getScene().getWindow();
-                    Scene scene = new Scene(pane.load());
-                    MainController controller = pane.getController();
-                    controller.setDatabase(DB);
-                    stage.setScene(scene);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                alert.close();
-            }
-        });
-
-        uploadBtn.setOnMouseEntered(event -> {
-            uploadLbl.setTextFill(Color.web("#323232"));
-        });
-
-        uploadBtn.setOnMouseExited(event -> {
-            uploadLbl.setTextFill(Color.web("#FFFFFF"));
-        });
-
-        uploadBtn.setOnMouseClicked(event -> {
-            /* Sources:
-             * https://stackoverflow.com/questions/16433915/how-to-copy-file-from-one-location-to-another-location
-             * https://www.youtube.com/watch?v=hNz8Xf4tMI4
-             * */
-            FileChooser fc = new FileChooser();
-            List<File> selectedFiles;
-            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"));
-            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("WAV", "*.wav"));
-//            fc.setInitialDirectory(new File(""));//set start directory
-            String path = "./src/audio/";
-            try {
-                selectedFiles = fc.showOpenMultipleDialog(null);
-                for (File x : selectedFiles) {
-//                    System.out.println(x.getName()); bug testing stuffs
-//                    System.out.println(x.getName().split("\\.")[0]);
-                    Files.copy(x.toPath(), (new File(path + x.getName())).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println(x.getName());
-                    newestSong=x.getName();
-                }
-            } catch (NullPointerException e) {
-                System.out.println("No File Selected!");
-            } catch (Exception e) {
-                System.out.println("Unknown Error detected!");
-                e.printStackTrace();
-            }
-
-            try {
-                Database DB = new Database();
-                SongService service = new SongService(DB);
-
-                File folder = new File("./src/audio");
-                File[] listOfFiles = folder.listFiles();
-
-                if (listOfFiles != null) {
-                    for(int y =0;y<listOfFiles.length;y++) {
-                        if (listOfFiles[y].isFile()&&listOfFiles[y].getName().compareToIgnoreCase(newestSong)==0) {
-                            InputStream input = new FileInputStream(new File("./src/audio/" + listOfFiles[y].getName()));
-                            ContentHandler handler = new DefaultHandler();
-                            Metadata metadata = new Metadata();
-                            Parser parser = new Mp3Parser();
-                            ParseContext parseCtx = new ParseContext();
-                            parser.parse(input, handler, metadata, parseCtx);
-                            input.close();
-
-                            // List all metadata
-                            String[] metadataNames = metadata.names();
-
-                            for (String name : metadataNames) {
-                                System.out.println(name + ": " + metadata.get(name));
-                            }
-
-                            System.out.println("File " + listOfFiles[y].getName());
-                            try {
-                                Song song = new Song();
-                                song.setSongID(service.getAll().size() + 1);
-                                song.setFilename(metadata.get("title") + ".mp3");
-                                song.setSongTitle(metadata.get("title"));
-                                song.setArtist(metadata.get("xmpDM:artist"));
-                                song.setAlbum(metadata.get("xmpDM:album"));
-                                song.setGenre(metadata.get("xmpDM:genre"));
-                                song.setYear(Integer.parseInt(metadata.get("xmpDM:releaseDate")));
-                                float songDuration = ((Float.parseFloat(metadata.get("xmpDM:duration"))/1000)/60);
-                                System.out.println(songDuration);
-                                song.setDuration(songDuration);
-                                service.add(song);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            this.initialize();
-                        }
-                    }
-                    }
-
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SAXException e) {
-                e.printStackTrace();
-            } catch (TikaException e) {
-                e.printStackTrace();
-            }
-
-
-        });
-
-        shrinkBtn.setOnMouseClicked(event -> {
-            userInfoPane.setVisible(false);
-            userInfoPane.setDisable(true);
-        });
-
-        expandBtn.setOnMouseClicked(event -> {
-            System.out.println(user.getUsername());
-            welcomeLbl.setText(user.getUsername());
-
-            if(user.getId()!=0) {
-                mostPlayedSong.setText(userWithSongService.getMostPlayed(user.getId()).getSongTitle());
-            }
-
-            userInfoPane.setVisible(true);
-            userInfoPane.setDisable(false);
-        });
-
-        opacityOpenClose(shuffleBtn, repeatBtn, previousBtn);
-
-        opacityOpenClose(forwardBtn, playBackBtn, fastForwardBtn);
-
-        playBtn.setOnMouseEntered(event -> {
-            playBtn.setOpacity(1.0);
-            playBtn.setFitHeight(50);
-            playBtn.setFitWidth(50);
-            playBtn.setLayoutX(215);
-            playBtn.setLayoutY(0);
-        });
-
-        playBtn.setOnMouseExited(event -> {
-            playBtn.setOpacity(0.5);
-            playBtn.setFitHeight(40);
-            playBtn.setFitWidth(40);
-            playBtn.setLayoutX(220);
-            playBtn.setLayoutY(5);
-        });
-
-        playBtn.setOnMouseClicked(event -> {
-            if (musicController.mp.getMediaPlayerStatus() == MediaPlayer.Status.PLAYING) {
-                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));
-                musicController.pause();
-                //currentSong.getMediaPlayer().play();
-
-            } else {
-                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Pause.png")));
-                musicController.play();
-                //currentSong.getMediaPlayer().pause();
-                songNameLbl.setText(songService.getAll().get(selectedSongID).getSongTitle());
-                artistNameLbl.setText(songService.getAll().get(selectedSongID).getArtist());
-                albumNameLbl.setText(songService.getAll().get(selectedSongID).getAlbum());
-                genreTypeLbl.setText(songService.getAll().get(selectedSongID).getGenre());
-                yearLbl.setText(songService.getAll().get(selectedSongID).getYear()+"");
-
-                if(user.getId()!=0) {
-                    userWithSongService.updatePlayCount(selectedSongID+1,user.getId());
-
-                    mostPlayedSong.setText(userWithSongService.getMostPlayed(user.getId()).getSongTitle());
-                }
-            }
-        });
-
-        repeatBtn.setOnMouseClicked(e -> {
-            musicController.repeat();
-        });
-
-        playBackBtn.setOnMouseClicked(e -> {
-            musicController.playback();
-        });
-
-        previousBtn.setOnMouseClicked(e -> {
-            musicController.previousSong();
-        });
-
-        forwardBtn.setOnMouseClicked(e -> {
-            musicController.nextSong();
-        });
-
-        fastForwardBtn.setOnMouseClicked(e -> {
-            musicController.fastForward();
-        });
-
-        shuffleBtn.setOnMouseClicked(e -> {
-            musicController.shuffle();
-        });
-
-        volumeImg.setOnMouseClicked(e -> {
-            if (musicController.mp.getMediaPlayer().isMute())
-                musicController.mp.getMediaPlayer().setMute(false);
-            else
-                musicController.mp.getMediaPlayer().setMute(true);
-        });
-
-
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                musicController.mp.getMediaPlayer().setVolume(volumeSlider.getValue() / 100);
-            }
-        });
-
-
-
-        timeSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                if (timeSlider.isPressed()){
-                    musicController.mp.getMediaPlayer().seek(musicController.mp.getMediaPlayer().getMedia().getDuration().multiply(timeSlider.getValue() / 100));
-
-
-                    if (musicController.checkIfDone()){
-                        playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));
-                        timeSlider.setValue(0.0);
-                        musicController.stop();
-
-                    }
-                }
-            }
-        });
-
-
-
-        createPlaylistBtn.setOnAction(event -> {
-            TextInputDialog dialog = new TextInputDialog("");
-            dialog.setTitle("Create Playlist");
-            dialog.setHeaderText("Playlist");
-            dialog.setContentText("Enter Playlist Name:");
-
-            Optional<String> result = dialog.showAndWait();
-            if (result.isPresent()){
-                System.out.println("Your name: " + result.get());
-                Playlist createP = new Playlist();
-                createP.setPlaylistName(result.get());
-                createP.setPlaylistID(playlistSevice.getAll(user.getId()).size()+1);
-                createP.setUserID(user.getId());
-                playlistSevice.add(createP);
-            }
-            this.initialize();
-        });
-
-        addSongToPlaylistBtn.setOnAction(event -> {
-            List<String> playlist = new ArrayList<>();
-            for(int j=0;j<playlistSevice.getAll(user.getId()).size();j++)
-                playlist.add(playlistSevice.getAll(user.getId()).get(j).getPlaylistName());
-            List<String> songs = new ArrayList<>();
-            for(int k=0;k<songService.getAll().size();k++)
-                songs.add(songService.getAll().get(k).getSongTitle());
-
-            ChoiceDialog<String> dialog = new ChoiceDialog<>("", playlist);
-            dialog.setTitle("Add Song To Playlist");
-            dialog.setHeaderText("Add Song");
-            dialog.setContentText("Choose which Playlist");
-
-            ChoiceDialog<String> song = new ChoiceDialog<>("", songs);
-            song.setTitle("Add Song To Playlist");
-            song.setHeaderText("Add Song");
-            song.setContentText("Choose which Song");
-
-
-// Traditional way to get the response value.
-            Optional<String> result1 = dialog.showAndWait();
-            if (result1.isPresent()){
-                System.out.println("Your choice: " + result1.get());
-            }
-            Optional<String> result2 = song.showAndWait();
-            if (result2.isPresent()){
-                System.out.println("Your choice: " + result2.get());
-                SongInPlaylist songInPlaylist = new SongInPlaylist();
-                songInPlaylist.setUserID(user.getId());
-                songInPlaylist.setSongInPlaylistID(songInPlaylistService.getAll().size()+1);
-                for(int g=1;g<songService.getAll().size();g++) {
-                    if (songService.getAll().get(g).getSongTitle().compareToIgnoreCase(result2.get()) == 0)
-                        songInPlaylist.setSongID(g+1);
-                }
-                for(int h=0;h<playlistSevice.getComplete().size();h++) {
-                    if (playlistSevice.getComplete().get(h).getPlaylistName().compareToIgnoreCase(result1.get()) == 0)
-                        songInPlaylist.setPlaylistID(h);
-                }
-                songInPlaylistService.add(songInPlaylist);
-            }
-            this.initialize();
-        });
-
         albumSelect.setOnMouseClicked(event -> {
             if(!favPlaylistLoaded) {
                 for (int v = 0; v < playlistSevice.getAll(user.getId()).size(); v++)
@@ -656,11 +306,341 @@ public class HomePageController {
             isEditOpen = false;
         });
 
+        logoutBtn.setOnMouseEntered(event -> {
+            logoutPic.setFitHeight(200);
+            logoutPic.setFitWidth(200);
+            logoutPic.setLayoutX(3);
+            logoutPic.setLayoutY(466);
+        });
 
+        logoutBtn.setOnMouseExited(event -> {
+            logoutPic.setFitHeight(150);
+            logoutPic.setFitWidth(150);
+            logoutPic.setLayoutX(25);
+            logoutPic.setLayoutY(490);
+        });
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Do you want to logout?");
+        ButtonType buttonTypeOne = new ButtonType("Yes");
+        ButtonType buttonTypeCancel = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        logoutBtn.setOnAction(event -> {
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeOne) {
+                try {
+                    FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
+                    Stage stage = (Stage) logoutBtn.getScene().getWindow();
+                    Scene scene = new Scene(pane.load());
+                    MainController controller = pane.getController();
+                    controller.setDatabase(DB);
+                    stage.setScene(scene);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                alert.close();
+            }
+        });
+
+        // TOP PANE SECTION ==========================================================================================
+        uploadBtn.setOnMouseEntered(event -> {
+            uploadLbl.setTextFill(Color.web("#323232"));
+        });
+
+        uploadBtn.setOnMouseExited(event -> {
+            uploadLbl.setTextFill(Color.web("#FFFFFF"));
+        });
+
+        uploadBtn.setOnMouseClicked(event -> {
+            /* Sources:
+             * https://stackoverflow.com/questions/16433915/how-to-copy-file-from-one-location-to-another-location
+             * https://www.youtube.com/watch?v=hNz8Xf4tMI4
+             * */
+            FileChooser fc = new FileChooser();
+            List<File> selectedFiles;
+            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"));
+            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("WAV", "*.wav"));
+            String path = "./src/audio/";
+            try {
+                selectedFiles = fc.showOpenMultipleDialog(null);
+                for (File x : selectedFiles) {
+                    Files.copy(x.toPath(), (new File(path + x.getName())).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    System.out.println(x.getName());
+                    newestSong=x.getName();
+                }
+            } catch (NullPointerException e) {
+                System.out.println("No File Selected!");
+            } catch (Exception e) {
+                System.out.println("Unknown Error detected!");
+                e.printStackTrace();
+            }
+
+            try {
+                Database DB = new Database();
+                SongService service = new SongService(DB);
+
+                File folder = new File("./src/audio");
+                File[] listOfFiles = folder.listFiles();
+
+                if (listOfFiles != null) {
+                    for (int y = 0; y < listOfFiles.length; y++) {
+                        if (listOfFiles[y].isFile() && listOfFiles[y].getName().compareToIgnoreCase(newestSong) == 0) {
+                            InputStream input = new FileInputStream(new File("./src/audio/" + listOfFiles[y].getName()));
+                            ContentHandler handler = new DefaultHandler();
+                            Metadata metadata = new Metadata();
+                            Parser parser = new Mp3Parser();
+                            ParseContext parseCtx = new ParseContext();
+                            parser.parse(input, handler, metadata, parseCtx);
+                            input.close();
+
+                            String[] metadataNames = metadata.names();
+
+                            for (String name : metadataNames) {
+                                System.out.println(name + ": " + metadata.get(name));
+                            }
+
+                            System.out.println("File " + listOfFiles[y].getName());
+                            try {
+                                Song song = new Song();
+                                song.setSongID(service.getAll().size() + 1);
+                                song.setFilename(metadata.get("title") + ".mp3");
+                                song.setSongTitle(metadata.get("title"));
+                                song.setArtist(metadata.get("xmpDM:artist"));
+                                song.setAlbum(metadata.get("xmpDM:album"));
+                                song.setGenre(metadata.get("xmpDM:genre"));
+                                song.setYear(Integer.parseInt(metadata.get("xmpDM:releaseDate")));
+                                float songDuration = ((Float.parseFloat(metadata.get("xmpDM:duration")) / 1000) / 60);
+                                System.out.println(songDuration);
+                                song.setDuration(songDuration);
+                                service.add(song);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            resetCode(songStack, rectangles, anchors);
+                        }
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (TikaException e) {
+                e.printStackTrace();
+            }
+        });
+
+        searchBtn.setOnAction(event -> {
+            setSongsView(songService.search(searchBar.getText()), songStack, rectangles, anchors);
+        });
+
+        // PLAYLIST & SONGS (Middle Area) SECTION ==========================================================================================
+        sortBtn.setOnMouseEntered(event -> {
+            sortBtn.setOpacity(1.0);
+        });
+
+        sortBtn.setOnMouseExited(event -> {
+            sortBtn.setOpacity(0.5);
+        });
+
+        sortBtn.setOnMouseClicked(event -> {
+            if (!isSortOpen) {
+                songSortBox.setDisable(false);
+                songSortBox.setVisible(true);
+                isSortOpen = true;
+            } else {
+                songSortBox.setDisable(true);
+                songSortBox.setVisible(false);
+                isSortOpen = false;
+            }
+        });
+
+        songSortBox.getItems().addAll("songTitle", "artist", "album", "genre", "Year", "duration");
+
+        songSortBox.setOnAction(event -> {
+            System.out.println(nextPlaylist);
+            System.out.println(songSortBox.getValue().toString());
+            if(selectedPlaylistID==0) {
+                setSongsView(songService.sort(songSortBox.getValue().toString()),songStack,rectangles,anchors);
+            }else {
+                setSongsView(songInPlaylistService.sort(nextPlaylist, songSortBox.getValue().toString()), songStack, rectangles, anchors);
+            }
+        });
+
+        createPlaylistBtn.setOnAction(event -> {
+            TextInputDialog dialog = new TextInputDialog("");
+            dialog.setTitle("Create Playlist");
+            dialog.setHeaderText("Playlist");
+            dialog.setContentText("Enter Playlist Name:");
+
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()){
+                System.out.println("Your name: " + result.get());
+                Playlist createP = new Playlist();
+                createP.setPlaylistName(result.get());
+                createP.setPlaylistID(playlistSevice.getComplete().size()+1);
+                createP.setUserID(user.getId());
+                playlistSevice.add(createP);
+            }
+            resetCode(songStack, rectangles, anchors);
+        });
+
+        addSongToPlaylistBtn.setOnAction(event -> {
+            List<String> playlist = new ArrayList<>();
+            for(int j=0;j<playlistSevice.getAll(user.getId()).size();j++)
+                playlist.add(playlistSevice.getAll(user.getId()).get(j).getPlaylistName());
+            List<String> songs = new ArrayList<>();
+            for(int k=0;k<songService.getAll().size();k++)
+                songs.add(songService.getAll().get(k).getSongTitle());
+
+            ChoiceDialog<String> dialog = new ChoiceDialog<>("", playlist);
+            dialog.setTitle("Add Song To Playlist");
+            dialog.setHeaderText("Add Song");
+            dialog.setContentText("Choose which Playlist");
+
+            ChoiceDialog<String> song = new ChoiceDialog<>("", songs);
+            song.setTitle("Add Song To Playlist");
+            song.setHeaderText("Add Song");
+            song.setContentText("Choose which Song");
+
+            Optional<String> result1 = dialog.showAndWait();
+            if (result1.isPresent()){
+                System.out.println("Your choice: " + result1.get());
+            }
+            Optional<String> result2 = song.showAndWait();
+            if (result2.isPresent()){
+                System.out.println("Your choice: " + result2.get());
+                SongInPlaylist songInPlaylist = new SongInPlaylist();
+                songInPlaylist.setUserID(user.getId());
+                songInPlaylist.setSongInPlaylistID(songInPlaylistService.getAll().size()+1);
+                for(int g=1;g<songService.getAll().size();g++) {
+                    if (songService.getAll().get(g).getSongTitle().compareToIgnoreCase(result2.get()) == 0)
+                        songInPlaylist.setSongID(g+1);
+                }
+                for(int h=0;h<playlistSevice.getComplete().size();h++) {
+                    if (playlistSevice.getComplete().get(h).getPlaylistName().compareToIgnoreCase(result1.get()) == 0)
+                        songInPlaylist.setPlaylistID(h);
+                }
+                songInPlaylistService.add(songInPlaylist);
+            }
+            resetCode(songStack, rectangles, anchors);
+        });
+
+        // MUSIC CONTROLS (Bottom Area) SECTION ==========================================================================================
+        opacityOpenClose(fastForwardBtn, previousBtn);
+
+        opacityOpenClose(forwardBtn, playBackBtn);
+
+        playBtn.setOnMouseEntered(event -> {
+            playBtn.setOpacity(1.0);
+            playBtn.setFitHeight(50);
+            playBtn.setFitWidth(50);
+            playBtn.setLayoutX(215);
+            playBtn.setLayoutY(0);
+        });
+
+        playBtn.setOnMouseExited(event -> {
+            playBtn.setOpacity(0.5);
+            playBtn.setFitHeight(40);
+            playBtn.setFitWidth(40);
+            playBtn.setLayoutX(220);
+            playBtn.setLayoutY(5);
+        });
+
+        playBtn.setOnMouseClicked(event -> {
+            if (musicController.mp.getMediaPlayerStatus() == MediaPlayer.Status.PLAYING) {
+                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));
+                musicController.pause();
+            } else {
+                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Pause.png")));
+                musicController.play();
+                songNameLbl.setText(songService.getAll().get(selectedSongID).getSongTitle());
+                artistNameLbl.setText(songService.getAll().get(selectedSongID).getArtist());
+                albumNameLbl.setText(songService.getAll().get(selectedSongID).getAlbum());
+                genreTypeLbl.setText(songService.getAll().get(selectedSongID).getGenre());
+                yearLbl.setText(songService.getAll().get(selectedSongID).getYear()+"");
+
+                if(user.getId()!=0) {
+                    userWithSongService.updatePlayCount(selectedSongID+1,user.getId());
+
+                    mostPlayedSong.setText(userWithSongService.getMostPlayed(user.getId()).getSongTitle());
+                }
+            }
+        });
+
+        repeatBtn.setOnMouseClicked(e -> {
+            if(!isRepeating) {
+                musicController.repeat();
+                repeatBtn.setOpacity(1.0);
+                isRepeating=true;
+            }else {
+                repeatBtn.setOpacity(0.5);
+                isRepeating=false;
+            }
+        });
+
+        playBackBtn.setOnMouseClicked(e -> {
+            musicController.playback();
+        });
+
+        previousBtn.setOnMouseClicked(e -> {
+            musicController.previousSong();
+        });
+
+        forwardBtn.setOnMouseClicked(e -> {
+            musicController.nextSong();
+        });
+
+        fastForwardBtn.setOnMouseClicked(e -> {
+            musicController.fastForward();
+        });
+
+        shuffleBtn.setOnMouseClicked(e -> {
+            if(!isShuffling) {
+                musicController.shuffle();
+                shuffleBtn.setOpacity(1.0);
+                isShuffling=true;
+            }else {
+                shuffleBtn.setOpacity(0.5);
+                isShuffling=false;
+            }
+        });
+
+        volumeImg.setOnMouseClicked(e -> {
+            if (musicController.mp.getMediaPlayer().isMute())
+                musicController.mp.getMediaPlayer().setMute(false);
+            else
+                musicController.mp.getMediaPlayer().setMute(true);
+        });
+
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                musicController.mp.getMediaPlayer().setVolume(volumeSlider.getValue() / 100);
+            }
+        });
+
+        timeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                if (timeSlider.isPressed()){
+                    musicController.mp.getMediaPlayer().seek(musicController.mp.getMediaPlayer().getMedia().getDuration().multiply(timeSlider.getValue() / 100));
+                    if (musicController.checkIfDone()){
+                        playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));
+                        timeSlider.setValue(0.0);
+                        musicController.stop();
+                    }
+                }
+            }
+        });
     }
 
-    private void opacityOpenClose(ImageView forwardBtn, ImageView playBtn, ImageView fastForwardBtn) {
+    private void opacityOpenClose(ImageView forwardBtn, ImageView playBtn) {
         playBtn.setOnMouseEntered(event -> {
             playBtn.setOpacity(1.0);
         });
@@ -676,14 +656,6 @@ public class HomePageController {
 
         forwardBtn.setOnMouseExited(event -> {
             forwardBtn.setOpacity(0.5);
-        });
-
-        fastForwardBtn.setOnMouseEntered(event -> {
-            fastForwardBtn.setOpacity(1.0);
-        });
-
-        fastForwardBtn.setOnMouseExited(event -> {
-            fastForwardBtn.setOpacity(0.5);
         });
     }
 
@@ -789,7 +761,7 @@ public class HomePageController {
                             setSongsView(songService.getAll(), songStack, rectangles, anchors);
                             selectedPlaylistID=finalX;
                         }else {
-                            setSongsView(songInPlaylistService.getSongsInPlaylist(nextPlaylist), songStack, rectangles, anchors);
+                            setSongsView(songInPlaylistService.getSongsInPlaylist(playlistData.get(nextPlaylist).getPlaylistID()), songStack, rectangles, anchors);
                             selectedPlaylistID=finalX;
                         }
                     }
@@ -817,12 +789,9 @@ public class HomePageController {
         anchors.clear();
 
         for(int i=0;i<numSongs;i++){
-
-            
-
             songStack.add(new StackPane());
             rectangles.add(new Rectangle());
-            rectangles.get(i).setWidth(775);
+            rectangles.get(i).setWidth(820);
             rectangles.get(i).setHeight(50);
             rectangles.get(i).setFill(Color.web("#202020"));
             songStack.get(i).getChildren().add(rectangles.get(i));
@@ -851,8 +820,6 @@ public class HomePageController {
                     isSettingOpen = false;
                 }
             });
-
-
 
             Label title = new Label(songData.get(i).getSongTitle());
             title.setMaxWidth(180);
@@ -929,7 +896,6 @@ public class HomePageController {
                         userWithSongService.add(userWithSong);
                     }
                 }
-
                 editSong(songData,finalI);
             });
 
@@ -946,16 +912,12 @@ public class HomePageController {
             songStack.get(i).getChildren().addAll(anchors.get(i));
             songList.getChildren().add(songStack.get(i));
         }
-
-
-
     }
 
     private MedPlayer initializeSong(Database DB){
         SongService songService = new SongService(DB);
         System.out.println("/audio/" + songService.getAll().get(selectedSongID).getFilename());
         musicController.mp.pickSong(new File(songService.getAll().get(selectedSongID).getFilename()));
-//        musicController.mp.pickSong(new File("Nelly Furtado - Say It Right"));
         volumeSlider.setValue(musicController.mp.getMediaPlayer().getVolume() * 100);
         musicController.mp.getMediaPlayer().currentTimeProperty().addListener(new InvalidationListener() {
             @Override
@@ -1007,5 +969,16 @@ public class HomePageController {
             isSettingOpen=false;
         });
     }
-}
 
+    private void resetCode(ArrayList<StackPane> songStack,ArrayList<Rectangle> rectangles,ArrayList<AnchorPane> anchors){
+        songService = new SongService(DB);
+        playlistSevice = new PlaylistService(DB);
+        songInPlaylistService = new SongInPlaylistService(DB);
+        userWithSongService = new UserWithSongService(DB);
+        songList.getChildren().clear();
+        songStack.clear();
+        rectangles.clear();
+        anchors.clear();
+        this.initialize();
+    }
+}

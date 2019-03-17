@@ -9,6 +9,8 @@ import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
+import org.apache.tika.parser.mp3.ID3Tags;
+import org.apache.tika.parser.mp3.ID3v2Frame;
 import org.apache.tika.parser.mp3.Mp3Parser;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
@@ -75,5 +77,7 @@ public class SongParser {
         } catch (TikaException e) {
             e.printStackTrace();
         }
+
+
     }
 }

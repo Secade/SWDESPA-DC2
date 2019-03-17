@@ -278,13 +278,14 @@ public class MainController {
 
                         User c = new User();
 
-                        c.setId(idCount);
-                        idCount++;
+                        System.out.println(service.getAll().size());
+                        c.setId(service.getAll().size()+1);
                         c.setUsername(newUserNameInput.getText());
                         c.setPassword(newPasswordInput.getText());
                         c.setFavoritesong1(-1);
                         c.setFavoritesong2(-1);
                         c.setFavoritesong3(-1);
+                        c.setFavorteplaylist(-1);
 
                         service.add(c);
 
