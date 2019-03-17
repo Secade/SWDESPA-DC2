@@ -1,5 +1,8 @@
 package view;
 
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -19,6 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.*;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -54,9 +58,9 @@ public class HomePageController {
     @FXML
     private ComboBox songSortBox;
     @FXML
-    private ImageView repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, logoutPic, sortBtn;
+    private ImageView volumeImg,repeatBtn, playBackBtn, previousBtn, playBtn, forwardBtn, fastForwardBtn, shuffleBtn, songPic, expandBtn, shrinkBtn, logoutPic, sortBtn;
     @FXML
-    private Label userNameLabel, backLbl, confirmLbl, adjustBackLbl, adjustConfirmLbl,mostPlayedSong;
+    private Label userNameLabel, backLbl, confirmLbl, adjustBackLbl, adjustConfirmLbl,mostPlayedSong, songStartTime, songEndTime;
     @FXML
     private Button backBtn, confirmBtn,minimize,closeScreen,searchBtn;
     @FXML
@@ -65,6 +69,8 @@ public class HomePageController {
     private Rectangle titleBar;
     @FXML
     private TextField searchBar,editTitle,editArtist,editAlbum,editGenre,editDate,editTime;
+    @FXML
+    private Slider volumeSlider, timeSlider;
 
     private boolean isPlayingSong;
     private boolean songPaneOpen;
@@ -102,6 +108,8 @@ public class HomePageController {
 
     private MedPlayer currentSong;
 
+    private MediaController musicController;
+
     private Database DB;
     private User user;
 
@@ -115,7 +123,7 @@ public class HomePageController {
 
     public void initialize() {
         DB = new Database();
-
+        musicController = new MediaController();
 
 
         SongService songService = new SongService(DB);
@@ -463,29 +471,88 @@ public class HomePageController {
         });
 
         playBtn.setOnMouseClicked(event -> {
-            if (!isPlayingSong) {
-                isPlayingSong = true;
-                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Pause.png")));
-                currentSong.play();
+            if (musicController.mp.getMediaPlayerStatus() == MediaPlayer.Status.PLAYING) {
+                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));
+                musicController.pause();
+                //currentSong.getMediaPlayer().play();
 
-                songNameLbl.setText(songData.get(selectedSongID).getSongTitle());
-                artistNameLbl.setText(songData.get(selectedSongID).getArtist());
-                albumNameLbl.setText(songData.get(selectedSongID).getAlbum());
-                genreTypeLbl.setText(songData.get(selectedSongID).getGenre());
-                yearLbl.setText(songData.get(selectedSongID).getYear()+"");
+            } else {
+                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Pause.png")));
+                musicController.play();
+                //currentSong.getMediaPlayer().pause();
+                songNameLbl.setText(songService.getAll().get(selectedSongID).getSongTitle());
+                artistNameLbl.setText(songService.getAll().get(selectedSongID).getArtist());
+                albumNameLbl.setText(songService.getAll().get(selectedSongID).getAlbum());
+                genreTypeLbl.setText(songService.getAll().get(selectedSongID).getGenre());
+                yearLbl.setText(songService.getAll().get(selectedSongID).getYear()+"");
 
                 if(user.getId()!=0) {
                     userWithSongService.updatePlayCount(selectedSongID+1,user.getId());
 
                     mostPlayedSong.setText(userWithSongService.getMostPlayed(user.getId()).getSongTitle());
                 }
-
-            } else {
-                isPlayingSong = false;
-                playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));
-                currentSong.pause();
             }
         });
+
+        repeatBtn.setOnMouseClicked(e -> {
+            musicController.repeat();
+        });
+
+        playBackBtn.setOnMouseClicked(e -> {
+            musicController.playback();
+        });
+
+        previousBtn.setOnMouseClicked(e -> {
+            musicController.previousSong();
+        });
+
+        forwardBtn.setOnMouseClicked(e -> {
+            musicController.nextSong();
+        });
+
+        fastForwardBtn.setOnMouseClicked(e -> {
+            musicController.fastForward();
+        });
+
+        shuffleBtn.setOnMouseClicked(e -> {
+            musicController.shuffle();
+        });
+
+        volumeImg.setOnMouseClicked(e -> {
+            if (musicController.mp.getMediaPlayer().isMute())
+                musicController.mp.getMediaPlayer().setMute(false);
+            else
+                musicController.mp.getMediaPlayer().setMute(true);
+        });
+
+
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                musicController.mp.getMediaPlayer().setVolume(volumeSlider.getValue() / 100);
+            }
+        });
+
+
+
+        timeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                if (timeSlider.isPressed()){
+                    musicController.mp.getMediaPlayer().seek(musicController.mp.getMediaPlayer().getMedia().getDuration().multiply(timeSlider.getValue() / 100));
+
+
+                    if (musicController.checkIfDone()){
+                        playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Play.png")));
+                        timeSlider.setValue(0.0);
+                        musicController.stop();
+
+                    }
+                }
+            }
+        });
+
+
 
         createPlaylistBtn.setOnAction(event -> {
             TextInputDialog dialog = new TextInputDialog("");
@@ -618,6 +685,67 @@ public class HomePageController {
         fastForwardBtn.setOnMouseExited(event -> {
             fastForwardBtn.setOpacity(0.5);
         });
+    }
+
+    protected void updateValues(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Duration currentTime = musicController.mp.getCurrentTime();
+                String[] time = formatTime(currentTime, musicController.mp.getDuration()).split("/");
+                songStartTime.setText(time[0]);
+                songEndTime.setText(time[1]);
+                timeSlider.setDisable(musicController.mp.getSong().getDuration().isUnknown());
+
+                if (!timeSlider.isDisabled() &&
+                        musicController.mp.getSong().getDuration().greaterThan(Duration.ZERO) &&
+                        !timeSlider.isValueChanging()){
+
+                    timeSlider.setValue(musicController.mp.getMediaPlayer().getCurrentTime().divide(musicController.mp.getDuration()).toMillis() * 100);
+                }
+            }
+        });
+    }
+
+    // https://docs.oracle.com/javase/8/javafx/media-tutorial/playercontrol.htm
+    private String formatTime(Duration elapsed, Duration duration){
+        int nElapsed = (int)Math.floor(elapsed.toSeconds());
+        int elapsedHours = nElapsed / (60*60);
+        if (elapsedHours > 0){
+            nElapsed -= elapsedHours * 60 * 60;
+        }
+
+        int elapsedMinutes = nElapsed / 60;
+        int elapsedSeconds = nElapsed - elapsedHours * 60 * 60 - elapsedMinutes * 60;
+
+        if (musicController.mp.getDuration().greaterThan(Duration.ZERO)){
+            int intDuration = (int)Math.floor(duration.toSeconds());
+            int durationHours = intDuration / (60 * 60);
+            if (durationHours > 0) {
+                intDuration -= durationHours * 60 * 60;
+            }
+
+            int durationMinutes = intDuration / 60;
+            int durationSeconds = intDuration - durationHours * 60 * 60 -
+                    durationMinutes * 60;
+            if (durationHours > 0) {
+                return String.format("%d:%02d:%02d/%d:%02d:%02d",
+                        elapsedHours, elapsedMinutes, elapsedSeconds,
+                        durationHours, durationMinutes, durationSeconds);
+            } else {
+                return String.format("%02d:%02d/%02d:%02d",
+                        elapsedMinutes, elapsedSeconds,durationMinutes,
+                        durationSeconds);
+            }
+        } else {
+            if (elapsedHours > 0) {
+                return String.format("%d:%02d:%02d", elapsedHours,
+                        elapsedMinutes, elapsedSeconds);
+            } else {
+                return String.format("%02d:%02d",elapsedMinutes,
+                        elapsedSeconds);
+            }
+        }
     }
 
     private void setPlaylistView(List<Playlist>playlistData,ArrayList<StackPane> playlistStack,ArrayList<Rectangle> boxes,ArrayList<AnchorPane> anchorPane,
@@ -825,10 +953,17 @@ public class HomePageController {
 
     private MedPlayer initializeSong(Database DB){
         SongService songService = new SongService(DB);
-        System.out.println("/audio/" + songService.getAll().get(selectedSongID).getSongTitle() + ".mp3");
-        currentSong=new MedPlayer(songService.getAll().get(selectedSongID).getFilename());
-
-        return currentSong;
+        System.out.println("/audio/" + songService.getAll().get(selectedSongID).getFilename());
+        musicController.mp.pickSong(new File(songService.getAll().get(selectedSongID).getFilename()));
+//        musicController.mp.pickSong(new File("Nelly Furtado - Say It Right"));
+        volumeSlider.setValue(musicController.mp.getMediaPlayer().getVolume() * 100);
+        musicController.mp.getMediaPlayer().currentTimeProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                updateValues();
+            }
+        });
+        return musicController.mp;
     }
 
     private void editSong(List<Song> songData,int i){
