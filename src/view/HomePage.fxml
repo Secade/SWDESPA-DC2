@@ -29,7 +29,7 @@
       <AnchorPane fx:id="songInfoPane" layoutY="40.0" prefHeight="650.0" prefWidth="200.0" style="-fx-background-color: #101010;">
          <children>
             <ImageView fx:id="songPic" fitHeight="160.0" fitWidth="160.0" layoutX="25.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="15.0" layoutY="15.0" text="Current Song:" textFill="WHITE">
+            <Label layoutX="15.0" layoutY="15.0" text="Selected Song:" textFill="WHITE">
                <font>
                   <Font name="Raleway" size="22.0" />
                </font>

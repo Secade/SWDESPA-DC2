@@ -18,7 +18,6 @@ public class SongInPlaylistService {
 
     public boolean add(SongInPlaylist s){
         // ADD CONTACT
-
         String query = "INSERT INTO " + SongInPlaylist.TABLE_NAME + " VALUE (?, ?, ?,?)";
 
         try{
@@ -92,7 +91,7 @@ public class SongInPlaylistService {
         }
         return songinplaylists;
     }
-
+  
     public List<Song> sort(int playlistID, String sortType) {
         List<Song> songs = new ArrayList<>();
 
@@ -126,6 +125,4 @@ public class SongInPlaylistService {
 
         return songs;
     }
-
-
 }

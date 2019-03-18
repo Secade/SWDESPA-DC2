@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static view.MainController.user;
+
 public class UserService {
     private Database db;
 
@@ -113,6 +115,78 @@ public class UserService {
         }
 
         return contacts;
+    }
+
+    public boolean updateFaveSong1(int song1ID){
+        // ADD CONTACT
+
+        String query = "UPDATE " + User.TABLE_NAME + " SET " + user.COL_FAVORITESONG1 + " = " + song1ID
+                + " WHERE " + User.COL_ID + " = " + user.getId();
+        Connection connection = db.getConnection();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            boolean added = statement.execute();
+            return added;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateFaveSong2(int song1ID){
+        // ADD CONTACT
+
+        String query = "UPDATE " + User.TABLE_NAME + " SET " + User.COL_FAVORITESONG2+ " = " + song1ID
+                + " WHERE " + User.COL_ID + " = " + user.getId() ;
+        Connection connection = db.getConnection();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            boolean added = statement.execute();
+            return added;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateFaveSong3(int song1ID){
+        // ADD CONTACT
+
+        String query = "UPDATE " + User.TABLE_NAME + " SET " + User.COL_FAVORITESONG3 + " = " + song1ID
+                + " WHERE " + User.COL_ID + " = " + user.getId() ;
+        Connection connection = db.getConnection();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            boolean added = statement.execute();
+            return added;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateFavePlaylist(int playlistID){
+        // ADD CONTACT
+
+        String query = "UPDATE " + User.TABLE_NAME + " SET " + User.COL_FAVEPLAYLIST + " = " + playlistID
+                + " WHERE " + User.COL_ID + " = " + user.getId() ;
+        Connection connection = db.getConnection();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            boolean added = statement.execute();
+            return added;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

@@ -34,7 +34,6 @@ public class UserWithSongService {
         }
         return false;
     }
-
     public List<UserWithSong> getAll(int id){
         //GET CONTACTS
         Connection connection = db.getConnection();
@@ -143,4 +142,3 @@ public class UserWithSongService {
     }
 
 }
-

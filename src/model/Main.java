@@ -11,12 +11,12 @@ import view.MainController;
 
 public class Main extends Application {
 
-
-
+    public static final Database DB = new Database();
+    public static Stage stageM;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        this.stageM = primaryStage;
         FXMLLoader root = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
         primaryStage.setTitle("SpotCloud");
         primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -32,5 +32,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Stage getStageM(){
+        return stageM;
     }
 }
