@@ -38,9 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class HomePageController implements EventHandler<MouseEvent> {
-    @FXML
-    private Slider mediaSlider, volumeSlider;
+public class HomePageController {
     @FXML
     private MediaView homeVideo, songPlayer;
     @FXML
@@ -71,6 +69,7 @@ public class HomePageController implements EventHandler<MouseEvent> {
     private TextField searchBar,editTitle,editArtist,editAlbum,editGenre,editDate,editTime;
     @FXML
     private Slider volumeSlider, timeSlider;
+
     private boolean isPlayingSong;
     private boolean songPaneOpen;
     private boolean playlistPaneOpen;
@@ -87,7 +86,7 @@ public class HomePageController implements EventHandler<MouseEvent> {
     private int previousSong;
     private int nextSong;
     private int previousPlaylist;
-    private int nextPlaylist
+    private int nextPlaylist;
     private int currentSongID;
 
     private int selectedSongID;
@@ -211,78 +210,6 @@ public class HomePageController implements EventHandler<MouseEvent> {
 
         reset.setOnAction(event -> {
             resetCode(songStack, rectangles, anchors);
-        });
-
-        backBtn.setOnMouseEntered(event -> {
-            backLbl.setTextFill(Color.web("#323232"));
-        });
-
-        backBtn.setOnMouseExited(event -> {
-            backLbl.setTextFill(Color.web("#FFFFFF"));
-        });
-
-        backBtn.setOnAction(event -> {
-            editPane.setVisible(false);
-            editPane.setDisable(true);
-            isEditOpen = false;
-        });
-
-        confirmBtn.setOnMouseEntered(event -> {
-            confirmLbl.setTextFill(Color.web("#323232"));
-        });
-
-        confirmBtn.setOnMouseExited(event -> {
-            confirmLbl.setTextFill(Color.web("#FFFFFF"));
-        });
-
-        confirmBtn.setOnAction(event -> {
-            editPane.setVisible(false);
-            editPane.setDisable(true);
-            isEditOpen = false;
-        });
-
-        sortBtn.setOnMouseEntered(event -> {
-            sortBtn.setOpacity(1.0);
-        });
-
-        sortBtn.setOnMouseExited(event -> {
-            sortBtn.setOpacity(0.5);
-        });
-
-        sortBtn.setOnMouseClicked(event -> {
-            if (!isSortOpen) {
-                songSortBox.setDisable(false);
-                songSortBox.setVisible(true);
-                isSortOpen = true;
-            } else {
-                songSortBox.setDisable(true);
-                songSortBox.setVisible(false);
-                isSortOpen = false;
-            }
-        });
-
-        songSortBox.getItems().addAll("Title", "Artist", "Album", "Genre", "Year", "Duration");
-
-
-        songSortBox.setOnAction(event -> {
-            if (songSortBox.getValue() == "Title") {
-                setSongsView(sortByTitle,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Artist"){
-                setSongsView(sortByArtist,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Album"){
-                setSongsView(sortByAlbum,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Genre"){
-                setSongsView(sortByGenre,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Year"){
-                setSongsView(sortByYear,songStack,rectangles,anchors);
-            }
-            else if(songSortBox.getValue() == "Duration"){
-                setSongsView(sortByDuration,songStack,rectangles,anchors);
-            }
         });
 
         backBtn.setOnMouseEntered(event -> {
@@ -441,7 +368,6 @@ public class HomePageController implements EventHandler<MouseEvent> {
             List<File> selectedFiles;
             fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"));
             fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("WAV", "*.wav"));
-//            fc.setInitialDirectory(new File(""));//set start directory
             String path = "./src/audio/";
             try {
                 selectedFiles = fc.showOpenMultipleDialog(null);

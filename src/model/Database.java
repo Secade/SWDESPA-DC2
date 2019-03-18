@@ -10,11 +10,11 @@ public class Database {
     private final static String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     private final static String URL = "jdbc:mysql://localhost:3306/";
     private final static String USERNAME = "root";
-    private final static String PASSWORD = "mySQL12345";
+    private final static String PASSWORD = "ultimate";
     private final static String DATABASE = "swdespa_dc2";
 
-    public Connection getConnection() {
-        try {
+    public Connection getConnection(){
+        try{
             Class.forName(DRIVER_NAME);
             Connection connection = DriverManager.getConnection(
                     URL +
@@ -24,22 +24,23 @@ public class Database {
 
             System.out.println("[MYSQL] Connection Successful!");
             return connection;
-        } catch (SQLException e) {
+        } catch(SQLException e){
             System.out.println("[MYSQL] Did not able to connect");
             e.printStackTrace();
             return null;
-        } catch (ClassNotFoundException e) {
+        } catch(ClassNotFoundException e){
             System.out.println("[MYSQL] Did not able to connect");
             e.printStackTrace();
             return null;
         }
     }
-}
-/*    public static void main(String[] args) {
-        Database db = new Database();
-        UserInformationService service = new UserInformationService(db);
-        List<UserInformation> Information = service.getAll();
 
+    public static void main(String[] args) {
+        Database db = new Database();
+        //UserInformationService service = new UserInformationService(db);
+        //List<UserInformation> Information = service.getAll();
+
+/*
         UserInformation c = new UserInformation();
         c.setId(1);
         c.setName("Jan Bertel Ngo");
@@ -55,6 +56,6 @@ public class Database {
 
         for (int i = 0; i < Information.size(); i++){
             System.out.println(Information.get(i).getName()+ " " + Information.get(i).getUserInformation_detail());
-        }
+        }*/
     }
-} */
+}
