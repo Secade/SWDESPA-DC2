@@ -87,6 +87,7 @@ public class HomePageController {
     private int nextSong;
     private int previousPlaylist;
     private int nextPlaylist;
+    private int currentSongID;
 
     private int selectedSongID;
     private int selectedPlaylistID;
@@ -125,7 +126,9 @@ public class HomePageController {
         songInPlaylistService = new SongInPlaylistService(DB);
         userWithSongService = new UserWithSongService(DB);
 
-        selectedSongID = -1;
+        currentSongID=0;
+        selectedSongID = 0;
+        currentSong = initializeSong(DB);
         isPlayingSong = false;
         songPaneOpen = false;
         playlistPaneOpen = false;
@@ -331,6 +334,7 @@ public class HomePageController {
         logoutBtn.setOnAction(event -> {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeOne) {
+                musicController.stop();
                 try {
                     FXMLLoader pane = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
                     Stage stage = (Stage) logoutBtn.getScene().getWindow();
@@ -559,6 +563,7 @@ public class HomePageController {
             } else {
                 playBtn.setImage(new Image(getClass().getResourceAsStream("/media/Pause.png")));
                 musicController.play();
+                currentSongID=selectedSongID;
                 songNameLbl.setText(songService.getAll().get(selectedSongID).getSongTitle());
                 artistNameLbl.setText(songService.getAll().get(selectedSongID).getArtist());
                 albumNameLbl.setText(songService.getAll().get(selectedSongID).getAlbum());
@@ -612,10 +617,14 @@ public class HomePageController {
         });
 
         volumeImg.setOnMouseClicked(e -> {
-            if (musicController.mp.getMediaPlayer().isMute())
+            if (musicController.mp.getMediaPlayer().isMute()) {
                 musicController.mp.getMediaPlayer().setMute(false);
-            else
+                volumeImg.setImage(new Image(getClass().getResourceAsStream("/media/Volume.png")));
+            }
+            else {
                 musicController.mp.getMediaPlayer().setMute(true);
+                volumeImg.setImage(new Image(getClass().getResourceAsStream("/media/Mute.png")));
+            }
         });
 
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
@@ -665,8 +674,12 @@ public class HomePageController {
             public void run() {
                 Duration currentTime = musicController.mp.getCurrentTime();
                 String[] time = formatTime(currentTime, musicController.mp.getDuration()).split("/");
-                songStartTime.setText(time[0]);
-                songEndTime.setText(time[1]);
+                try {
+                    songStartTime.setText(time[0]);
+                    songEndTime.setText(time[1]);
+                }catch (ArrayIndexOutOfBoundsException e){
+
+                }
                 timeSlider.setDisable(musicController.mp.getSong().getDuration().isUnknown());
 
                 if (!timeSlider.isDisabled() &&
@@ -877,7 +890,21 @@ public class HomePageController {
                 }
                 if(z==1){
                     selectedSongID=finalI;
-                    currentSong=initializeSong(DB);
+                    if (musicController.mp.getMediaPlayerStatus() == MediaPlayer.Status.PAUSED&&currentSongID!=selectedSongID) {
+                        currentSong = initializeSong(DB);
+                    }
+                    else if(musicController.mp.getMediaPlayerStatus() == MediaPlayer.Status.PLAYING&&currentSongID!=selectedSongID){
+                        musicController.stop();
+                        currentSong = initializeSong(DB);
+                        currentSongID=selectedSongID;
+                        songNameLbl.setText(songService.getAll().get(selectedSongID).getSongTitle());
+                        artistNameLbl.setText(songService.getAll().get(selectedSongID).getArtist());
+                        albumNameLbl.setText(songService.getAll().get(selectedSongID).getAlbum());
+                        genreTypeLbl.setText(songService.getAll().get(selectedSongID).getGenre());
+                        yearLbl.setText(songService.getAll().get(selectedSongID).getYear()+"");
+                        musicController.play();
+                    }
+
                     UserWithSongService userWithSongService = new UserWithSongService(DB);
 
                     for(int h=0;h<userWithSongService.getAll(user.getId()).size();h++) {
@@ -896,7 +923,7 @@ public class HomePageController {
                         userWithSongService.add(userWithSong);
                     }
                 }
-                editSong(songData,finalI);
+                editSong(songData,finalI,songStack, rectangles, anchors);
             });
 
             anchors.get(i).setOnMouseEntered(event -> {
@@ -928,7 +955,7 @@ public class HomePageController {
         return musicController.mp;
     }
 
-    private void editSong(List<Song> songData,int i){
+    private void editSong(List<Song> songData,int i,ArrayList<StackPane> songStack,ArrayList<Rectangle> rectangles,ArrayList<AnchorPane> anchors){
 
         SongService songService = new SongService(DB);
 
@@ -967,6 +994,7 @@ public class HomePageController {
             songSettingPane.setVisible(false);
             songSettingPane.setDisable(true);
             isSettingOpen=false;
+            resetCode(songStack, rectangles, anchors);
         });
     }
 

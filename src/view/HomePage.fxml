@@ -6,8 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -31,7 +29,7 @@
       <AnchorPane fx:id="songInfoPane" layoutY="40.0" prefHeight="650.0" prefWidth="200.0" style="-fx-background-color: #101010;">
          <children>
             <ImageView fx:id="songPic" fitHeight="160.0" fitWidth="160.0" layoutX="25.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="15.0" layoutY="15.0" text="Selected Song:" textFill="WHITE">
+            <Label layoutX="15.0" layoutY="15.0" text="Current Song:" textFill="WHITE">
                <font>
                   <Font name="Raleway" size="22.0" />
                </font>
@@ -177,20 +175,6 @@
             </Label>
             <Button fx:id="createPlaylistBtn" layoutX="11.0" layoutY="517.0" mnemonicParsing="false" opacity="0.0" prefHeight="54.0" prefWidth="54.0" text="Button" />
             <Line endY="285.0" layoutX="175.0" layoutY="300.0" startY="-165.0" stroke="#f7620e" />
-            <TabPane disable="true" layoutX="266.0" prefHeight="200.0" prefWidth="317.0" style="-fx-background-color: #202020;" stylesheets="@../CSS/HomePage.css" tabClosingPolicy="UNAVAILABLE" visible="false">
-              <tabs>
-                <Tab text="Add Song">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                <Tab text="Add Playlist">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
             <Circle fill="#f7620e" layoutX="220.0" layoutY="544.0" radius="27.0" stroke="#f7620e" strokeType="INSIDE" />
             <Label fx:id="uploadLbl11" layoutX="201.0" layoutY="490.0" prefHeight="54.0" prefWidth="38.0" text="+" textFill="WHITE">
                <font>
@@ -341,7 +325,7 @@
                   <Image url="@../media/Shuffle.png" />
                </image>
             </ImageView>
-            <Slider fx:id="timeSlider" blockIncrement="1.0" layoutX="540.0" layoutY="15.0" majorTickUnit="1.0" max="200.0" minorTickCount="0" prefHeight="20.0" prefWidth="300.0" value="10.0" />
+            <Slider fx:id="timeSlider" blockIncrement="1.0" layoutX="540.0" layoutY="15.0" majorTickUnit="1.0" minorTickCount="0" prefHeight="20.0" prefWidth="300.0" value="10.0" />
             <Label fx:id="songStartTime" layoutX="490.0" layoutY="12.0" text="00:00" textFill="WHITE">
                <font>
                   <Font name="Open Sans Light" size="18.0" />
