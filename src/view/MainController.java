@@ -11,6 +11,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Database;
 import model.User;
@@ -28,17 +29,21 @@ public class MainController {
     @FXML
     private TextField userNameInput, passwordInput, newUserNameInput, newPasswordInput;
     @FXML
-    private Button logInBtn, signUpBtn, guestBtn, newSignUpBtn, newBackBtn;
+    private Button logInBtn, signUpBtn, guestBtn, newSignUpBtn, newBackBtn,minimize,closeScreen;
     @FXML
     private AnchorPane signUpPage, loginPane;
     @FXML
     private ImageView logInPic, signUpPic, newSignUpPic, newBackPic;
     @FXML
     private Label guestLbl, userNameLbl, passwordLbl, loginLbl, signUpLbl;
+    @FXML
+    private Rectangle titleBar;
 
     private  int idCount;
     private Database DB;
-    public static User user;
+    private User user;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     private static final Pattern pattern = Pattern.compile("^(?=.*\\d)(?=.*\\p{Punct})(?=.*[a-zA-z]).{6,20}$");
 
@@ -63,6 +68,30 @@ public class MainController {
         loginVideo.setMediaPlayer(mediaPlayer);
         mediaPlayer.setOnReady(()->{
 
+        });
+
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        //move around here
+        titleBar.setOnMouseDragged(event -> {
+            Stage primaryStage = (Stage) titleBar.getScene().getWindow();
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        minimize.setOnAction(event -> {
+            // get a handle to the stage
+            Stage stage = (Stage) minimize.getScene().getWindow();
+            // do what you have to do
+            stage.setIconified(true);
+        });
+
+        closeScreen.setOnAction(event -> {
+            Stage stage = (Stage) closeScreen.getScene().getWindow();
+            // do what you have to do
+            stage.close();
         });
 
         guestBtn.setOnAction(event -> {
@@ -249,13 +278,14 @@ public class MainController {
 
                         User c = new User();
 
-                        c.setId(idCount);
-                        idCount++;
+                        System.out.println(service.getAll().size());
+                        c.setId(service.getAll().size()+1);
                         c.setUsername(newUserNameInput.getText());
                         c.setPassword(newPasswordInput.getText());
                         c.setFavoritesong1(-1);
                         c.setFavoritesong2(-1);
                         c.setFavoritesong3(-1);
+                        c.setFavorteplaylist(-1);
 
                         service.add(c);
 

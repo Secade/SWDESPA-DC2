@@ -2,16 +2,15 @@ package view;
 
 import javafx.util.Duration;
 import model.MedPlayer;
-
 import java.io.File;
 import java.util.Random;
 
 public class MediaController {
 
-    protected MedPlayer mp;
+    public MedPlayer mp = new MedPlayer();
 
     public MediaController(){
-        mp = new MedPlayer(new File("Look At The Time"));
+        //mp.pickSong(new File("Nelly Furtado - Say It Right"));
     }
 
     public void play(){
@@ -43,19 +42,21 @@ public class MediaController {
     }
 
     public void fastForward(){
-            mp.getMediaPlayer().seek(mp.getMediaPlayer().getCurrentTime().add(Duration.millis(10*1000)));
+        mp.getMediaPlayer().seek(mp.getMediaPlayer().getCurrentTime().add(Duration.millis(10*1000)));
     }
 
+    //FIX TO IMPLEM'T QUEUE
     public void nextSong(){
         stop();
         if (mp.isShuffled())
             mp.pickSong(new File(String.valueOf(mp.getSonglist().get(shuffle()))));
         else
-            mp.pickSong(new File("Nelly Furtado - Say It Right")); //not generic; should get the next Song file inside the ArrayList
+            mp.pickSong(new File("Tear of the Goddess")); //not generic; should get the next Song file inside the ArrayList
 
         play();
     }
 
+    //USES THE ARRAY LIST
     public int shuffle(){
         mp.setShuffled(true);
         Random index = new Random();
@@ -63,7 +64,17 @@ public class MediaController {
         return random +1;
     }
 
-    public void previousSong(){ //same as above
+    public boolean checkIfDone(){
+        if (mp.getMediaPlayer().getCurrentTime().toMillis() >= mp.getMediaPlayer().getStopTime().toMillis()){
+            return true;
+        }
+        else
+            return false;
+    }
+
+
+    //PLS FIX
+    public void previousSong(){
         if (mp.getMediaPlayer().getCurrentTime().toSeconds() >= 5){
             playback();
         }
@@ -73,7 +84,7 @@ public class MediaController {
                 mp.pickSong(new File(String.valueOf(mp.getSonglist().get(shuffle()))));
             }
             else{
-                mp.pickSong(new File("Maroon 5 - This Love"));
+                mp.pickSong(new File("The Bloodthirster"));
             }
             play();
         }

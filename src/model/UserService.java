@@ -19,7 +19,7 @@ public class UserService {
     public boolean add(User c){
         // ADD CONTACT
 
-        String query = "INSERT INTO " + User.TABLE_NAME + " VALUE (?, ?, ?,?,?,?)";
+        String query = "INSERT INTO " + User.TABLE_NAME + " VALUE (?, ?, ?,?,?,?,?)";
         Connection connection = db.getConnection();
 
         try{
@@ -30,7 +30,7 @@ public class UserService {
             statement.setInt(4,c.getFavoritesong1());
             statement.setInt(5,c.getFavoritesong2());
             statement.setInt(6,c.getFavoritesong3());
-            statement.setInt(7,c.getFavoriteplaylist());
+            statement.setInt(7,c.getFavorteplaylist());
 
             boolean added = statement.execute();
             return added;
@@ -59,7 +59,6 @@ public class UserService {
                 c.setId(rs.getInt(User.COL_FAVORITESONG1));
                 c.setId(rs.getInt(User.COL_FAVORITESONG2));
                 c.setId(rs.getInt(User.COL_FAVORITESONG3));
-                c.setFavoriteplaylist(rs.getInt(User.COL_FAVEPLAYLIST));
                 contacts.add(c);
             }
 

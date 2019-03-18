@@ -34,7 +34,34 @@ public class PlaylistService {
         return false;
     }
 
-    public List<Playlist> getAll(){
+    public List<Playlist> getAll(int userID){
+        //GET CONTACTS
+        Connection connection = db.getConnection();
+        List<Playlist> playlists = new ArrayList<>();
+
+        String query = "SELECT * FROM " + Playlist.TABLE_NAME
+                +" WHERE " +Playlist.COL_USERID +"="+ userID;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                Playlist pl = new Playlist();
+                pl.setPlaylistID(rs.getInt(Playlist.COL_PLAYLISTID));
+                pl.setPlaylistName(rs.getString(Playlist.COL_PLAYLISTNAME));
+                pl.setUserID(rs.getInt(Playlist.COL_USERID));
+                playlists.add(pl);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return playlists;
+    }
+
+    public List<Playlist> getComplete(){
         //GET CONTACTS
         Connection connection = db.getConnection();
         List<Playlist> playlists = new ArrayList<>();

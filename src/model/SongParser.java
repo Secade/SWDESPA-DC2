@@ -9,6 +9,8 @@ import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
+import org.apache.tika.parser.mp3.ID3Tags;
+import org.apache.tika.parser.mp3.ID3v2Frame;
 import org.apache.tika.parser.mp3.Mp3Parser;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
@@ -55,7 +57,9 @@ public class SongParser {
                             song.setAlbum(metadata.get("xmpDM:album"));
                             song.setGenre(metadata.get("xmpDM:genre"));
                             song.setYear(Integer.parseInt(metadata.get("xmpDM:releaseDate")));
-                            song.setDuration(0);
+                            float songDuration = ((Float.parseFloat(metadata.get("xmpDM:duration"))/1000)/60);
+                            System.out.println(songDuration);
+                            song.setDuration(songDuration);
                             service.add(song);
                         }catch (Exception e){
 

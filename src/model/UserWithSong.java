@@ -3,11 +3,15 @@ package model;
 public class UserWithSong {
     public  static final  String TABLE_NAME = "userwithsong";
 
+    private int userwithsongID;
     private int userID;
     private int songID;
+    private int playcount;
 
+    public static final String  COL_USERWITHSONGID = "userwithsongID";
     public static final String COL_USERID = "userID";
     public static final String COL_SONGID = "songID";
+    public static  final String COL_PLAYCOUNT = "playCount";
 
     public int getUserID() {
         return userID;
@@ -23,5 +27,21 @@ public class UserWithSong {
 
     public void setSongID(int songID) {
         this.songID = songID;
+    }
+  
+    public int getPlaycount() {
+        return playcount;
+    }
+
+    public void setPlaycount(int playcount) {
+        this.playcount = playcount;
+    }
+
+    public int getUserwithsongID() {
+        return userwithsongID;
+    }
+
+    public void setUserwithsongID(int userwithsongID) {
+        this.userwithsongID = userwithsongID;
     }
 }

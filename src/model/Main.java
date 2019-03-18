@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import view.MainController;
 
 public class Main extends Application {
@@ -18,9 +19,12 @@ public class Main extends Application {
         this.stageM = primaryStage;
         FXMLLoader root = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
         primaryStage.setTitle("SpotCloud");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/media/logo.png")));
-        Scene scene = new Scene(root.load(),1188,638);
+        Scene scene = new Scene(root.load(),1200,690);
+
+
 
         primaryStage.setScene(scene);
         primaryStage.show();

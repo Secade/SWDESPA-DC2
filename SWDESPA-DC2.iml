@@ -8,6 +8,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql-connector-java-8.0.15" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.13" level="project" />
+    <orderEntry type="library" name="tika-core-1.20" level="project" />
+    <orderEntry type="library" name="tika-parsers-1.20" level="project" />
+    <orderEntry type="library" name="commons-io-2.6" level="project" />
+    <orderEntry type="library" name="poi-4.0.1" level="project" />
   </component>
 </module>

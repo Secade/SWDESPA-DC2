@@ -4,8 +4,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-
-
 import java.io.File;
 import java.util.ArrayList;
 
@@ -21,7 +19,6 @@ public class MedPlayer {
     public MedPlayer(File filename){
         songlist = new ArrayList<>();
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/audio/"+filename+".mp3").toExternalForm()));
-    }
 
     public boolean isShuffled() {
         return isShuffled;
@@ -62,7 +59,7 @@ public class MedPlayer {
     public Duration getStartTime(){
         return mediaPlayer.getStartTime();
     }
-
+      
     public Duration getEndTime(){
         return mediaPlayer.getStopTime();
     }
