@@ -1,7 +1,6 @@
 package view;
 
 import javafx.scene.control.Alert;
-import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.util.Random;
@@ -26,10 +25,14 @@ public class PlaylistController {
         MediaController.mp.getSonglist().add(new File("The Greatest Showman - This Is Me"));
     }
 
+    public void clearPlaylist(){
+        MediaController.mp.getSonglist().clear();
+    }
+
     //USES THE ARRAY LIST
     public int shuffle(){
         Random index = new Random();
-        int random = index.nextInt(MediaController.mp.getSonglist().size() - 1);
+        int random = index.nextInt(returnSize() - 1);
         return random;
     }
 
@@ -39,12 +42,12 @@ public class PlaylistController {
             playlistIndex = 0;
         }
         else if (checkSize() == -1){ // for previous songs
-            playlistIndex = MediaController.mp.getSonglist().size()-1;
+            playlistIndex = returnSize()-1;
         }
     }
 
     public int checkSize(){
-        if (playlistIndex+1 >= MediaController.mp.getSonglist().size()){ //at end of list
+        if (playlistIndex+1 >= returnSize()){ //at end of list
             return 1;
         }
         else if(playlistIndex <= 0){ //at start of list
@@ -108,12 +111,14 @@ public class PlaylistController {
     }
 
     public int nextIndex(){
-        playlistIndex++;
-        return playlistIndex;
+        return playlistIndex++;
     }
 
     public int prevIndex(){
-        playlistIndex--;
-        return playlistIndex;
+        return playlistIndex--;
+    }
+
+    public int returnSize(){
+        return MediaController.mp.getSonglist().size();
     }
 }
