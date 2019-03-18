@@ -18,7 +18,6 @@ public class User {
     public static final String COL_FAVORITESONG1 = "favoritesong1";
     public static final String COL_FAVORITESONG2 = "favoritesong2";
     public static final String COL_FAVORITESONG3 = "favoritesong3";
-
     public static final String COL_FAVORITEPLAYLIST = "favoriteplaylist";
 
     public int getFavoritesong1() {

@@ -1,10 +1,12 @@
 package model;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-import java.io.File;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class MedPlayer {
@@ -16,9 +18,17 @@ public class MedPlayer {
     private boolean isShuffled;
     private boolean isFinished;
 
-    public MedPlayer(File filename){
+    public MedPlayer(){
         songlist = new ArrayList<>();
-        mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/audio/"+filename+".mp3").toExternalForm()));
+        initSongs();
+    }
+
+    //picks the song
+    public void pickSong(File filename){
+        hit = new Media(getClass().getResource("/audio/" + filename).toExternalForm());
+        mediaPlayer = new MediaPlayer(hit);
+        music = new MediaView(mediaPlayer);
+    }
 
     public boolean isShuffled() {
         return isShuffled;
@@ -34,13 +44,6 @@ public class MedPlayer {
 
     public void setFinished(boolean finished){
         isFinished = finished;
-    }
-
-    //picks the song
-    public void pickSong(File filename){
-        hit = new Media(getClass().getResource("/audio/" + filename + ".mp3").toExternalForm());
-        mediaPlayer = new MediaPlayer(hit);
-        music = new MediaView(mediaPlayer);
     }
 
     //returns the media being played
@@ -59,7 +62,11 @@ public class MedPlayer {
     public Duration getStartTime(){
         return mediaPlayer.getStartTime();
     }
-      
+
+    public Duration getDuration(){
+        return hit.getDuration();
+    }
+
     public Duration getEndTime(){
         return mediaPlayer.getStopTime();
     }
