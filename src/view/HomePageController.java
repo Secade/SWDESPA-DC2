@@ -813,8 +813,8 @@ public class HomePageController {
         SongService songService = new SongService(DB);
         System.out.println("/audio/" + songService.getAll().get(selectedSongID).getSongTitle() + ".mp3");
         musicController.mp.pickSong(new File(songService.getAll().get(selectedSongID).getSongTitle()));
-//        musicController.mp.pickSong(new File("Nelly Furtado - Say It Right"));
-
+        // added his line
+        musicController.pc.addSongInPlaylist(new File(songService.getAll().get(selectedSongID).getSongTitle()));
         return musicController.mp;
     }
 }
